@@ -150,6 +150,7 @@ export default function LogIn() {
                         {display && (
                             <Alert severity="error">El usuario o la contraseña son incorrectos.</Alert>)}
                             <button style={{backgroundColor:"black"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
+                            <button style={{backgroundColor:"black"}} onClick={() => history.push({pathname: '/Productos',})} className="btn btn-primary mt-3 ml-2 offset-0">CANCELAR</button>
                         </div>
                     </Form>
                 )}

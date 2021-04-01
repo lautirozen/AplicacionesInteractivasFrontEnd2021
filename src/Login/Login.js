@@ -72,17 +72,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LogIn() {
   const classes = useStyles();
-  const setBackResponse=useState({});
   const history= useHistory();
-  const access="x-access-token";
-  const [status,setStatus]=useState("");
-  const manageUsuario=(usuario,nombre,apellido)=>{
+  const manageUsuario=(usuario,nombre,apellido,rol)=>{
     localStorage.setItem('user', JSON.stringify(usuario));//Guardo el apellido de usuario
     console.log(usuario)
-    localStorage.setItem('user', JSON.stringify(nombre));//Guardo el apellido de usuario
+    localStorage.setItem('nombre', JSON.stringify(nombre));//Guardo el apellido de usuario
     console.log(nombre)
-    localStorage.setItem('user', JSON.stringify(apellido));//Guardo el apellido de usuario
+    localStorage.setItem('apellido', JSON.stringify(apellido));//Guardo el apellido de usuario
     console.log(apellido)
+    localStorage.setItem('rol', JSON.stringify(rol));//Guardo el apellido de usuario
+    console.log(rol)
     /*localStorage.setItem('userid',JSON.stringify(data.data.user.entidad.id));*/
     history.push({
       pathname: '/',
@@ -95,11 +94,12 @@ export default function LogIn() {
         nombre:"Lautaro",
         apellido:"Rozen",
         contraseña:"123456",
+        rol:"administrador",
     }
       if(usuario!==user.usuario && contraseña!==user.contraseña){
         setDisplay(true);
       }else{
-        manageUsuario(user.usuario,user.nombre,user.apellido)
+        manageUsuario(user.usuario,user.nombre,user.apellido,user.rol)
       }   
   };
   return (

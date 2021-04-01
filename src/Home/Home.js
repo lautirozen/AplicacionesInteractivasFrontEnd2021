@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Navigation from '../components/Navbar';
+import NavigationLog from '../components/Navbarlog';
 import { makeStyles } from '@material-ui/core/styles/';
 import Cocina from "./Assets/Home.jpg";
 import Carousel from 'react-bootstrap/Carousel';
@@ -9,6 +10,7 @@ import Cocinaaaa from "./Assets/Cocina4.jpg";
 import Cocinas from "./Assets/Cocina5.jpg";
 import Footer from '../components/Footer';
 const Home = () => {
+    var user =JSON.parse(localStorage.getItem('user'));
     const useStyles = makeStyles(() => ({
       title:{
           fontStyle:"italic", 
@@ -25,7 +27,8 @@ const Home = () => {
     const classes = useStyles();
     return (
     <div className="Home">
-        <Navigation />
+      {(user===null)?
+      <Navigation />: <NavigationLog />}
         <div className={classes.title}>
           <h1>Nosotros</h1>
         </div>

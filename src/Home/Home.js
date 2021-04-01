@@ -86,7 +86,7 @@ const Home = () => {
                     <p>Kitchen Gadget es un Bazar dedicado a proveer todos los elementos necesarios
                       para la cocina. Todos y cada uno de nuestros productos son seleccionados
                       específicamente por su diseño, utilidad y originalidad. Nuestros productos se caracterizan
-                      por contar con la más alta calidad.
+                      por contar con la más alta calidad, para convertir la cocina de tus sueños en realidad.
                     </p>
                   </div>
             </div>

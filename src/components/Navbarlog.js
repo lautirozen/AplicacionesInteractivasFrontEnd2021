@@ -56,7 +56,7 @@ const Navigation = () => {
   const classes = useStyles();
 
   return (
-    <Navbar style={{backgroundColor:"black"}}>
+    <Navbar style={{backgroundColor:"#401801"}}>
         <Navbar.Brand ><img src={Logo} width="90" height="85" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

@@ -16,7 +16,7 @@ import { useHistory} from "react-router-dom";
 
 function Copyright() {
   return (
-    <Typography variant="body2" style={{color:"white"}} align="center">
+    <Typography variant="body2" style={{color:"black"}} align="center">
       {"Copyright © "}
         Kitchen Gadget 
       {new Date().getFullYear()}
@@ -102,12 +102,12 @@ export default function Registrarse() {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor:"black",}}>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor:"#F2EFEB",}}>
         <div className={classes.paper}>
         <div className="logo">
           <img src={Logo} width="200" height="200" />
         </div>
-          <Typography component="h1" variant="h4" style={{color:"white"}}>
+          <Typography component="h1" variant="h4" style={{color:"black"}}>
             Vamos a Registrarte 
           </Typography>
           <Formik
@@ -183,8 +183,8 @@ export default function Registrarse() {
                         {display && ( <Alert severity="error">Ha ocurrido un error al registrar el usuario.</Alert>)}
                       </div>
                         <div className="form-group">
-                            <button style={{backgroundColor:"black"}} type="submit" className="btn btn-primary">REGISTRARSE</button>
-                            <button style={{backgroundColor:"black"}} onClick={Cancel} className="btn btn-primary ml-3" >CANCELAR</button>
+                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary">REGISTRARSE</button>
+                            <button style={{backgroundColor:"#401801"}} onClick={Cancel} className="btn btn-primary ml-3" >CANCELAR</button>
                         </div>
                     </Form>
                 )}
@@ -202,7 +202,7 @@ export default function Registrarse() {
                 <Alert severity="success">El usuario ha sido registrado exitosamente.</Alert>
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}  style={{backgroundColor: "black"}}>
+            <Button variant="secondary" onClick={handleClose}  style={{backgroundColor: "#401801"}}>
                 Cerrar
             </Button>
             </Modal.Footer>

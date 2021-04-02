@@ -5,7 +5,7 @@ import Logo from "./Assets/Logo.png";
 const FooterPage = () => {
     const useStyles = makeStyles((theme) => ({
         container: {
-            backgroundColor:"black",
+            backgroundColor:"#401801",
         },
         title:{
             color:"white",

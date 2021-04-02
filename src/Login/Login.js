@@ -15,7 +15,7 @@ import { useHistory} from "react-router-dom";
 
 function Copyright() {
   return (
-    <Typography variant="body2" align="center" style={{color:"white"}}>
+    <Typography variant="body2" align="center" style={{color:"black"}}>
       {"Copyright © "}
         Kitchen Gadget
       {new Date().getFullYear()}
@@ -106,12 +106,12 @@ export default function LogIn() {
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor:"black",}}>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor:"#F2EFEB",}}>
         <div className={classes.paper}>
         <div className="logo">
           <img src={Logo} width="200" height="200" />
         </div>
-          <Typography component="h1" variant="h4" style={{color:"white"}}>
+          <Typography component="h1" variant="h4" style={{color:"black"}}>
             Bienvenid@!
           </Typography>
           <Formik
@@ -149,8 +149,8 @@ export default function LogIn() {
                         <div className="form-group">
                         {display && (
                             <Alert severity="error">El usuario o la contraseña son incorrectos.</Alert>)}
-                            <button style={{backgroundColor:"black"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
-                            <button style={{backgroundColor:"black"}} onClick={() => history.push({pathname: '/Productos',})} className="btn btn-primary mt-3 ml-2 offset-0">CANCELAR</button>
+                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
+                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/Productos',})} className="btn btn-primary mt-3 ml-2 offset-0">CANCELAR</button>
                         </div>
                     </Form>
                 )}
@@ -158,12 +158,12 @@ export default function LogIn() {
             <Grid container>
               <Grid item xs>
                 <div  className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-0 offset-1">
-                <Link href="/OlvideContraseña" variant="body2" style={{color:"white"}}>
+                <Link href="/OlvideContraseña" variant="body2" style={{color:"black"}}>
                   ¿Olvidaste tu contraseña?
                 </Link>
                 </div>
                 <div  className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-0 offset-1">
-                <Link href="/Registrarse" variant="body2" style={{color:"white"}}>
+                <Link href="/Registrarse" variant="body2" style={{color:"black"}}>
                   ¿Primera vez que ingresas?
                 </Link>
                 </div>

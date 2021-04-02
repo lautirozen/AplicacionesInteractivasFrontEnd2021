@@ -12,6 +12,9 @@ import Footer from '../components/Footer';
 const Home = () => {
     var user =JSON.parse(localStorage.getItem('user'));
     const useStyles = makeStyles(() => ({
+      Home:{
+        backgroundColor:"#F2EFEB",
+      },
       title:{
           fontStyle:"italic", 
           marginTop:"3rem",
@@ -26,7 +29,7 @@ const Home = () => {
     })); 
     const classes = useStyles();
     return (
-    <div className="Home">
+    <div className={classes.Home}>
       {(user===null)?
       <Navigation />: <NavigationLog />}
         <div className={classes.title}>

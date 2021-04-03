@@ -113,6 +113,8 @@ export default function Registrarse() {
           <Formik
                 initialValues={{
                     usuario: '',
+                    nombre:'',
+                    apellido:'',
                     email: '',
                     contraseña: '',
                     confirmcontraseña: '',
@@ -121,6 +123,10 @@ export default function Registrarse() {
                 }}
                 validationSchema={Yup.object().shape({
                     usuario: Yup.string()
+                        .required('El campo es obligatorio (*)'),
+                    nombre: Yup.string()
+                        .required('El campo es obligatorio (*)'),
+                    apellido: Yup.string()
                         .required('El campo es obligatorio (*)'),
                     contraseña: Yup.string()
                         .matches(/\w*[a-z]\w*/,  "La contraseña debe tener al menos 1 minúscula")
@@ -149,6 +155,14 @@ export default function Registrarse() {
                         <div className="form-group">
                             <Field name="usuario" type="text" placeholder="Nombre de usuario" className={'form-control' + (errors.usuario && touched.usuario ? ' is-invalid' : '')} />
                             <ErrorMessage name="usuario" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group">
+                            <Field name="nombre" type="text" placeholder="Nombre completo" className={'form-control' + (errors.nombre && touched.nombre ? ' is-invalid' : '')} />
+                            <ErrorMessage name="nombre" component="div" className="invalid-feedback" />
+                        </div>
+                        <div className="form-group">
+                            <Field name="apellido" type="text" placeholder="Apellido" className={'form-control' + (errors.apellido && touched.apellido ? ' is-invalid' : '')} />
+                            <ErrorMessage name="apellido" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
                             <Field name="email" type="text" placeholder="Email" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />

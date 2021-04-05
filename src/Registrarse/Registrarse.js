@@ -147,25 +147,26 @@ export default function Registrarse() {
                         .required('El campo es obligatorio (*)'),
                 })}
                 onSubmit={fields => {
+                  fields.respuesta = fields.respuesta.toLowerCase().trim();
                   handleRegister(fields.usuario, fields.contraseña,fields.email, fields.pregunta, fields.respuesta)
               }}
                 render={({ errors, status, touched, handleChange}) => (
                     <Form>
                       <div className={classes.inputForm}>
                         <div className="form-group">
-                            <Field name="usuario" type="text" placeholder="Nombre de usuario" className={'form-control' + (errors.usuario && touched.usuario ? ' is-invalid' : '')} />
+                            <Field name="usuario" type="text"  autoComplete="off" placeholder="Nombre de usuario" className={'form-control' + (errors.usuario && touched.usuario ? ' is-invalid' : '')} />
                             <ErrorMessage name="usuario" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="nombre" type="text" placeholder="Nombre completo" className={'form-control' + (errors.nombre && touched.nombre ? ' is-invalid' : '')} />
+                            <Field name="nombre" type="text"  autoComplete="off" placeholder="Nombre completo" className={'form-control' + (errors.nombre && touched.nombre ? ' is-invalid' : '')} />
                             <ErrorMessage name="nombre" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="apellido" type="text" placeholder="Apellido" className={'form-control' + (errors.apellido && touched.apellido ? ' is-invalid' : '')} />
+                            <Field name="apellido" type="text"  autoComplete="off" placeholder="Apellido" className={'form-control' + (errors.apellido && touched.apellido ? ' is-invalid' : '')} />
                             <ErrorMessage name="apellido" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="email" type="text" placeholder="Email" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                            <Field name="email" type="text"  autoComplete="off" placeholder="Email" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
                             <ErrorMessage name="email" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
@@ -180,18 +181,18 @@ export default function Registrarse() {
                         <option value="Secundaria" label="¿Cuál era su apodo de pequeño?" />
                         <option value="Secundaria" label="¿Dónde fuiste de vacaciones el año pasado?" />
                     </Field>
-                    <ErrorMessage name="tipoCuenta" component="div" className="invalid-feedback" />
+                    <ErrorMessage name="pregunta" component="div" className="invalid-feedback" />
                 </div>
                 <div className="form-group">
-                            <Field name="respuesta" type="text" placeholder="Respuesta" className={'form-control' + (errors.respuesta && touched.respuesta ? ' is-invalid' : '')} />
+                            <Field name="respuesta" type="text"  autoComplete="off" placeholder="Respuesta" className={'form-control' + (errors.respuesta && touched.respuesta ? ' is-invalid' : '')} />
                             <ErrorMessage name="respuesta" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="contraseña" type="password"  placeholder="Contraseña" className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
+                            <Field name="contraseña" type="password"  autoComplete="off" placeholder="Contraseña" className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
                             <ErrorMessage name="contraseña" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="confirmcontraseña" type="password"  placeholder="Confirmar Contraseña" className={'form-control' + (errors.confirmcontraseña && touched.confirmcontraseña ? ' is-invalid' : '')} />
+                            <Field name="confirmcontraseña" type="password"  autoComplete="off" placeholder="Confirmar Contraseña" className={'form-control' + (errors.confirmcontraseña && touched.confirmcontraseña ? ' is-invalid' : '')} />
                             <ErrorMessage name="confirmcontraseña" component="div" className="invalid-feedback" />
                         </div>
                         {display && ( <Alert severity="error">Ha ocurrido un error al registrar el usuario.</Alert>)}

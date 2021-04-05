@@ -8,7 +8,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Background from "./Assets/cocina.jpg";
+import Background from "./Assets/RecuperarA.jpg";
 import { Alert } from '@material-ui/lab';
 import Logo from "./../components/Assets/Logo.png";
 import { useHistory} from "react-router-dom";
@@ -70,36 +70,32 @@ const useStyles = makeStyles((theme) => ({
  }
 }));
 
-export default function LogIn() {
+export default function OlvidarseContraSegundo() {
   const classes = useStyles();
   const history= useHistory();
-  const manageUsuario=(usuario,nombre,apellido,rol)=>{
-    localStorage.setItem('user', JSON.stringify(usuario));//Guardo el apellido de usuario
-    console.log(usuario)
-    localStorage.setItem('nombre', JSON.stringify(nombre));//Guardo el apellido de usuario
-    console.log(nombre)
-    localStorage.setItem('apellido', JSON.stringify(apellido));//Guardo el apellido de usuario
-    console.log(apellido)
-    localStorage.setItem('rol', JSON.stringify(rol));//Guardo el apellido de usuario
-    console.log(rol)
-    /*localStorage.setItem('userid',JSON.stringify(data.data.user.entidad.id));*/
-    history.push({
-      pathname: '/',
-    })
-  }
   const [display, setDisplay]=useState(false);
-  const handleSignIn = (usuario, contraseña) => {
+  const handleSignIn = (pregunta, respuesta) => {
     const user={
         usuario:"admin",
         nombre:"Lautaro",
         apellido:"Rozen",
         contraseña:"123456",
         rol:"administrador",
+        email:"lautirozen@gmail.com",
+        pregunta:"Auto",
+        respuesta:"astra",
     }
-      if(usuario!==user.usuario && contraseña!==user.contraseña){
+      if(pregunta!==user.pregunta || respuesta!==user.respuesta){
         setDisplay(true);
       }else{
-        manageUsuario(user.usuario,user.nombre,user.apellido,user.rol)
+        setDisplay(false);
+          console.log(user.pregunta)
+          console.log(pregunta)
+          console.log(user.respuesta)
+          console.log(respuesta)
+        history.push({
+            pathname: '/RecuperarContraseña',
+          })
       }   
   };
   return (
@@ -112,61 +108,57 @@ export default function LogIn() {
           <img src={Logo} width="200" height="200" />
         </div>
           <Typography component="h1" variant="h4" style={{color:"black"}}>
-            Bienvenid@!
+          Recuperar contraseña
           </Typography>
           <Formik
                 initialValues={{
-                    usuario: '',
-                    contraseña: '',
+                    pregunta: '',
+                    respuesta: '',
                 }}
                 validationSchema={Yup.object().shape({
-                    usuario: Yup.string()
+                    pregunta: Yup.string()
                         .required('El campo es obligatorio (*)'),
-                    contraseña: Yup.string()
+                    respuesta: Yup.string()
                         .required('El campo es obligatorio (*)'),
                 })}
                 onSubmit={fields => {
-                handleSignIn(fields.usuario, fields.contraseña)
-                const user1={
-                  usuario:"proveedor",
-                  nombre:"Ricardo",
-                  apellido:"Manuel",
-                  contraseña:"123456",
-              }
+                fields.respuesta = fields.respuesta.toLowerCase().trim();
+                console.log(fields.respuesta, fields.pregunta)
+                handleSignIn(fields.pregunta, fields.respuesta)
               }}
                 render={({ errors, status, touched, handleChange}) => (
                     <Form>
                       <div className={classes.inputForm}>
-                        <div className="form-group">
-                            <Field name="usuario" type="text"  autoComplete="off" placeholder="Nombre de usuario" className={'form-control' + (errors.usuario && touched.usuario ? ' is-invalid' : '')} />
-                            <ErrorMessage name="usuario" component="div" className="invalid-feedback" />
+                      <div className="form-group">
+                        <Field as="select"
+                            name="pregunta"
+                            className={'form-control' + (errors.pregunta && touched.pregunta? ' is-invalid' : '')}
+                        >
+                            <option value="" label="Seleccione una pregunta de seguridad" />
+                            <option value="Auto" label="¿Cuál fue su primer auto?" />
+                            <option value="Mascota" label="¿Cuál es el nombre de tu mascota?" />
+                            <option value="Secundaria" label="¿En qué año terminaste la secundaria?" />
+                            <option value="Secundaria" label="¿Cuál era su apodo de pequeño?" />
+                            <option value="Secundaria" label="¿Dónde fuiste de vacaciones el año pasado?" />
+                        </Field>
+                            <ErrorMessage name="pregunta" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="contraseña" type="password"  autoComplete="off" placeholder="Contraseña"className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
-                            <ErrorMessage name="contraseña" component="div" className="invalid-feedback" />
+                            <Field name="respuesta" type="text"  autoComplete="off" placeholder="Respuesta" className={'form-control' + (errors.respuesta && touched.respuesta ? ' is-invalid' : '')} />
+                            <ErrorMessage name="respuesta" component="div" className="invalid-feedback" />
                         </div>
                       </div>
                         <div className="form-group">
                         {display && (
-                            <Alert severity="error">El usuario o la contraseña son incorrectos.</Alert>)}
-                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
-                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/Productos',})} className="btn btn-primary mt-3 ml-2 offset-0">CANCELAR</button>
+                            <Alert severity="error">La pregunta o la respuesta no son correctas.</Alert>)}
+                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">SIGUIENTE</button>
+                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/OlvideContraseña',})} className="btn btn-primary mt-3 ml-2 offset-0">VOLVER</button>
                         </div>
                     </Form>
                 )}
             />
             <Grid container>
               <Grid item xs>
-                <div  className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-0 offset-1">
-                <Link href="/OlvideContraseña" variant="body2" style={{color:"black"}}>
-                  ¿Olvidaste tu contraseña?
-                </Link>
-                </div>
-                <div  className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-0 offset-1">
-                <Link href="/Registrarse" variant="body2" style={{color:"black"}}>
-                  ¿Primera vez que ingresas?
-                </Link>
-                </div>
               </Grid>
             </Grid>
             <Box mt={15}>

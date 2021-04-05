@@ -8,11 +8,12 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Background from "./Assets/cocina.jpg";
+import Background from "./Assets/RecuperarB.jpg";
 import { Alert } from '@material-ui/lab';
 import Logo from "./../components/Assets/Logo.png";
 import { useHistory} from "react-router-dom";
-
+import Modal from 'react-bootstrap/Modal';
+import { Button} from 'react-bootstrap';
 function Copyright() {
   return (
     <Typography variant="body2" align="center" style={{color:"black"}}>
@@ -70,36 +71,33 @@ const useStyles = makeStyles((theme) => ({
  }
 }));
 
-export default function LogIn() {
+export default function RecuperarContraseña() {
   const classes = useStyles();
   const history= useHistory();
-  const manageUsuario=(usuario,nombre,apellido,rol)=>{
-    localStorage.setItem('user', JSON.stringify(usuario));//Guardo el apellido de usuario
-    console.log(usuario)
-    localStorage.setItem('nombre', JSON.stringify(nombre));//Guardo el apellido de usuario
-    console.log(nombre)
-    localStorage.setItem('apellido', JSON.stringify(apellido));//Guardo el apellido de usuario
-    console.log(apellido)
-    localStorage.setItem('rol', JSON.stringify(rol));//Guardo el apellido de usuario
-    console.log(rol)
-    /*localStorage.setItem('userid',JSON.stringify(data.data.user.entidad.id));*/
+  const [show, setShow] = useState(false);
+  const [display, setDisplay]=useState(false);
+  const handleClose = () =>{
+    setShow(false);
     history.push({
-      pathname: '/',
+        pathname: '/Login',
     })
   }
-  const [display, setDisplay]=useState(false);
-  const handleSignIn = (usuario, contraseña) => {
+  const handleSignIn = (contraseña) => {
     const user={
         usuario:"admin",
         nombre:"Lautaro",
         apellido:"Rozen",
         contraseña:"123456",
         rol:"administrador",
+        email:"lautirozen@gmail.com",
+        pregunta:"Auto",
+        respuesta:"astra",
     }
-      if(usuario!==user.usuario && contraseña!==user.contraseña){
+      if(contraseña===user.contraseña){
         setDisplay(true);
       }else{
-        manageUsuario(user.usuario,user.nombre,user.apellido,user.rol)
+        setDisplay(false);
+        setShow(true);
       }   
   };
   return (
@@ -112,61 +110,51 @@ export default function LogIn() {
           <img src={Logo} width="200" height="200" />
         </div>
           <Typography component="h1" variant="h4" style={{color:"black"}}>
-            Bienvenid@!
+          Recuperar contraseña
           </Typography>
           <Formik
                 initialValues={{
-                    usuario: '',
                     contraseña: '',
+                    confirmcontraseña: '',
                 }}
                 validationSchema={Yup.object().shape({
-                    usuario: Yup.string()
-                        .required('El campo es obligatorio (*)'),
                     contraseña: Yup.string()
-                        .required('El campo es obligatorio (*)'),
+                        .matches(/\w*[a-z]\w*/,  "La contraseña debe tener al menos 1 minúscula")
+                        .matches(/\w*[A-Z]\w*/,  "La contraseña debe tener al menos 1 mayúscula")
+                        .matches(/\d/, "La contraseña debe tener al menos 1 número")
+                        .matches(/[#$%*_=+]/, "La contraseña debe tener al menos 1 símbolo (# $ % * _ = +)")
+                        .min(8, ({ min }) => `La contraseña debe ser de al menos ${min} caracteres`)
+                        .required('La contraseña es obligatoria'),
+                    confirmcontraseña: Yup.string()
+                        .oneOf([Yup.ref('contraseña')], 'Las contraseñas no coinciden')
+                        .required('La confirmación de contraseña es obligatoria'),
                 })}
                 onSubmit={fields => {
-                handleSignIn(fields.usuario, fields.contraseña)
-                const user1={
-                  usuario:"proveedor",
-                  nombre:"Ricardo",
-                  apellido:"Manuel",
-                  contraseña:"123456",
-              }
+                handleSignIn(fields.contraseña)
               }}
                 render={({ errors, status, touched, handleChange}) => (
                     <Form>
                       <div className={classes.inputForm}>
-                        <div className="form-group">
-                            <Field name="usuario" type="text"  autoComplete="off" placeholder="Nombre de usuario" className={'form-control' + (errors.usuario && touched.usuario ? ' is-invalid' : '')} />
-                            <ErrorMessage name="usuario" component="div" className="invalid-feedback" />
+                      <div className="form-group">
+                            <Field name="contraseña" type="password"  autoComplete="off" placeholder="Nueva Contraseña" className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
+                            <ErrorMessage name="contraseña" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="contraseña" type="password"  autoComplete="off" placeholder="Contraseña"className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
-                            <ErrorMessage name="contraseña" component="div" className="invalid-feedback" />
+                            <Field name="confirmcontraseña" type="password"  autoComplete="off" placeholder="Confirmar nueva Contraseña" className={'form-control' + (errors.confirmcontraseña && touched.confirmcontraseña ? ' is-invalid' : '')} />
+                            <ErrorMessage name="confirmcontraseña" component="div" className="invalid-feedback" />
                         </div>
                       </div>
                         <div className="form-group">
                         {display && (
-                            <Alert severity="error">El usuario o la contraseña son incorrectos.</Alert>)}
-                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
-                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/Productos',})} className="btn btn-primary mt-3 ml-2 offset-0">CANCELAR</button>
+                            <Alert severity="error">La nueva contraseña no debe ser igual a la anterior.</Alert>)}
+                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">CAMBIAR CONTRASEÑA</button>
+                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/OlvidarseContraseña',})} className="btn btn-primary mt-3 ml-2 offset-0">VOLVER</button>
                         </div>
                     </Form>
                 )}
             />
             <Grid container>
               <Grid item xs>
-                <div  className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-0 offset-1">
-                <Link href="/OlvideContraseña" variant="body2" style={{color:"black"}}>
-                  ¿Olvidaste tu contraseña?
-                </Link>
-                </div>
-                <div  className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-0 offset-1">
-                <Link href="/Registrarse" variant="body2" style={{color:"black"}}>
-                  ¿Primera vez que ingresas?
-                </Link>
-                </div>
               </Grid>
             </Grid>
             <Box mt={15}>
@@ -174,6 +162,19 @@ export default function LogIn() {
             </Box>
         </div>
       </Grid>
+      <Modal size="lg" size="lg" style={{maxWidth: '1600px'}}show={show} onHide={handleClose} >
+            <Modal.Header closeButton>
+            <Modal.Title>Recuperar contraseña</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Alert severity="success">Se ha cambiado la contraseña.</Alert>
+            </Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}  style={{backgroundColor: "#401801"}}>
+                Cerrar
+            </Button>
+            </Modal.Footer>
+            </Modal>
     </Grid>
   );
 }

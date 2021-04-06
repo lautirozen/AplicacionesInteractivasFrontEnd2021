@@ -21,7 +21,7 @@ const FooterPage = () => {
       <MDBContainer fluid className="text-center text-md-left">
         <MDBRow>
           <MDBCol md="6">
-            <h5 className={classes.logo}><img src={Logo} width="200" height="185" /></h5>
+            <h5 className={classes.logo}><img src={Logo} width="220" height="185" /></h5>
           </MDBCol>
           <MDBCol md="4">
             <h5 className={classes.title}>Contacto</h5>

@@ -49,7 +49,7 @@ const Navigation = () => {
 
   return (
     <Navbar style={{backgroundColor:"#401801"}}>
-        <Navbar.Brand ><img src={Logo} width="90" height="85" /></Navbar.Brand>
+        <Navbar.Brand ><img src={Logo} width="150" height="100" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">

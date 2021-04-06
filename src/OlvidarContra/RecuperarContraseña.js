@@ -107,7 +107,7 @@ export default function RecuperarContraseña() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor:"#F2EFEB",}}>
         <div className={classes.paper}>
         <div className="logo">
-          <img src={Logo} width="200" height="200" />
+          <img src={Logo} width="300" height="250" />
         </div>
           <Typography component="h1" variant="h4" style={{color:"black"}}>
           Recuperar contraseña

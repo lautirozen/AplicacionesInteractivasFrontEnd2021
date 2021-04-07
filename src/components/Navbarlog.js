@@ -56,7 +56,7 @@ const Navigation = () => {
   const classes = useStyles();
 
   return (
-    <Navbar style={{backgroundColor:"#401801"}}>
+    <Navbar expand="lg" expand="md" variant="dark" style={{backgroundColor:"#401801"}}>
         <Navbar.Brand ><img src={Logo} width="90" height="85" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -68,7 +68,7 @@ const Navigation = () => {
                 <Nav.Link style={{color:"white"}} onClick={() => history.push({
               pathname: '/',})}>Nosotros</Nav.Link>
             </Nav>
-            <Nav className="cerrarsesion" style={{textAlign:"right"}}>
+            <Nav className="cerrarsesion">
                 <Nav.Link style={{color:"white"}}><AccountCircle />  {user} {usera}</Nav.Link>
                 <Nav.Link style={{color:"grey"}} ><ShoppingCartIcon /></Nav.Link>
                 <Nav.Link style={{color:"white"}} onClick={onClick} >Cerrar sesión</Nav.Link>

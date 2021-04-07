@@ -7,6 +7,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles/';
 import { useHistory} from "react-router-dom";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import Badge from '@material-ui/core/Badge';
 
 import Logo from "./Assets/Logo.png";
 const Navigation = () => {
@@ -57,7 +58,7 @@ const Navigation = () => {
 
   return (
     <Navbar expand="lg" expand="md" variant="dark" style={{backgroundColor:"#401801"}}>
-        <Navbar.Brand ><img src={Logo} width="90" height="85" /></Navbar.Brand>
+        <Navbar.Brand ><img src={Logo} width="150" height="100" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -70,7 +71,9 @@ const Navigation = () => {
             </Nav>
             <Nav className="cerrarsesion">
                 <Nav.Link style={{color:"white"}}><AccountCircle />  {user} {usera}</Nav.Link>
-                <Nav.Link style={{color:"grey"}} ><ShoppingCartIcon /></Nav.Link>
+                <Nav.Link style={{color:"grey"}} ><Badge badgeContent={2} color='error'>
+                  <ShoppingCartIcon />
+                </Badge></Nav.Link>
                 <Nav.Link style={{color:"white"}} onClick={onClick} >Cerrar sesión</Nav.Link>
 
             </Nav>

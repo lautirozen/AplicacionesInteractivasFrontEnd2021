@@ -67,17 +67,18 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" style={{color:"white"}}/>
         <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-            <Nav.Link style={{color:"white"}}  onClick={() => history.push({
+            <Nav.Link style={{color:"white", fontSize:"20px"}}  onClick={() => history.push({
+              pathname: '/',})}>Home</Nav.Link>
+            <Nav.Link style={{color:"white", fontSize:"20px"}}  onClick={() => history.push({
               pathname: '/Productos',})}>Productos</Nav.Link>
-            <Nav.Link style={{color:"white"}} onClick={handleShow}>Marcas</Nav.Link>
-
-                <Nav.Link style={{color:"white"}} onClick={() => history.push({
-              pathname: '/',})}>Nosotros</Nav.Link>
+            <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={handleShow}>Marcas</Nav.Link>
+            <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={() => history.push({
+              pathname: '/Nosotros',})}>Nosotros</Nav.Link>
             </Nav>
             <Nav className="cerrarsesion">
-                <Nav.Link style={{color:"white"}} onClick={() => history.push({
+                <Nav.Link style={{color:"white", fontSize:"20px"}} onClick={() => history.push({
               pathname: '/Login',})} >Ingresar</Nav.Link>
-                <Nav.Link style={{color:"grey"}} ><ShoppingCartIcon /></Nav.Link>
+                <Nav.Link style={{color:"grey",  fontSize:"20px"}} ><ShoppingCartIcon /></Nav.Link>
             </Nav>
         </Navbar.Collapse>
 <Modal size="lg" size="lg" style={{maxWidth: '1600px'}} show={show} onHide={handleClose} >

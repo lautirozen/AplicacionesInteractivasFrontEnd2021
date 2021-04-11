@@ -198,8 +198,8 @@ export default function Registrarse() {
                         {display && ( <Alert severity="error">Ha ocurrido un error al registrar el usuario.</Alert>)}
                       </div>
                         <div className="form-group">
-                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary">REGISTRARSE</button>
-                            <button style={{backgroundColor:"#401801"}} onClick={Cancel} className="btn btn-primary ml-3" >CANCELAR</button>
+                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3">REGISTRARSE</button>
+                            <button style={{backgroundColor:"#401801"}} onClick={Cancel} className="btn btn-primary ml-3 mt-3" >CANCELAR</button>
                         </div>
                     </Form>
                 )}

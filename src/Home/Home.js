@@ -45,9 +45,8 @@ function Home (props){
     })); 
     const classes = useStyles();
     const onClick = (categoria) =>{
-      console.log(categoria)
       history.push({
-          pathname: '/productos/',
+          pathname: '/productos',
           state: categoria,
       })
   }
@@ -140,7 +139,7 @@ function Home (props){
       </CardActionArea>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-11 ml-lg-auto mb-2 mt-5">
-    <CardActionArea   onClick={() => {onClick("olla y sarten")}}>
+    <CardActionArea   onClick={() => {onClick("ollas y sartenes")}}>
       <div class="card">
       <div className={classes.card}>
       <CardMedia
@@ -174,7 +173,7 @@ function Home (props){
       </CardActionArea>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-11 mb-2 ml-lg-auto mr-lg-5 mt-5">
-    <CardActionArea  onClick={() => {onClick("mate")}}>
+    <CardActionArea  onClick={() => {onClick("termos y mates")}}>
       <div class="card">
       <div className={classes.card}>
       <CardMedia

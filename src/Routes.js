@@ -8,6 +8,7 @@ import OlvideContraseña from "./OlvidarContra/OlvidarseContra";
 import OlvidarseContraseña from "./OlvidarContra/OlvidarseContraSegundo";
 import RecuperarContraseña from "./OlvidarContra/RecuperarContraseña";
 import Home from "./Home/Home";
+import DetalleProducto from "./Productos/DetalleProducto";
 export default class Routes extends Component {
     render() {
         console.log("Redirigiendo")
@@ -22,6 +23,7 @@ export default class Routes extends Component {
                     <Route exact path="/OlvideContraseña" component={OlvideContraseña} />
                     <Route exact path="/OlvidarseContraseña" component={OlvidarseContraseña} />
                     <Route exact path="/RecuperarContraseña" component={RecuperarContraseña} />
+                    <Route exact strict path="/productos/:titulo" component={DetalleProducto} />
                 </Switch>
             </Router>
         )

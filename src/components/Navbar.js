@@ -60,7 +60,13 @@ const Navigation = () => {
     }
   })); 
   const classes = useStyles();
-
+  const onClick = (marca) =>{
+    console.log(marca)
+    history.push({
+        pathname: '/productos',
+        state: marca,
+    })
+}
   return (
     <Navbar expand="lg" expand="md" variant="dark" style={{backgroundColor:"#401801"}}>
         <Navbar.Brand ><img src={Logo} width="150" height="100" /></Navbar.Brand>
@@ -89,8 +95,7 @@ const Navigation = () => {
     <div class="container">
     <div class="row">
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
-<CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+<CardActionArea onClick={() => {onClick("Bialetti")}}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -103,8 +108,7 @@ const Navigation = () => {
   </CardActionArea>
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
-<CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+<CardActionArea onClick={() => {onClick("Hudson")}}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -118,7 +122,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "KitchenAid"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -132,7 +138,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Libbey"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -146,7 +154,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Mica"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -160,7 +170,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Nadir Argentina"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -174,7 +186,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Park Design"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -188,7 +202,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Porcelana Tsuji"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -202,7 +218,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Pyrex"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -216,7 +234,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Stanley"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -230,7 +250,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Tomorrow's Kitchen"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia
@@ -244,7 +266,9 @@ const Navigation = () => {
 </div>
 <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
 <CardActionArea onClick={() =>  history.push({
-              pathname: '/Productos'})}>
+              pathname: '/Productos',
+              state: "Tramontina"
+              })}>
   <div class="card">
   <div className={classes.card}>
   <CardMedia

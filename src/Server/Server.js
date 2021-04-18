@@ -4,9 +4,10 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const bcrypt = require('bcryptjs')
 const User = require('./models/User')
+const path = require('path')
 
 mongoose.connect('mongodb://localhost:27017/cocinadb', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-
+//mongoose.connect('mongodb://localhost:3000/cocinadb', {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
 const db = mongoose.connection
 
 
@@ -17,6 +18,15 @@ app.use('/', express.static(path.join(__dirname, 'static')))
 
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
+
+app.get('/api/test', async (req, res) => {
+	res.send(200,{status:"Funciona"})
+})
+
+app.post('/api/testpost', async (req, res) => {
+	console.log(req.body)
+	res.send(200,{status:"Funciona"})
+})
 
 
 app.post('/api/register', async (req, res) => {
@@ -73,7 +83,7 @@ app.post('/api/register', async (req, res) => {
 	res.json({ status: 'ok' })
 })
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 app.listen(PORT, () =>{
     console.log('server is running on port ${PORT}')

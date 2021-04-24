@@ -8,11 +8,22 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles/';
 import { useHistory} from "react-router-dom";
 import Logo from "./Assets/Logo.png";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Badge from '@material-ui/core/Badge';
+
 const NavigationAdmin = () => {
+    const[user, setUser]=useState(JSON.parse(localStorage.getItem('nombre')));
+    const[usera, setUsera]=useState(JSON.parse(localStorage.getItem('apellido')));
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const history= useHistory();
+    const onClick= () =>{
+      localStorage.clear();
+      var userrr = JSON.parse(localStorage.getItem('user'));
+      console.log(userrr)
+      history.push("/")
+  }
     const useStyles = makeStyles((theme) => ({
     container: {
       display: 'flex',
@@ -64,10 +75,12 @@ const NavigationAdmin = () => {
               pathname: '/Nosotros',})}>Nosotros</Nav.Link>
             </Nav>
             <Nav className="cerrarsesion">
-                <Nav.Link style={{color:"white", fontSize:"20px"}} onClick={() => history.push({
-              pathname: '/Login',})} >Ingresar</Nav.Link>
-                <Nav.Link style={{color:"grey",  fontSize:"20px"}} ><ShoppingCartIcon /></Nav.Link>
-            </Nav>
+              <Nav.Link style={{color:"white",  fontSize:"20px"}}><AccountCircle />  {user} {usera}</Nav.Link>
+                  <Nav.Link style={{color:"grey",  fontSize:"20px"}} ><Badge badgeContent={2} color='error'>
+                    <ShoppingCartIcon />
+                  </Badge></Nav.Link>
+                  <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={onClick} >Cerrar sesión</Nav.Link>
+              </Nav>
         </Navbar.Collapse>
 <Modal size="lg" size="lg" style={{maxWidth: '1600px'}} show={show} onHide={handleClose} >
     <Modal.Header closeButton>

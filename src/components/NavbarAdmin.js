@@ -35,15 +35,8 @@ const NavigationAdmin = () => {
       marginBottom: theme.spacing(2),
       width: 200,
     },
-    modify: {
-        padding:30,
-    },
-    modify1: {
-        padding:10,
-    },
-    media: {
-      height: 140,
-    },
+    
+    
     title:{
         fontStyle:"italic", 
         marginTop:"10px"
@@ -68,11 +61,7 @@ const NavigationAdmin = () => {
             <Nav className="mr-auto">
             <Nav.Link style={{color:"white", fontSize:"20px"}}  onClick={() => history.push({
               pathname: '/Home/Admin',})}>Home</Nav.Link>
-            <Nav.Link style={{color:"white", fontSize:"20px"}}  onClick={() => history.push({
-              pathname: '/Productos',})}>Productos</Nav.Link>
             <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={handleShow}>Administrador</Nav.Link>
-            <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={() => history.push({
-              pathname: '/Nosotros',})}>Nosotros</Nav.Link>
             </Nav>
             <Nav className="cerrarsesion">
               <Nav.Link style={{color:"white",  fontSize:"20px"}}><AccountCircle />  {user} {usera}</Nav.Link>

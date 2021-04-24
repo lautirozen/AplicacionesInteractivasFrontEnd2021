@@ -22,7 +22,8 @@ function Admin(){
 
     },
     adminHome:{
-
+      backgroundColor:"#F2EFEB",
+      
     }
     }));
   const classes = useStyles();

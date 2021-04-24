@@ -6,7 +6,7 @@ export const categorias = [
     
     titulo:"Agregar producto",
     
-    descripcion:"En este apartado se le permitira agregar un nuevo producto",
+    descripcion:"Agregar un nuevo producto al catalogo",
     
     direccion:"/addproduct",
     
@@ -15,7 +15,7 @@ export const categorias = [
     id:2,
     titulo:"Modificar producto",
     
-    descripcion:"En este apartado se le permitira modificar un nuevo producto",
+    descripcion:"Alterar producto ya existente en el catalogo",
     
     direccion:"/modproduct",
     },{
@@ -23,7 +23,7 @@ export const categorias = [
         id:2,
         titulo:"Bajar producto",
         
-        descripcion:"En este apartado se le permitira bajar un producto",
+        descripcion:"Remover un producto de su aparicion en el catalogo",
         
         direccion:"/remproduct",
     },{
@@ -31,7 +31,7 @@ export const categorias = [
         id:2,
         titulo:"resumen producto",
         
-        descripcion:"En este apartado se le permitira agregar un nuevo producto",
+        descripcion:"Ver resumen de productos vendidos y en stock que poseemos",
         
         direccion:"/resproduct",
     }

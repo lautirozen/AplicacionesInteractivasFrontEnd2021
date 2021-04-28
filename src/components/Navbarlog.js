@@ -26,6 +26,8 @@ const Navigation = () => {
     const[user, setUser]=useState(JSON.parse(localStorage.getItem('nombre')));
     const[usera, setUsera]=useState(JSON.parse(localStorage.getItem('apellido')));
     const[listItems]=useState(JSON.parse(localStorage.getItem('cartItems')) || []);
+    const[pedidos]=useState(JSON.parse(localStorage.getItem('pedido')) || [])
+
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

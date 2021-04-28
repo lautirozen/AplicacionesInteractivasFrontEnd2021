@@ -75,7 +75,7 @@ function Row(props) {
                         <TableCell align="left">Precio ($)</TableCell>
                     </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {pedidos.length!==0 ? (<TableBody>
                     {(pedidos.productos).map( (value) => ( 
                         <TableRow key={value.id}>
                         <TableCell component="th" scope="row">
@@ -87,7 +87,7 @@ function Row(props) {
                         $ {value.ptotal}
                         </TableCell>
                         </TableRow>))}
-                    </TableBody>
+                    </TableBody>) : console.log("No")}
                 </Table>
                 </Box>
             </Collapse>

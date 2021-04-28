@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
         <div className={classes.Addproduct}>
     <NavigationAdmin />
     <div className={classes.modify}>
-        <div><h2 className={classes.title}>Crear Nuevo producto para el catalogo</h2>
+        <div><h2 className={classes.title}>Modificar producto para el catalogo</h2>
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 offset-md-2">

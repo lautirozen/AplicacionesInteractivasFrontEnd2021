@@ -21,7 +21,7 @@ export const categorias = [
     },{
     
         id:2,
-        titulo:"Bajar producto",
+        titulo:"Eliminar producto",
         
         descripcion:"Remover un producto de su aparicion en el catalogo",
         
@@ -29,7 +29,7 @@ export const categorias = [
     },{
     
         id:2,
-        titulo:"resumen producto",
+        titulo:"Resumen producto",
         
         descripcion:"Ver resumen de productos vendidos y en stock que poseemos",
         

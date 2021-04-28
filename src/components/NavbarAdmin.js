@@ -61,13 +61,11 @@ const NavigationAdmin = () => {
             <Nav className="mr-auto">
             <Nav.Link style={{color:"white", fontSize:"20px"}}  onClick={() => history.push({
               pathname: '/Home/Admin',})}>Home</Nav.Link>
-            <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={handleShow}>Administrador</Nav.Link>
+            <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={handleShow}>Menu</Nav.Link>
             </Nav>
             <Nav className="cerrarsesion">
               <Nav.Link style={{color:"white",  fontSize:"20px"}}><AccountCircle />  {user} {usera}</Nav.Link>
-                  <Nav.Link style={{color:"grey",  fontSize:"20px"}} ><Badge badgeContent={2} color='error'>
-                    <ShoppingCartIcon />
-                  </Badge></Nav.Link>
+                  
                   <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={onClick} >Cerrar sesión</Nav.Link>
               </Nav>
         </Navbar.Collapse>
@@ -76,24 +74,24 @@ const NavigationAdmin = () => {
       <Modal.Title>Administrador</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-    <div class="container">
+    <div className={classes.container}>
     
-    <div class='row'>
-      {categorias.map((categoria) =>(
-        
-          <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
-            <CardActionArea onClick={() => history.push({
-              pathname: categoria.direccion})}>
-              <div class="card">
-                <div className={classes.card}> 
-                  <h6 className={classes.title}>{categoria.titulo}</h6>
-                  <p>{categoria.descripcion}</p>
+      <div class='row'>
+        {categorias.map((categoria) =>(
+          
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
+              <CardActionArea onClick={() => history.push({
+                pathname: categoria.direccion})}>
+                <div class="card">
+                  <div className={classes.card}> 
+                    <h6 className={classes.title}>{categoria.titulo}</h6>
+                    <p>{categoria.descripcion}</p>
+                  </div>
                 </div>
-              </div>
-            </CardActionArea>
-          </div>
-        
-      )  )}
+              </CardActionArea>
+            </div>
+          
+        )  )}
     </div>
 
 

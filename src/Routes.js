@@ -9,6 +9,9 @@ import OlvidarseContraseña from "./OlvidarContra/OlvidarseContraSegundo";
 import RecuperarContraseña from "./OlvidarContra/RecuperarContraseña";
 import Home from "./Home/Home";
 import Admin from "./Home/Admin";
+import Addproduct from "./Admin/AddProduct";
+import BuscarEnCatalogo from "./Admin/productFinder";
+import ModifyProduct from "./Admin/ModifyProduct";
 import DetalleProducto from "./Productos/DetalleProducto";
 export default class Routes extends Component {
     render() {
@@ -26,6 +29,9 @@ export default class Routes extends Component {
                     <Route exact path="/RecuperarContraseña" component={RecuperarContraseña} />
                     <Route exact strict path="/productos/:titulo" component={DetalleProducto} />
                     <Route exact strict path="/Home/Admin" component={Admin} />
+                    <Route exact path="/AddProduct" component={Addproduct} />
+                    <Route exact path="/modproduct" component={BuscarEnCatalogo} />
+                    <Route exact path="/ModifyProduct" component={ModifyProduct} />
                 </Switch>
             </Router>
         )

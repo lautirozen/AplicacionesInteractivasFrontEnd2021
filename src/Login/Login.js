@@ -90,13 +90,13 @@ export default function LogIn() {
   const [display, setDisplay]=useState(false);
   const handleSignIn = (usuario, contraseña) => {
     const user={
-        usuario:"admin",
+        usuario:"usuario",
         nombre:"Lautaro",
         apellido:"Rozen",
         contraseña:"123456",
-        rol:"administrador",
+        rol:"usuario",
     }
-      if(usuario!==user.usuario && contraseña!==user.contraseña){
+      if(usuario!==user.usuario || contraseña!==user.contraseña){
         setDisplay(true);
       }else{
         manageUsuario(user.usuario,user.nombre,user.apellido,user.rol)

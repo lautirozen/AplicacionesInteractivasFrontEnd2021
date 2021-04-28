@@ -76,11 +76,11 @@ export default function OlvidarseContraseña() {
   const [display, setDisplay]=useState(false);
   const handleSignIn = (usuario, email) => {
     const user={
-        usuario:"admin",
+        usuario:"usuario",
         nombre:"Lautaro",
         apellido:"Rozen",
         contraseña:"123456",
-        rol:"administrador",
+        rol:"usuario",
         email:"lautirozen@gmail.com"
     }
       if(usuario!==user.usuario || email!==user.email){

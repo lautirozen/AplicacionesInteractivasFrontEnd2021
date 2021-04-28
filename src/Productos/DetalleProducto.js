@@ -1,15 +1,25 @@
-import React,{useState} from "react";
+import React, { useState} from "react";
 import { useParams } from "react-router-dom";
 import Navigation from '../components/Navbar';
 import NavigationLog from '../components/Navbarlog';
 import Footer from '../components/Footer';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Typography } from "@material-ui/core";
+import { Alert } from '@material-ui/lab';
+import Modal from 'react-bootstrap/Modal';
+import { useHistory} from "react-router-dom";
+
 function DetalleProducto(props) {
     const {titulo}= useParams();
     const [product,setProduct]=useState(props.location.state)
+    console.log(product)
     var user =JSON.parse(localStorage.getItem('user'));
+    const[listItems,setListItems]=useState(JSON.parse(localStorage.getItem('cartItems')) || []);
+    const [numb,setNumb]=useState(product.cantidad);
+    const [mostrar, setMostrar] = useState(false);
+    const [mostrars, setMostrars] = useState(false);
+    const history= useHistory();
     const useStyles = makeStyles((theme) => ({
         Titulo:{
           fontFamily:"Garamond", 
@@ -45,13 +55,103 @@ function DetalleProducto(props) {
             backgroundColor:"#401801",
             height:"4rem",
             width:"20rem",
-            marginTop:"5rem"
+            marginTop:"2rem"
+          },
+          button1:{
+            backgroundColor:"#401801",
+            height:"4rem",
+            width:"4rem",
+            marginTop:"2rem"
+          },
+          root: {
+            '& .MuiTextField-root': {
+              margin: theme.spacing(1),
+              width: '6ch',
+              marginTop:"2.5rem",
+              
+            },
           },
       })); 
     const classes = useStyles();
+    const handlecerrar = () =>{
+      setMostrar(false);
+      history.push("/Productos")
+    }
+    const handlecerrars = () =>{
+      setMostrars(false);
+      history.push("/Productos")
+    }
+    const decreaseCant = (producto) =>{
+      if(numb > 1){
+        var number=numb-1
+        setNumb(number)
+        if(listItems!==null){
+        if(listItems.some(product => product.id === producto.id)){
+          var objIndex = listItems.findIndex((product => product.id === producto.id))
+          listItems[objIndex].cantidad = number
+        }else{
+          producto.cantidad= number
+          console.log(producto)
+          }
+        }else{
+          producto.cantidad= number
+          console.log(producto)
+        }
+      }
+    }
+    const increaseCant = (producto) =>{
+      if(numb < producto.stock){
+        console.log(numb)
+        var number=numb+1
+        console.log(number)
+        setNumb(number)
+        if(listItems!==null){
+          if(listItems.some(product => product.id === producto.id)){
+            var objIndex = listItems.findIndex((product => product.id === producto.id))
+            listItems[objIndex].cantidad = number+product.cantidad
+          }else{
+            producto.cantidad= number
+          }
+        }else{
+          producto.cantidad= number
+        }
+      }
+    }
+    const addToCart = (producto) =>{
+      if(user===null){
+        history.push("/Login")
+      }else{
+      if(producto.stock!==0){
+        if(listItems!==null){
+          if(listItems.some(product => product.id === producto.id)){
+          listItems.map((product) =>
+          console.log(product))
+          }else{
+            listItems.push(producto)
+            listItems.map((product) =>
+            console.log(product))
+          }
+        localStorage.setItem('quantity', JSON.stringify(listItems.length));
+        localStorage.setItem('cartItems', JSON.stringify(listItems));
+        console.log(product.cantidad * parseInt(product.precio))
+        setMostrar(true);
+      }else{
+        listItems.push(producto)
+        listItems.map((product) =>
+        console.log(product))
+        localStorage.setItem('quantity', JSON.stringify(listItems.length));
+        localStorage.setItem('cartItems', JSON.stringify(listItems));
+        console.log(product.cantidad * parseInt(product.precio))
+        setMostrar(true);
+      }
+    }else{
+      setMostrars(true);
+    }
+  }
+  }
     return (
       <div className={classes.DetalleProducto}>
-        {(user===null)? <Navigation />: <NavigationLog />}
+        {(user===null)? <Navigation />:<NavigationLog />}
         <div className={classes.Titulo}>
             {product.titulo}   
         </div>
@@ -60,14 +160,34 @@ function DetalleProducto(props) {
                 <img src={product.image} height="500px" class="img-fluid" alt="Responsive image" />
             </div>
             <div class="col-lg-6 col-md-4 col-sm-12">
+              <div class="ml-lg-3">
                 <div className={classes.Titulo1}>
-                    <div class="ml-lg-3">
+                    <div class="ml-lg-5">
                         ${product.precio}
                     </div>
                 </div>
+              </div>
                 <div class="col-lg-6 col-md-4 col-sm-12 ml-lg-3">
+                    <div class="row ml-lg-5">
+                      <div className={classes.button1}>
+                        <Button style={{color:"white", marginTop:"1rem"}} onClick={() => {decreaseCant(product)}}>-</Button>
+                      </div>
+                      <form className={classes.root} noValidate autoComplete="off">
+                      <TextField
+                        id="standard-read-only-input"
+                        value={numb}
+                        inputProps={{style: { textAlign: 'center', fontSize:"35px"}}}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                      />
+                      </form>
+                      <div className={classes.button1}>
+                        <Button style={{color:"white", marginTop:"1rem"}} onClick={() => {increaseCant(product)}}>+</Button>
+                      </div>
+                    </div>
                     <div className={classes.button}>
-                        <Button style={{color:"white", marginTop:"1rem"}} onClick={() => {console.log(product.titulo + " añadido")}}>AGREGAR AL CARRITO</Button>    
+                        <Button style={{color:"white", marginTop:"1rem"}} onClick={() => {addToCart(product)}}>AGREGAR AL CARRITO</Button>    
                     </div>
                 </div>
                 <div className={classes.Titulo2}>
@@ -78,6 +198,32 @@ function DetalleProducto(props) {
                 </div>
             </div>
         </div>
+        <Modal size="lg" size="lg" style={{maxWidth: '1600px'}} show={mostrar} onHide={handlecerrar} >
+            <Modal.Header closeButton>
+              <Modal.Title>Producto añadido</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Alert severity="success">El producto ha sido añadido exitosamente al carrito.</Alert>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handlecerrar}  style={{backgroundColor: "#401801", color:"white",  textTransform:"capitalize"}}>
+                  Cerrar
+              </Button>
+            </Modal.Footer>
+        </Modal>
+        <Modal size="lg" size="lg" style={{maxWidth: '1600px'}} show={mostrars} onHide={handlecerrars} >
+            <Modal.Header closeButton>
+              <Modal.Title>Error al añadir el producto</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Alert severity="error">El producto seleccionado se encuentra agotado.</Alert>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handlecerrars}  style={{backgroundColor: "#401801", color:"white", textTransform:"capitalize"}}>
+                  Cerrar
+              </Button>
+            </Modal.Footer>
+        </Modal>
         <Footer />
       </div>
     );

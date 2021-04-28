@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navigation from '../components/Navbar';
 import NavigationLog from '../components/Navbarlog';
 import { useHistory} from "react-router-dom";
@@ -22,7 +22,7 @@ import mate from "./Assets/Mate.jpg";
 import copa from "./Assets/copa.jpeg";
 import plato from "./Assets/platos.jpg";
 import utensilio from "./Assets/utensillo.jpg"
-function Home (props){  
+function Home (){  
     console.log("En Home")
     const history= useHistory();
     var user =JSON.parse(localStorage.getItem('user'));

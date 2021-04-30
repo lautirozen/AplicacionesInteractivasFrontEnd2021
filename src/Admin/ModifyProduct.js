@@ -8,12 +8,13 @@ import history from './../history';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from 'react-bootstrap/Modal';
 import Footer from '../components/Footer';
+import ImageUploader from 'react-images-upload';
 
 
 const ModifyProduct  = (props) => {
 const [show, setShow]=useState(false);
 const [elementoAAgregar, setElementoAAgregar]=useState("");    
-const ModificarArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock, Imagen)=>{
+const ModificarArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock)=>{
     const catalogo={
         titulo:Titulo,
         categoria:Categoria,
@@ -24,7 +25,6 @@ const ModificarArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, S
         stockInicial: Stock,
         stock:Stock,
         cantV:0,
-        image:Imagen,
 
     }
     setElementoAAgregar(catalogo)
@@ -85,7 +85,6 @@ const useStyles = makeStyles((theme) => ({
                         descripcion: elemento.descripcion,
                         codigo: elemento.codigo,
                         stock: elemento.stock ,
-                        imagen: elemento.imagen,
                         }}
                         validationSchema={Yup.object().shape({
                         titulo: Yup.string()
@@ -107,11 +106,9 @@ const useStyles = makeStyles((theme) => ({
                         .matches(/^[A-Za-z ]*$/,'Ingrese únicamente letras'),
                         codigo: Yup.string()
                         .required('El campo es obligatorio (*)'),
-                        image: Yup.string()
-                        .required('El campo es obligatorio (*)')
                         })}
                         onSubmit={fields => {
-                        ModificarArticulo(fields.titulo, fields.categoria, fields.precio, fields.marca, fields.descripcion, fields.codigo, fields.stock, fields.image)
+                        ModificarArticulo(fields.titulo, fields.categoria, fields.precio, fields.marca, fields.descripcion, fields.codigo, fields.stock)
                         }}
                         render={({ errors, status, touched }) => (
                         <Card style={{backgroundColor:"#F2EFEB"}} className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-2">
@@ -146,11 +143,6 @@ const useStyles = makeStyles((theme) => ({
 <label htmlFor="stock">Stock</label>
 <Field name="stock"  type="text" className={'form-control' + (errors.stock && touched.stock ? ' is-invalid' : '')} />
 <ErrorMessage name="stock" component="div" className="invalid-feedback" />
-</div>
-<div className="form-group">
-<label htmlFor="Imagen">Imagen</label>
-<Field name="Imagen"  type="text" className={'form-control' + (errors.Imagen&& touched.Imagen ? ' is-invalid' : '')} />
-<ErrorMessage name="Imagen" component="div" className="invalid-feedback" />
 </div>​​
 <div className="form-group">
 <button type="submit" className="btn btn-primary mr-2" style={{backgroundColor: "#401801", marginTop:"15px"}}>Añadir producto</button>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import NavigationAdmin from '../components/Navbar';
+import NavigationAdmin from '../components/NavbarAdmin';
 import {Button, Card} from 'react-bootstrap';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -8,12 +8,13 @@ import history from './../history';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from 'react-bootstrap/Modal';
 import Footer from '../components/Footer';
+import ImageUploader from 'react-images-upload';
 
 const Addproduct  = () => { 
 
 const [show, setShow]=useState(false);
 const [elementoAAgregar, setElementoAAgregar]=useState("");
-const CrearArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock, Imagen)=>{
+const CrearArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock)=>{
     const catalogo={
         titulo:Titulo,
         categoria:Categoria,
@@ -21,10 +22,9 @@ const CrearArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock
         marca:Marca,
         descripcion:Descripcion,
         codigo:Codigo,
-        stockInicial: Stock,
         stock:Stock,
         cantV:0,
-        image:Imagen,
+        image:'',
 
     }
     setElementoAAgregar(catalogo)
@@ -83,12 +83,11 @@ return (
                         initialValues={{
                         titulo: '',
                         categoria:'',
-                        precio:0,
+                        precio:'',
                         marca:'',
                         descripcion: '',
                         codigo: '',
-                        stock:0 ,
-                        imagen: '',
+                        stock:'' ,
                         }}
                         validationSchema={Yup.object().shape({
                         titulo: Yup.string()
@@ -110,11 +109,10 @@ return (
                         .matches(/^[A-Za-z ]*$/,'Ingrese únicamente letras'),
                         codigo: Yup.string()
                         .required('El campo es obligatorio (*)'),
-                        image: Yup.string()
-                        .required('El campo es obligatorio (*)')
                         })}
                         onSubmit={fields => {
-                        CrearArticulo(fields.titulo, fields.categoria, fields.precio, fields.marca, fields.descripcion, fields.codigo, fields.stock, fields.image)
+                        console.log('holas sdasdafgds')
+                        CrearArticulo(fields.titulo, fields.categoria, fields.precio, fields.marca, fields.descripcion, fields.codigo, fields.stock)
                         }}
                         render={({ errors, status, touched }) => (
                         <Card style={{backgroundColor:"#F2EFEB"}} className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-2">
@@ -151,11 +149,6 @@ return (
 <ErrorMessage name="stock" component="div" className="invalid-feedback" />
 </div>
 <div className="form-group">
-<label htmlFor="Imagen">Imagen</label>
-<Field name="Imagen"  type="text" className={'form-control' + (errors.Imagen&& touched.Imagen ? ' is-invalid' : '')} />
-<ErrorMessage name="Imagen" component="div" className="invalid-feedback" />
-</div>​​
-<div className="form-group">
 <button type="submit" className="btn btn-primary mr-2" style={{backgroundColor: "#401801", marginTop:"15px"}}>Añadir producto</button>
 </div>
 </Form>
@@ -170,11 +163,11 @@ return (
 </div>
 <Modal size="lg"  style={{maxWidth: '1600px'}}show={show} onHide={handleClose} >
 <Modal.Header closeButton>
-<Modal.Title>Cuenta creada</Modal.Title>
+<Modal.Title>Producto creado</Modal.Title>
 </Modal.Header>
 <Modal.Body>
-<Alert severity="success">La cuenta ha sido creada exitosamente </Alert><br />
-Los datos de la cuenta son los siguientes: <br />
+<Alert severity="success">El producto ha sido creado exitosamente </Alert><br />
+Los datos del producto son los siguientes: <br />
 <h7 style={{fontWeight: 'bold'}}>Nombre: </h7>{elementoAAgregar.titulo}​​<br />
 <h7 style={{fontWeight: 'bold'}}>Categoria: </h7> {elementoAAgregar.Categoria}​​ <br />
 <h7 style={{fontWeight: 'bold'}}>Precio: </h7>{elementoAAgregar.Precio}​​<br />

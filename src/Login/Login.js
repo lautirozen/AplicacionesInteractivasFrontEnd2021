@@ -82,10 +82,15 @@ export default function LogIn() {
     console.log(apellido)
     localStorage.setItem('rol', JSON.stringify(rol));//Guardo el apellido de usuario
     console.log(rol)
-    /*localStorage.setItem('userid',JSON.stringify(data.data.user.entidad.id));*/
+    if(rol==="usuario"){
     history.push({
       pathname: '/',
     })
+  }else{
+    history.push({
+      pathname: '/HomeAdmin',
+    })
+  }
   }
   const [display, setDisplay]=useState(false);
   const handleSignIn = (usuario, contraseña) => {
@@ -96,11 +101,23 @@ export default function LogIn() {
         contraseña:"123456",
         rol:"usuario",
     }
-      if(usuario!==user.usuario || contraseña!==user.contraseña){
-        setDisplay(true);
+    const usera={
+      usuario:"administrador",
+      nombre:"German",
+      apellido:"Boso",
+      contraseña:"123456",
+      rol:"administrador",
+  }
+      if(usuario===user.usuario && contraseña===user.contraseña){
+          manageUsuario(user.usuario,user.nombre,user.apellido,user.rol)
       }else{
-        manageUsuario(user.usuario,user.nombre,user.apellido,user.rol)
-      }   
+        if(usuario===usera.usuario || contraseña===usera.contraseña){
+          manageUsuario(usera.usuario,usera.nombre,usera.apellido,usera.rol)
+        }
+        else{
+          setDisplay(true);
+        }   
+    }
   };
   return (
     <Grid container component="main" className={classes.root}>

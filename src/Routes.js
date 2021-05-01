@@ -13,6 +13,8 @@ import Dirrecion from "./Cart/Direccion";
 import Cart from "./Cart/Cart";
 import Resumen from "./Cart/Resumen";
 import Pedido from "./Pedido/Pedido";
+import HomeAdmin from "./Administrador/HomeAdmin";
+import AñadirProducto from "./Administrador/AñadirProducto";
 export default class Routes extends Component {
     render() {
         console.log("Redirigiendo")
@@ -32,6 +34,8 @@ export default class Routes extends Component {
                     <Route exact path="/Carrito/Formulario" component={Dirrecion} />
                     <Route exact path="/Carrito/Formulario/Resumen" component={Resumen} />
                     <Route exact path="/Pedidos" component={Pedido} />
+                    <Route exact path="/HomeAdmin" component={HomeAdmin} />
+                    <Route exact path="/AñadirProducto" component={AñadirProducto} />
                 </Switch>
             </Router>
         )

@@ -15,6 +15,9 @@ import Resumen from "./Cart/Resumen";
 import Pedido from "./Pedido/Pedido";
 import HomeAdmin from "./Administrador/HomeAdmin";
 import AñadirProducto from "./Administrador/AñadirProducto";
+import BuscarModificarProducto from "./Administrador/BuscarModificarProducto";
+import ModificarProducto from "./Administrador/ModificarProducto";
+import DeshabilitarProducto from "./Administrador/DeshabilitarProducto";
 export default class Routes extends Component {
     render() {
         console.log("Redirigiendo")
@@ -36,6 +39,9 @@ export default class Routes extends Component {
                     <Route exact path="/Pedidos" component={Pedido} />
                     <Route exact path="/HomeAdmin" component={HomeAdmin} />
                     <Route exact path="/AñadirProducto" component={AñadirProducto} />
+                    <Route exact path="/BuscarModificarProducto" component={BuscarModificarProducto} />
+                    <Route exact strict path="/ModificarProducto/:titulo" component={ModificarProducto} />
+                    <Route exact path="/DeshabilitarProducto" component={DeshabilitarProducto} />
                 </Switch>
             </Router>
         )

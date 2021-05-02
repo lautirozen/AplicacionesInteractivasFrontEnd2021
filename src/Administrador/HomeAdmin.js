@@ -39,7 +39,7 @@ function HomeAdmin(){
     },
     descripcion:{
       fontFamily:"Garamond", 
-      fontSize:"25px",
+      fontSize:"23px",
       textAlign:"justify",
     }
     }));

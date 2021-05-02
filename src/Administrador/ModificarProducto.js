@@ -9,26 +9,32 @@ import Modal from 'react-bootstrap/Modal';
 import Footer from '../components/Footer';
 import { useHistory} from "react-router-dom";
 
-const AñadirProducto  = () => { 
-
+const ModificarProducto  = (props) => { 
+    const [productoModificar, setProductoModificar]=useState(props.location.state);
     const [show,setShow]=useState(false);
     const [elementoAAgregar, setElementoAAgregar]=useState("");
     const history= useHistory();
     const[imagen,setImagen]=useState(null);
-    const [imgData, setImgData] = useState(null);
-    const CrearArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock)=>{
-        const catalogo={
-            titulo:Titulo,
-            categoria:Categoria,
-            precio:Precio,
-            marca:Marca,
-            descripcion:Descripcion,
-            codigo:Codigo,
-            stock:Stock,
-            image:imgData,
+    const [imgData, setImgData] = useState(productoModificar.image);
+    const[display, setDisplay]=useState(false);
+    const ModificarArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock)=>{
+        if(Titulo !== productoModificar.titulo || Categoria!== productoModificar.categoria || Precio !== productoModificar.precio || Marca !== productoModificar.marca || Descripcion !== productoModificar.descripcion || Codigo !== productoModificar.codigo || Stock !== productoModificar.stock || imgData !== productoModificar.image){
+            setDisplay(false)
+            const catalogo={
+                titulo:Titulo,
+                categoria:Categoria,
+                precio:Precio,
+                marca:Marca,
+                descripcion:Descripcion,
+                codigo:Codigo,
+                stock:Stock,
+                image:imgData,
+            }
+            setElementoAAgregar(catalogo)
+            setShow(true)
+        }else{
+            setDisplay(true)
         }
-        setElementoAAgregar(catalogo)
-        setShow(true)
     }
 
     const useStyles = makeStyles((theme) => ({
@@ -76,23 +82,23 @@ const AñadirProducto  = () => {
         };
     const Number = /^[0-9]+$/;
     const classes = useStyles(); 
-    return (
-    <div className={classes.Addproduct}>
+    return(
+        <div className={classes.Addproduct}>
         <NavigationAdmin />
         <div className={classes.modify}>
-            <div><h2 className={classes.title}>Añadir Producto</h2>
+            <div><h2 className={classes.title}>Modificar Producto</h2>
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 offset-md-2">
                             <Formik
                             initialValues={{
-                            titulo: '',
-                            categoria:'',
-                            precio:'',
-                            marca:'',
-                            descripcion: '',
-                            codigo: '',
-                            stock:'' ,
+                            titulo: productoModificar.titulo,
+                            categoria:productoModificar.categoria,
+                            precio: productoModificar.precio,
+                            marca: productoModificar.marca,
+                            descripcion: productoModificar.descripcion,
+                            codigo: productoModificar.codigo,
+                            stock: productoModificar.stock,
                             }}
                             validationSchema={Yup.object().shape({
                             titulo: Yup.string()
@@ -103,7 +109,6 @@ const AñadirProducto  = () => {
                             marca: Yup.string()
                             .required('El campo es obligatorio (*)'),
                             precio: Yup.string()
-                            .matches(Number,'Ingrese únicamente números')
                             .required('El campo es obligatorio (*)'),
                             stock: Yup.string()
                             .matches(Number,'Ingrese únicamente números')
@@ -115,19 +120,20 @@ const AñadirProducto  = () => {
                             .required('El campo es obligatorio (*)'),
                             })}
                             onSubmit={fields => {
-                            console.log('holas sdasdafgds')
-                            CrearArticulo(fields.titulo, fields.categoria, fields.precio, fields.marca, fields.descripcion, fields.codigo, fields.stock)
+                            ModificarArticulo(fields.titulo, fields.categoria, fields.precio, fields.marca, fields.descripcion, fields.codigo, fields.stock)
                             }}
                             render={({ errors, status, touched }) => (
                             <Card style={{backgroundColor:"#F2EFEB"}} className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-2">
                             <div className={classes.modify}>
                             <Form>
                       <div className={classes.inputForm}>
-                        <div className="form-group">
+                        <div className="form-group" class="text-left mb-3 mt-3">
+                            <label htmlFor="titulo">Título del producto</label>
                             <Field name="titulo" type="text"  autoComplete="off" placeholder="Titulo del producto" className={'form-control' + (errors.titulo && touched.titulo ? ' is-invalid' : '')} />
                             <ErrorMessage name="titulo" component="div" className="invalid-feedback" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" class="text-left  mb-3 mt-3">
+                            <label htmlFor="categoria">Seleccione una categoría</label>
                             <Field as="select"
                                 name="categoria"
                                 className={'form-control' + (errors.categoria && touched.categoria? ' is-invalid' : '')}
@@ -145,11 +151,13 @@ const AñadirProducto  = () => {
                             </Field>
                             <ErrorMessage name="categoria" component="div" className="invalid-feedback" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" class="text-left  mb-3 mt-3">
+                            <label htmlFor="categoria">Descripción</label>
                             <Field name="descripcion" type="text" autoComplete="off" placeholder="Descripcion" className={'form-control' + (errors.descripcion && touched.descripcion ? ' is-invalid' : '')} />
                             <ErrorMessage name="descripcion" component="div" className="invalid-feedback" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" class="text-left  mb-3 mt-3">
+                            <label htmlFor="categoria">Seleccione una marca</label>
                             <Field as="select"
                                 name="marca"
                                 className={'form-control' + (errors.marca && touched.marca? ' is-invalid' : '')}
@@ -170,15 +178,18 @@ const AñadirProducto  = () => {
                             </Field>
                             <ErrorMessage name="marca" component="div" className="invalid-feedback" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" class="text-left  mb-3 mt-3">
+                            <label htmlFor="categoria">Precio ($)</label>
                             <Field name="precio" type="text"  autoComplete="off" placeholder="Precio ($)" className={'form-control' + (errors.precio && touched.precio ? ' is-invalid' : '')} />
                             <ErrorMessage name="precio" component="div" className="invalid-feedback" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" class="text-left  mb-3 mt-3">
+                            <label htmlFor="categoria">Código</label>
                             <Field name="codigo" type="text"  autoComplete="off" placeholder="Codigo" className={'form-control' + (errors.codigo && touched.codigo ? ' is-invalid' : '')} />
                             <ErrorMessage name="codigo" component="div" className="invalid-feedback" />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group" class="text-left  mb-3 mt-3">
+                            <label htmlFor="categoria">Stock</label>
                             <Field name="stock" type="text"  autoComplete="off" placeholder="Stock" className={'form-control' + (errors.stock && touched.stock ? ' is-invalid' : '')} />
                             <ErrorMessage name="stock" component="div" className="invalid-feedback" />
                         </div>
@@ -187,48 +198,49 @@ const AñadirProducto  = () => {
                                 <div class="col-lg-12">
                                     <input style={{marginTop:"2rem"}} id="imagenproducto" type="file" onChange={onDrop} />
                                 </div>
+                            </div>
+                            <div class="col-lg-2 mr-auto">
                                 <div class="col-lg-12" style={{marginTop:"2rem"}}>
                                     <img className="imagen" width="200px" src={imgData} />
                                 </div>
                             </div>
                         </div>
+                        {display && ( <Alert severity="error">Ha ocurrido un error al modificar el producto.</Alert>)}
                         <div className="form-group">
-                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3">Añadir Producto</button>
+                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3">Modificar Producto</button>
                         </div>
                     </Form>
-    </div>
-    </Card>
-    )}
-    />
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <Modal size="lg"  style={{maxWidth: '1600px'}}show={show} onHide={handleClose} >
-    <Modal.Header closeButton>
-    <Modal.Title>Producto creado</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-    <Alert severity="success">El producto ha sido creado exitosamente.</Alert><br />
-    Los datos del producto son los siguientes: <br />
-    <img width="120px" src={elementoAAgregar.image} /><br />
-    <h7 style={{fontWeight: 'bold'}}>Título: </h7>{elementoAAgregar.titulo}​​<br />
-    <h7 style={{fontWeight: 'bold'}}>Categoria: </h7> {elementoAAgregar.categoria}​​ <br />
-    <h7 style={{fontWeight: 'bold'}}>Precio: </h7>$ {elementoAAgregar.precio}​​<br />
-    <h7 style={{fontWeight: 'bold'}}>Marca: </h7>{elementoAAgregar.marca}​​<br />
-    <h7 style={{fontWeight: 'bold'}}>Descripcion: </h7>{elementoAAgregar.descripcion}​​<br />
-    <h7 style={{fontWeight: 'bold'}}>Código: </h7>{elementoAAgregar.codigo}​​<br />
-    <h7 style={{fontWeight: 'bold'}}>Stock: </h7>{elementoAAgregar.stock}​​<br />
-    </Modal.Body>
-    <Modal.Footer>
-    <Button variant="secondary" onClick={handleClose} style={{backgroundColor: "#401801"}}>
-    Cerrar
-    </Button>
-    </Modal.Footer>
-    </Modal>
-    <Footer />
+                </div>
+                </Card>)}/>
+                </div>
+            </div>
+            </div>
+            </div>
+        </div>
+        <Modal size="lg" style={{maxWidth: '1600px'}} show={show} onHide={handleClose} >
+            <Modal.Header closeButton>
+                <Modal.Title>Producto modificado</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Alert severity="success">El producto ha sido modificado exitosamente.</Alert><br />
+                Los datos del producto son los siguientes: <br />
+                <img width="120px" src={elementoAAgregar.image} /><br />
+                <h7 style={{fontWeight: 'bold'}}>Título: </h7>{elementoAAgregar.titulo}​​<br />
+                <h7 style={{fontWeight: 'bold'}}>Categoria: </h7> {elementoAAgregar.categoria}​​ <br />
+                <h7 style={{fontWeight: 'bold'}}>Precio: </h7>$ {elementoAAgregar.precio}​​<br />
+                <h7 style={{fontWeight: 'bold'}}>Marca: </h7>{elementoAAgregar.marca}​​<br />
+                <h7 style={{fontWeight: 'bold'}}>Descripcion: </h7>{elementoAAgregar.descripcion}​​<br />
+                <h7 style={{fontWeight: 'bold'}}>Código: </h7>{elementoAAgregar.codigo}​​<br />
+                <h7 style={{fontWeight: 'bold'}}>Stock: </h7>{elementoAAgregar.stock}​​<br />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}  style={{backgroundColor: "#401801"}}>
+                    Cerrar
+                </Button>
+            </Modal.Footer>
+        </Modal>
+        <Footer />
     </div>
     );
 }
-export default AñadirProducto;
+export default ModificarProducto;

@@ -1,19 +1,19 @@
 export const categorias = [
     {
     id:1,
-    titulo:"Agregar producto",
+    titulo:"Añadir producto",
     descripcion:"Al seleccionar esta opción se le permitirá añadir un nuevo producto al catálogo.",
     direccion:"/AñadirProducto",
     },{
     id:2,
     titulo:"Modificar producto",
     descripcion:"Al seleccionar esta opción se le permitirá modificar un producto ya existente.",
-    direccion:"/ModificarProducto",
+    direccion:"/BuscarModificarProducto",
     },{
     id:3,
-    titulo:"Eliminar producto",
-    descripcion:"Al seleccionar esta opción se le permitirá remover un producto del catálogo.",
-    direccion:"/RemoverProducto",
+    titulo:"Deshabilitar producto",
+    descripcion:"Al seleccionar esta opción se le permitirá deshabilitar un producto del catálogo.",
+    direccion:"/DeshabilitarProducto",
     },{
     id:4,
     titulo:"Resumen ventas",

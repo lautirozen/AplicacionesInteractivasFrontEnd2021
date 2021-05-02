@@ -94,6 +94,9 @@ import { products } from './products';
       backgroundColor:"#4d240d",
       color:"white",
     },
+    footer:{
+      marginTop:"14.7rem"
+    },
   })); 
   const classes = useStyles();
   const [info, setInfo]=useState(props.location.state);
@@ -718,7 +721,7 @@ const onSearch = (buscar) =>{
                   </div>
                       </div>): console.log("no")}
                       </div>
-            <Modal size="lg" size="lg" style={{maxWidth: '1600px'}} show={mostrar} onHide={handlecerrar} >
+            <Modal size="lg"  style={{maxWidth: '1600px'}} show={mostrar} onHide={handlecerrar} >
             <Modal.Header closeButton>
             <Modal.Title>Operación inválida</Modal.Title>
             </Modal.Header>
@@ -733,7 +736,7 @@ const onSearch = (buscar) =>{
             </Button>
             </Modal.Footer>
             </Modal>
-            <Modal size="lg" size="lg" style={{maxWidth: '1600px'}} show={mstock} onHide={sinstock} >
+            <Modal size="lg"  style={{maxWidth: '1600px'}} show={mstock} onHide={sinstock} >
             <Modal.Header closeButton>
 
             <Modal.Title>Stock agotado</Modal.Title>
@@ -760,8 +763,10 @@ const onSearch = (buscar) =>{
               </Button>
             </Modal.Footer>
         </Modal>
+          <div className={classes.footer}>
             <Footer />
           </div>
-          )
+        </div>
+      )
 }
 export default Productos;

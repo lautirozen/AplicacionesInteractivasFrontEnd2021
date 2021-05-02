@@ -126,7 +126,7 @@ export default function CollapsibleTable() {
       </Table>
     </TableContainer>
     <div className={classes.footer}>
-    <Footer />
+      <Footer />
     </div>
     </div>
   );

@@ -114,47 +114,47 @@ function Dirrecion (props){
                 <Card style={{backgroundColor:"#F2EFEB"}} className="col-sm-12 col-md-12 offset-md-2 col-lg-12 offset-lg-2">
                 <div className={classes.modify}>
                 <Form>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="nombre">Nombre Completo</label>
                         <Field name="nombre" style={{backgroundColor:"#F2EFEB"}} type="text" autoComplete="off"  className={'form-control' + (errors.nombre && touched.nombre ? ' is-invalid' : '')} />
                         <ErrorMessage name="nombre" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="apellido">Apellido</label>
                         <Field name="apellido" style={{backgroundColor:"#F2EFEB"}} type="text" autoComplete="off" className={'form-control' + (errors.apellido && touched.apellido ? ' is-invalid' : '')} />
                         <ErrorMessage name="apellido" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="dni">DNI</label>
                         <Field name="dni" type="text"  style={{backgroundColor:"#F2EFEB"}} autoComplete="off" className={'form-control' + (errors.dni&& touched.dni ? ' is-invalid' : '')} />
                         <ErrorMessage name="dni" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="domicilio_ciudad">Ciudad</label>
                         <Field name="domicilio_ciudad" style={{backgroundColor:"#F2EFEB"}} autoComplete="off"  type="text" className={'form-control' + (errors.domicilio_ciudad && touched.domicilio_ciudad ? ' is-invalid' : '')} />
                         <ErrorMessage name="domicilio_ciudad" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="domicilio_calle">Domicilio (calle)</label>
                         <Field name="domicilio_calle" style={{backgroundColor:"#F2EFEB"}} autoComplete="off"  type="text" className={'form-control' + (errors.domicilio_calle&& touched.domicilio_calle ? ' is-invalid' : '')} />
                         <ErrorMessage name="domicilio_calle" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="domicilio_numero">Altura</label>
                         <Field name="domicilio_numero" style={{backgroundColor:"#F2EFEB"}} autoComplete="off" type="text" className={'form-control' + (errors.domicilio_numero&& touched.domicilio_numero ? ' is-invalid' : '')} />
                         <ErrorMessage name="domicilio_numero" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="piso">Piso/Departamento</label>
                         <Field name="piso" type="text" style={{backgroundColor:"#F2EFEB"}} autoComplete="off" className={'form-control' + (errors.piso && touched.piso? ' is-invalid' : '')} />
                         <ErrorMessage name="piso" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="cp">Código postal</label>
                         <Field name="cp" type="text" style={{backgroundColor:"#F2EFEB"}} autoComplete="off" className={'form-control' + (errors.cp&& touched.cp ? ' is-invalid' : '')} />
                         <ErrorMessage name="cp" component="div" className="invalid-feedback" />
                     </div>
-                    <div className="form-group" class="text-left">
+                    <div className="form-group" class="text-left mb-3 mt-3">
                         <label htmlFor="domicilio_barrio">Barrio</label>
                         <Field name="domicilio_barrio" style={{backgroundColor:"#F2EFEB"}} autoComplete="off" type="text" className={'form-control' + (errors.domicilio_barrio&& touched.domicilio_barrio ? ' is-invalid' : '')} />
                         <ErrorMessage name="domicilio_barrio" component="div" className="invalid-feedback" />

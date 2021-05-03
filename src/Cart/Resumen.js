@@ -51,6 +51,8 @@ export default function Resumen(props) {
   const [nroPedido,setNroPedido]=useState(0);
   const history= useHistory();
   const[listItems]=useState(JSON.parse(localStorage.getItem('cartItems')) || []);
+  const[unombre]=useState(JSON.parse(localStorage.getItem('nombre')));
+  const[usera]=useState(JSON.parse(localStorage.getItem('apellido')));
   const [show,setShow] = useState(false);
   const handleClose = () =>{
     setShow(false);
@@ -69,7 +71,9 @@ export default function Resumen(props) {
       preciototal:datosenvio.totalprecio,
       direccion: (datosenvio.domicilio_calle + " " + datosenvio.domicilio_numero),
       productos:listItems,
-      estado:"En preparación"
+      estado:"En preparación",
+      nombre_persona:unombre,
+      apellido_persona:usera,
     }
  
     console.log(pedido)

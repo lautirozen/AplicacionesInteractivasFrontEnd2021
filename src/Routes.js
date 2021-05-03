@@ -18,6 +18,7 @@ import AñadirProducto from "./Administrador/AñadirProducto";
 import BuscarModificarProducto from "./Administrador/BuscarModificarProducto";
 import ModificarProducto from "./Administrador/ModificarProducto";
 import DeshabilitarProducto from "./Administrador/DeshabilitarProducto";
+import ResumenPedidos from "./Administrador/ResumenPedidos";
 export default class Routes extends Component {
     render() {
         console.log("Redirigiendo")
@@ -42,6 +43,7 @@ export default class Routes extends Component {
                     <Route exact path="/BuscarModificarProducto" component={BuscarModificarProducto} />
                     <Route exact strict path="/ModificarProducto/:titulo" component={ModificarProducto} />
                     <Route exact path="/DeshabilitarProducto" component={DeshabilitarProducto} />
+                    <Route exact path="/ResumenVentas" component={ResumenPedidos} />
                 </Switch>
             </Router>
         )

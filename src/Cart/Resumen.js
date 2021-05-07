@@ -71,7 +71,6 @@ export default function Resumen(props) {
       preciototal:datosenvio.totalprecio,
       direccion: (datosenvio.domicilio_calle + " " + datosenvio.domicilio_numero),
       productos:listItems,
-      estado:"En preparación",
       nombre_persona:unombre,
       apellido_persona:usera,
     }

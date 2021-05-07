@@ -78,6 +78,7 @@ const DeshabilitarProducto  = () => {
         setMostrar(false);
     }
     const handledeshabilitar = () =>{
+        setMostrar(false);
         setShow(true);
     }
     const handleclose = () =>{

@@ -57,7 +57,6 @@ function Row(props) {
             <TableCell align="left">{row.fecha}</TableCell>
             <TableCell align="left">$ {row.preciototal}</TableCell>
             <TableCell align="left">{row.direccion}</TableCell>
-            <TableCell align="left">{row.estado}</TableCell>
         </TableRow>
         <TableRow>
             <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -115,7 +114,6 @@ export default function CollapsibleTable() {
             <TableCell align="left">Fecha</TableCell>
             <TableCell align="left">Precio total ($)</TableCell>
             <TableCell align="left">Dirreción</TableCell>
-            <TableCell align="left">Estado</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

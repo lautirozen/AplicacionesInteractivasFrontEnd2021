@@ -108,7 +108,11 @@ function DetalleProducto(props) {
         if(listItems!==null){
           if(listItems.some(product => product.id === producto.id)){
             var objIndex = listItems.findIndex((product => product.id === producto.id))
-            listItems[objIndex].cantidad = number+product.cantidad
+            if(number === product.stock){
+              listItems[objIndex].cantidad=number
+            }else{
+              listItems[objIndex].cantidad = number+product.cantidad
+            }
           }else{
             producto.cantidad= number
           }

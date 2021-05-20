@@ -1,7 +1,7 @@
 var UserService = require('../services/usuario.service');
 
 
-_this = this;
+//_this = this;
 
 exports.getUsers = async function(req, res, next ) {
     var page = req.query.page ? req.query.page : 1

@@ -12,7 +12,7 @@ var fs = require('fs');
 var cors = require('cors');
 
 var indexRouter = require('./Routes');
-var apiRouter = require('./routes/user');
+var apiRouter = require('./routes/api/usuario');
 const { AppsSharp } = require('@material-ui/icons');
 
 var app = express();

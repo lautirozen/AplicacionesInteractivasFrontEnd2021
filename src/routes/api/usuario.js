@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router()
-var UserController = require('../controllers/usuario.controller')
+var UserController = require('../../controllers/usuario.controller')
 
 router.get('/test', function(req, res, next) {
     res.send('llegue a la ruta api/user');

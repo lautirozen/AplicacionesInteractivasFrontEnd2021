@@ -69,7 +69,7 @@ const AñadirProducto  = () => {
     const handleShow = () => setShow(true);
         const onDrop = e => {
             if (e.target.files[0]) {
-              console.log("picture: ", e.target.files);
+              console.log("picture: ", URL.createObjectURL(e.target.files[0]));
               setImagen(e.target.files[0]);
               setImgData(URL.createObjectURL(e.target.files[0]))
             }

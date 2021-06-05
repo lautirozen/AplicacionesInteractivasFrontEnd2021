@@ -12,6 +12,7 @@ import Background from "./Assets/Recuperar.jpg";
 import { Alert } from '@material-ui/lab';
 import Logo from "./../components/Assets/Logo.png";
 import { useHistory} from "react-router-dom";
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -76,21 +77,20 @@ export default function OlvidarseContraseña() {
   const [display, setDisplay]=useState(false);
   const handleSignIn = (usuario, email) => {
     const user={
-        usuario:"usuario",
-        nombre:"Lautaro",
-        apellido:"Rozen",
-        contraseña:"123456",
-        rol:"usuario",
-        email:"lautirozen@gmail.com"
+        usuario:usuario,
+        email:email
     }
-      if(usuario!==user.usuario || email!==user.email){
-        setDisplay(true);
-      }else{
-        setDisplay(false);
+    axios.post(`https://aplicaciones-interactivas-2021.herokuapp.com/api/user/profile`,user)
+    .then(function (response) {
+      setDisplay(false);
         history.push({
             pathname: '/OlvidarseContraseña',
-          })
-      }   
+            state: response.data.data.docs
+        })
+    })
+    .catch(function (error) {
+      setDisplay(true);
+    }); 
   };
   return (
     <Grid container component="main" className={classes.root}>

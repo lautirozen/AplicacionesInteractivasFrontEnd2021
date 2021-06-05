@@ -12,7 +12,7 @@ import Background from "./Assets/cocina.jpg";
 import { Alert } from '@material-ui/lab';
 import Logo from "./../components/Assets/Logo.png";
 import { useHistory} from "react-router-dom";
-
+import axios from 'axios';
 function Copyright() {
   return (
     <Typography variant="body2" align="center" style={{color:"black"}}>
@@ -73,16 +73,13 @@ const useStyles = makeStyles((theme) => ({
 export default function LogIn() {
   const classes = useStyles();
   const history= useHistory();
-  const manageUsuario=(usuario,nombre,apellido,rol)=>{
-    localStorage.setItem('user', JSON.stringify(usuario));//Guardo el apellido de usuario
-    console.log(usuario)
-    localStorage.setItem('nombre', JSON.stringify(nombre));//Guardo el apellido de usuario
-    console.log(nombre)
-    localStorage.setItem('apellido', JSON.stringify(apellido));//Guardo el apellido de usuario
-    console.log(apellido)
-    localStorage.setItem('rol', JSON.stringify(rol));//Guardo el apellido de usuario
-    console.log(rol)
-    if(rol==="usuario"){
+  const manageUsuario=(response)=>{
+    localStorage.setItem('user', JSON.stringify(response.data.loginUser.user.usuario));//Guardo el usuario
+    localStorage.setItem('nombre', JSON.stringify(response.data.loginUser.user.nombre));//Guardo el nombre de usuario
+    localStorage.setItem('apellido', JSON.stringify(response.data.loginUser.user.apellido));//Guardo el apellido de usuario
+    localStorage.setItem('rol', JSON.stringify(response.data.loginUser.user.rol));//Guardo el rol de usuario
+    localStorage.setItem('token',JSON.stringify(response.data.loginUser.token));//Guardo el token*/
+    if(response.data.loginUser.user.rol==="usuario"){
     history.push({
       pathname: '/',
     })
@@ -93,31 +90,17 @@ export default function LogIn() {
   }
   }
   const [display, setDisplay]=useState(false);
-  const handleSignIn = (usuario, contraseña) => {
-    const user={
-        usuario:"usuario",
-        nombre:"Lautaro",
-        apellido:"Rozen",
-        contraseña:"123456",
-        rol:"usuario",
-    }
-    const usera={
-      usuario:"administrador",
-      nombre:"German",
-      apellido:"Boso",
-      contraseña:"123456",
-      rol:"administrador",
-  }
-      if(usuario===user.usuario && contraseña===user.contraseña){
-          manageUsuario(user.usuario,user.nombre,user.apellido,user.rol)
-      }else{
-        if(usuario===usera.usuario || contraseña===usera.contraseña){
-          manageUsuario(usera.usuario,usera.nombre,usera.apellido,usera.rol)
-        }
-        else{
-          setDisplay(true);
-        }   
-    }
+  const handleSignIn = (email, contraseña) => {
+    const data={"email": email,"contraseña": contraseña}
+    axios.post(`https://aplicaciones-interactivas-2021.herokuapp.com/api/login`,data)
+    .then(function (response) {
+      console.log(response)
+      manageUsuario(response);
+    })
+    .catch(function (error) {
+      setDisplay(true);
+      console.log(error.message);
+    });
   };
   return (
     <Grid container component="main" className={classes.root}>
@@ -133,30 +116,24 @@ export default function LogIn() {
           </Typography>
           <Formik
                 initialValues={{
-                    usuario: '',
+                    email: '',
                     contraseña: '',
                 }}
                 validationSchema={Yup.object().shape({
-                    usuario: Yup.string()
+                    email: Yup.string()
                         .required('El campo es obligatorio (*)'),
                     contraseña: Yup.string()
                         .required('El campo es obligatorio (*)'),
                 })}
                 onSubmit={fields => {
-                handleSignIn(fields.usuario, fields.contraseña)
-                const user1={
-                  usuario:"proveedor",
-                  nombre:"Ricardo",
-                  apellido:"Manuel",
-                  contraseña:"123456",
-              }
+                handleSignIn(fields.email, fields.contraseña)
               }}
                 render={({ errors, status, touched, handleChange}) => (
                     <Form>
                       <div className={classes.inputForm}>
                         <div className="form-group">
-                            <Field name="usuario" type="text"  autoComplete="off" placeholder="Nombre de usuario" className={'form-control' + (errors.usuario && touched.usuario ? ' is-invalid' : '')} />
-                            <ErrorMessage name="usuario" component="div" className="invalid-feedback" />
+                            <Field name="email" type="text"  autoComplete="off" placeholder="Email" className={'form-control' + (errors.email && touched.email ? ' is-invalid' : '')} />
+                            <ErrorMessage name="email" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
                             <Field name="contraseña" type="password"  autoComplete="off" placeholder="Contraseña"className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
@@ -165,7 +142,7 @@ export default function LogIn() {
                       </div>
                         <div className="form-group">
                         {display && (
-                            <Alert severity="error">El usuario o la contraseña son incorrectos.</Alert>)}
+                            <Alert severity="error">El email o la contraseña son incorrectos.</Alert>)}
                             <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
                             <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/Productos',})} className="btn btn-primary mt-3 ml-2 offset-0">CANCELAR</button>
                         </div>

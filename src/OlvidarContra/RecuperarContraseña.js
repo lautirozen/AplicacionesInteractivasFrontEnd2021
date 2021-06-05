@@ -14,6 +14,8 @@ import Logo from "./../components/Assets/Logo.png";
 import { useHistory} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import { Button} from 'react-bootstrap';
+import axios from 'axios';
+
 function Copyright() {
   return (
     <Typography variant="body2" align="center" style={{color:"black"}}>
@@ -71,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
  }
 }));
 
-export default function RecuperarContraseña() {
+export default function RecuperarContraseña(props) {
   const classes = useStyles();
   const history= useHistory();
   const [show, setShow] = useState(false);
@@ -84,21 +86,24 @@ export default function RecuperarContraseña() {
   }
   const handleSignIn = (contraseña) => {
     const user={
-        usuario:"admin",
-        nombre:"Lautaro",
-        apellido:"Rozen",
-        contraseña:"123456",
-        rol:"administrador",
-        email:"lautirozen@gmail.com",
-        pregunta:"Auto",
-        respuesta:"astra",
+        usuario:props.location.state.usuario,
+        nombre:props.location.state.nombre,
+        apellido:props.location.state.apellido,
+        contraseña:contraseña,
+        rol:props.location.state.rol,
+        email:props.location.state.email,
+        pregunta:props.location.state.pregunta,
+        respuesta:props.location.state.respuesta,
     }
-      if(contraseña===user.contraseña){
-        setDisplay(true);
-      }else{
-        setDisplay(false);
-        setShow(true);
-      }   
+    axios.post(`https://aplicaciones-interactivas-2021.herokuapp.com/api/user/update/password`,user)
+    .then(function (response) {
+      setDisplay(false);
+      setShow(true);
+    })
+    .catch(function (error) {
+      setDisplay(true);
+      console.log(error.message);
+    }); 
   };
   return (
     <Grid container component="main" className={classes.root}>

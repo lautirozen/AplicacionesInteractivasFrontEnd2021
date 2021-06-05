@@ -70,21 +70,12 @@ const useStyles = makeStyles((theme) => ({
  }
 }));
 
-export default function OlvidarseContraSegundo() {
+export default function OlvidarseContraSegundo(props) {
   const classes = useStyles();
   const history= useHistory();
   const [display, setDisplay]=useState(false);
   const handleSignIn = (pregunta, respuesta) => {
-    const user={
-        usuario:"admin",
-        nombre:"Lautaro",
-        apellido:"Rozen",
-        contraseña:"123456",
-        rol:"administrador",
-        email:"lautirozen@gmail.com",
-        pregunta:"Auto",
-        respuesta:"astra",
-    }
+    const user=props.location.state[0]
       if(pregunta!==user.pregunta || respuesta!==user.respuesta){
         setDisplay(true);
       }else{
@@ -95,8 +86,9 @@ export default function OlvidarseContraSegundo() {
           console.log(respuesta)
         history.push({
             pathname: '/RecuperarContraseña',
+            state: user
           })
-      }   
+      }
   };
   return (
     <Grid container component="main" className={classes.root}>

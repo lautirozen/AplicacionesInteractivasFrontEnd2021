@@ -13,6 +13,7 @@ import Background from "./Assets/cocinaa.jpg";
 import { Alert } from '@material-ui/lab';
 import Logo from "./../components/Assets/Logo.png";
 import { useHistory} from "react-router-dom";
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -87,15 +88,33 @@ export default function Registrarse() {
     const handleShow = () => setShow(true);
   const Cancel=()=>{
       history.push({
-          pathname: '/',
+          pathname: '/Login',
         })
   }
-  const handleRegister = (nombre_usuario, clave, email, pregunta,respuesta) => {
-    if(nombre_usuario==="" || clave==="" || email==="" || pregunta==="" || respuesta===""){
+  const handleRegister = (nombre_usuario, clave, nombre, apellido, email, pregunta,respuesta) => {
+    if(nombre_usuario==="" || clave===""  || nombre==="" || apellido==="" || email==="" || pregunta==="" || respuesta===""){
         setDisplay(true);
     }else{
-      setDisplay(false);
-      setShow(true);
+      const usuario={
+        usuario: nombre_usuario,
+        rol: "usuario",
+        nombre: nombre,
+        apellido: apellido,
+        email: email,
+        contraseña: clave,
+        pregunta: pregunta,
+        respuesta: respuesta,
+      }
+      axios.post(`https://aplicaciones-interactivas-2021.herokuapp.com/api/registration`,usuario)
+        .then(function (response) {
+          //console.log(response)
+          setDisplay(false);
+          setShow(true);
+        })
+        .catch(function (error) {
+          setDisplay(true);
+          console.log(error.message);
+        });
     }
   };
   return (
@@ -148,7 +167,7 @@ export default function Registrarse() {
                 })}
                 onSubmit={fields => {
                   fields.respuesta = fields.respuesta.toLowerCase().trim();
-                  handleRegister(fields.usuario, fields.contraseña,fields.email, fields.pregunta, fields.respuesta)
+                  handleRegister(fields.usuario, fields.contraseña, fields.nombre, fields.apellido,fields.email, fields.pregunta, fields.respuesta)
               }}
                 render={({ errors, status, touched, handleChange}) => (
                     <Form>

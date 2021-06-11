@@ -81,6 +81,9 @@ const ModificarProducto  = (props) => {
             }
         };
     const Number = /^[0-9]+$/;
+    const CustomInputComponent = (props) => (
+        <textarea className="form-control" cols={5} rows={5} type="text" autoComplete="off" {...props} />
+    );
     const classes = useStyles(); 
     return(
         <div className={classes.Addproduct}>
@@ -153,7 +156,7 @@ const ModificarProducto  = (props) => {
                         </div>
                         <div className="form-group" class="text-left  mb-3 mt-3">
                             <label htmlFor="categoria">Descripción</label>
-                            <Field name="descripcion" type="text" autoComplete="off" placeholder="Descripcion" className={'form-control' + (errors.descripcion && touched.descripcion ? ' is-invalid' : '')} />
+                            <Field name="descripcion" as={CustomInputComponent} autoComplete="off" placeholder="Descripcion" className={'form-control' + (errors.descripcion && touched.descripcion ? ' is-invalid' : '')} />
                             <ErrorMessage name="descripcion" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group" class="text-left  mb-3 mt-3">

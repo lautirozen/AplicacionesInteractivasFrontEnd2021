@@ -74,6 +74,9 @@ const AñadirProducto  = () => {
               setImgData(URL.createObjectURL(e.target.files[0]))
             }
         };
+    const CustomInputComponent = (props) => (
+            <textarea className="form-control" cols={5} rows={5} type="text" autoComplete="off" {...props} />
+        );
     const Number = /^[0-9]+$/;
     const classes = useStyles(); 
     return (
@@ -124,7 +127,7 @@ const AñadirProducto  = () => {
                             <Form>
                       <div className={classes.inputForm}>
                         <div className="form-group">
-                            <Field name="titulo" type="text"  autoComplete="off" placeholder="Titulo del producto" className={'form-control' + (errors.titulo && touched.titulo ? ' is-invalid' : '')} />
+                            <Field name="titulo" type="text" autoComplete="off" placeholder="Titulo del producto" className={'form-control' + (errors.titulo && touched.titulo ? ' is-invalid' : '')} />
                             <ErrorMessage name="titulo" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
@@ -146,7 +149,7 @@ const AñadirProducto  = () => {
                             <ErrorMessage name="categoria" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">
-                            <Field name="descripcion" type="text" autoComplete="off" placeholder="Descripcion" className={'form-control' + (errors.descripcion && touched.descripcion ? ' is-invalid' : '')} />
+                            <Field name="descripcion" as={CustomInputComponent} placeholder="Descripcion" className={'form-control' + (errors.descripcion && touched.descripcion ? ' is-invalid' : '')}/>
                             <ErrorMessage name="descripcion" component="div" className="invalid-feedback" />
                         </div>
                         <div className="form-group">

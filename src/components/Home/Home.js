@@ -1,8 +1,8 @@
 import React from "react";
-import Navigation from '../components/Navbar';
-import NavigationLog from '../components/Navbarlog';
+import Navigation from '../Navbar';
+import NavigationLog from '../Navbarlog';
 import { useHistory} from "react-router-dom";
-import Footer from '../components/Footer';
+import Footer from '../Footer';
 import Carousel from 'react-bootstrap/Carousel';
 import fotoC from "./Assets/imagen6.jpg";
 import fotoB from "./Assets/home1.jpg";

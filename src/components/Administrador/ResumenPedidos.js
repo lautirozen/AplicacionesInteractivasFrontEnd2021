@@ -14,8 +14,9 @@ import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import _ from "lodash";
-import Navigationlog from "../components/Navbarlog";
-import Footer from "../components/Footer"
+import Navigationlog from "../NavbarAdmin";
+import Footer from "../Footer"
+import {PedidosAdmin} from "../PedidosAdmin";
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
@@ -39,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 function Row(props) {
-  const[pedidos]=useState(JSON.parse(localStorage.getItem('pedido')) || [])
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
@@ -52,10 +52,11 @@ function Row(props) {
             </IconButton>
             </TableCell>
             <TableCell component="th" scope="row">
-            {row.nroPedido}
+            {row.nropedido}
             </TableCell>
+            <TableCell align="left">{row.nombre_persona} {row.apellido_persona}</TableCell>
             <TableCell align="left">{row.fecha}</TableCell>
-            <TableCell align="left">$ {row.preciototal}</TableCell>
+            <TableCell align="left">$ {(row.preciototal).toFixed(2)}</TableCell>
             <TableCell align="left">{row.direccion}</TableCell>
         </TableRow>
         <TableRow>
@@ -74,8 +75,8 @@ function Row(props) {
                         <TableCell align="left">Precio ($)</TableCell>
                     </TableRow>
                     </TableHead>
-                    {pedidos.length!==0 ? (<TableBody>
-                    {(pedidos.productos).map( (value) => ( 
+                    {row.length!==0 ? (<TableBody>
+                    {(row.productos).map( (value) => ( 
                         <TableRow key={value.id}>
                         <TableCell component="th" scope="row">
                         <img src={value.image}  width="30px" class="img-fluid" alt="Responsive image" />
@@ -83,7 +84,7 @@ function Row(props) {
                         <TableCell align="left">{value.titulo}</TableCell>
                         <TableCell align="center">{value.cantidad}</TableCell>
                         <TableCell align="left">
-                        $ {value.ptotal}
+                        $ {(value.ptotal).toFixed(2)}
                         </TableCell>
                         </TableRow>))}
                     </TableBody>) : console.log("No")}
@@ -97,13 +98,13 @@ function Row(props) {
 }
 
 export default function CollapsibleTable() {
-    const [rows] = useState(JSON.parse(localStorage.getItem('pedido')) || [])
+    const [rows] = useState(PedidosAdmin);
     const classes = useStyles();
   return (
     <div className={classes.pedido}>
     <Navigationlog />
     <div className={classes.titulo}>
-        <h1>Mis Pedidos</h1>
+        <h1>Resumen Pedidos</h1>
     </div>
     <TableContainer style={{backgroundColor:"#F2EFEB"}} component={Paper}>
       <Table aria-label="collapsible table">
@@ -111,13 +112,14 @@ export default function CollapsibleTable() {
           <TableRow>
             <TableCell />
             <TableCell>Número de pedido</TableCell>
+            <TableCell>Pedido por</TableCell>
             <TableCell align="left">Fecha</TableCell>
             <TableCell align="left">Precio total ($)</TableCell>
             <TableCell align="left">Dirreción</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {[rows].map((row) => (
+          {rows.map((row) => (
             <Row key={row.nropedido} row={row} />
           ))}
         </TableBody>

@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router,Route, useHistory, Switch} from "react-router-dom";
-import Nosotros from "./Nosotros/Nosotros";
-import Productos from "./Productos/Productos";
-import Login from "./Login/Login";
-import Registrarse from "./Registrarse/Registrarse";
-import OlvideContraseña from "./OlvidarContra/OlvidarseContra";
-import OlvidarseContraseña from "./OlvidarContra/OlvidarseContraSegundo";
-import RecuperarContraseña from "./OlvidarContra/RecuperarContraseña";
-import Home from "./Home/Home";
-import DetalleProducto from "./Productos/DetalleProducto";
-import Dirrecion from "./Cart/Direccion";
-import Cart from "./Cart/Cart";
-import Resumen from "./Cart/Resumen";
-import Pedido from "./Pedido/Pedido";
-import HomeAdmin from "./Administrador/HomeAdmin";
-import AñadirProducto from "./Administrador/AñadirProducto";
-import BuscarModificarProducto from "./Administrador/BuscarModificarProducto";
-import ModificarProducto from "./Administrador/ModificarProducto";
-import DeshabilitarProducto from "./Administrador/DeshabilitarProducto";
-import ResumenPedidos from "./Administrador/ResumenPedidos";
+import Nosotros from "./components/Nosotros/Nosotros";
+import Productos from "./components/Productos/Productos";
+import Login from "./components/Login/Login";
+import Registrarse from "./components/Registrarse/Registrarse";
+import OlvideContraseña from "./components/OlvidarContra/OlvidarseContra";
+import OlvidarseContraseña from "./components/OlvidarContra/OlvidarseContraSegundo";
+import RecuperarContraseña from "./components/OlvidarContra/RecuperarContraseña";
+import Home from "./components/Home/Home";
+import DetalleProducto from "./components/Productos/DetalleProducto";
+import Dirrecion from "./components/Cart/Direccion";
+import Cart from "./components/Cart/Cart";
+import Resumen from "./components/Cart/Resumen";
+import Pedido from "./components/Pedido/Pedido";
+import HomeAdmin from "./components/Administrador/HomeAdmin";
+import AñadirProducto from "./components/Administrador/AñadirProducto";
+import BuscarModificarProducto from "./components/Administrador/BuscarModificarProducto";
+import ModificarProducto from "./components/Administrador/ModificarProducto";
+import DeshabilitarProducto from "./components/Administrador/DeshabilitarProducto";
+import ResumenPedidos from "./components/Administrador/ResumenPedidos";
 export default class Routes extends Component {
     render() {
         console.log("Redirigiendo")

@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from "react";
 import { useHistory} from "react-router-dom";
-import Footer from '../components/Footer';
+import Footer from '../Footer';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -8,24 +8,24 @@ import Modal from 'react-bootstrap/Modal';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles/';
 import CardMedia from '@material-ui/core/CardMedia';
-import Logo from "../components/Assets/Logo.png";
-import Stanley from "../components/Assets/Stanley.jpg";
+import Logo from "./../Assets/Logo.png";
+import Stanley from "./../Assets/Stanley.jpg";
 import { Alert } from '@material-ui/lab';
-import Bialetti from "../components/Assets/Bialetti.png";
+import Bialetti from "./../Assets/Bialetti.png";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import Badge from '@material-ui/core/Badge';
-import KitchenAid from "../components/Assets/KitchenAid.jpg";
-import Mica from "../components/Assets/mica.jpg";
-import Hudson from "../components/Assets/Hudson.jpg";
-import Nadir from "../components/Assets/nadir.jpg";
-import Park from "../components/Assets/park.PNG";
-import Porcelana from "../components/Assets/porcelana-tsuji.jpg";
-import Tomorrows from "../components/Assets/tomorrow.jpg"
-import Tramontina from "../components/Assets/tramontina.png";
-import Libbey from "../components/Assets/libbey.svg";
+import KitchenAid from "./../Assets/KitchenAid.jpg";
+import Mica from "./../Assets/mica.jpg";
+import Hudson from "./../Assets/Hudson.jpg";
+import Nadir from "./../Assets/nadir.jpg";
+import Park from "./../Assets/park.PNG";
+import Porcelana from "./../Assets/porcelana-tsuji.jpg";
+import Tomorrows from "./../Assets/tomorrow.jpg"
+import Tramontina from "./../Assets/tramontina.png";
+import Libbey from "./../Assets/libbey.svg";
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Pyrex from "../components/Assets/pyrex.svg";
+import Pyrex from "./../Assets/pyrex.svg";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { products } from './products';
  function Productos (props){  

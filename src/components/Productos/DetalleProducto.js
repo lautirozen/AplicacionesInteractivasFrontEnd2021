@@ -1,8 +1,8 @@
 import React, { useState} from "react";
 import { useParams } from "react-router-dom";
-import Navigation from '../components/Navbar';
-import NavigationLog from '../components/Navbarlog';
-import Footer from '../components/Footer';
+import Navigation from '../Navbar';
+import NavigationLog from '../Navbarlog';
+import Footer from '../Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';

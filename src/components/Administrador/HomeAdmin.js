@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory} from "react-router-dom";
 import CardActionArea from '@material-ui/core/CardActionArea';
-import NavigationLog from '../components/NavbarAdmin';
-import { categorias } from '../components/CategoriasAdmin';
+import NavigationLog from '../NavbarAdmin';
+import { categorias } from '../CategoriasAdmin';
 import { makeStyles } from "@material-ui/core/styles";
-import Footer from '../components/Footer';
+import Footer from '../Footer';
 function HomeAdmin(){
   const history= useHistory();
   const useStyles = makeStyles((theme) => ({

@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Background from "./Assets/RecuperarA.jpg";
 import { Alert } from '@material-ui/lab';
-import Logo from "./../components/Assets/Logo.png";
+import Logo from "./../Assets/Logo.png";
 import { useHistory} from "react-router-dom";
 
 function Copyright() {

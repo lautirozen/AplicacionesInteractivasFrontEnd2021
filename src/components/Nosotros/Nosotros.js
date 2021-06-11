@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navigation from '../components/Navbar';
-import NavigationLog from '../components/Navbarlog';
+import Navigation from '../Navbar';
+import NavigationLog from '../Navbarlog';
 import { makeStyles } from '@material-ui/core/styles/';
 import Cocina from "./Assets/Home.jpg";
 import Carousel from 'react-bootstrap/Carousel';
@@ -8,7 +8,7 @@ import Cocinaa from "./Assets/Cocina1.jpg";
 import Cocinaaa from "./Assets/Cocina2.jpg";
 import Cocinaaaa from "./Assets/Cocina4.jpg";
 import Cocinas from "./Assets/Cocina5.jpg";
-import Footer from '../components/Footer';
+import Footer from '../Footer';
 const Home = () => {
     var user =JSON.parse(localStorage.getItem('user'));
     const useStyles = makeStyles(() => ({

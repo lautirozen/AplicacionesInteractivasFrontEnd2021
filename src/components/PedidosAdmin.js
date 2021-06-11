@@ -1,17 +1,17 @@
-import cafeterabialetti from "../Productos/Assets/cafeterabialetti.jpg";
-import cafeterabialetti6 from "../Productos/Assets/cafeterabialetti6.jpg";
-import cafeterabialettir from "../Productos/Assets/cafeterabialettir.jpg";
-import hudsonsarten from "../Productos/Assets/sarten-hudson.jpg";
-import cacerolahudson from "../Productos/Assets/cacehudson.webp";
-import moldehudson from "../Productos/Assets/moldehudson.jpg";
-import utenhudson from "../Productos/Assets/utenhudson.jpg";
-import batidorakit from "../Productos/Assets/batidorakit.jpg";
-import cafkita from "../Productos/Assets/cafetera-kitchen.jpg";
-import mantelmic from "../Productos/Assets/mantelmic.jpg";
-import mantelnatmic from "../Productos/Assets/mantelnatmic.jpg";
-import mantelindivmica from "../Productos/Assets/mantelindvmic.jpg";
-import termostanley from "../Productos/Assets/termostan.jpg";
-import matestanley from "../Productos/Assets/Mate-Verde.jpg";
+import cafeterabialetti from "./Productos/Assets/cafeterabialetti.jpg";
+import cafeterabialetti6 from "./Productos/Assets/cafeterabialetti6.jpg";
+import cafeterabialettir from "./Productos/Assets/cafeterabialettir.jpg";
+import hudsonsarten from "./Productos/Assets/sarten-hudson.jpg";
+import cacerolahudson from "./Productos/Assets/cacehudson.webp";
+import moldehudson from "./Productos/Assets/moldehudson.jpg";
+import utenhudson from "./Productos/Assets/utenhudson.jpg";
+import batidorakit from "./Productos/Assets/batidorakit.jpg";
+import cafkita from "./Productos/Assets/cafetera-kitchen.jpg";
+import mantelmic from "./Productos/Assets/mantelmic.jpg";
+import mantelnatmic from "./Productos/Assets/mantelnatmic.jpg";
+import mantelindivmica from "./Productos/Assets/mantelindvmic.jpg";
+import termostanley from "./Productos/Assets/termostan.jpg";
+import matestanley from "./Productos/Assets/Mate-Verde.jpg";
 export const PedidosAdmin = [
 {
     id:444444,

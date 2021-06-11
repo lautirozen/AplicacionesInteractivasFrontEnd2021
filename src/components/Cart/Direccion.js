@@ -1,11 +1,11 @@
 import React, {useState } from 'react';
-import Navigation from '../components/Navbar';
-import NavigationLog from '../components/NavCart';
+import Navigation from '../Navbar';
+import NavigationLog from '../NavCart';
 import { Card} from 'react-bootstrap';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { makeStyles } from '@material-ui/core/styles';
-import Footer from '../components/Footer';
+import Footer from '../Footer';
 import { useHistory} from "react-router-dom";
 
 

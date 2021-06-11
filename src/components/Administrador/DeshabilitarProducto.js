@@ -1,17 +1,20 @@
 import React, { useState, useEffect} from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import NavigationAdmin from '../components/NavbarAdmin';
-import Footer from '../components/Footer';
+import NavigationAdmin from '../NavbarAdmin';
+import Footer from '../Footer';
 import {Card} from 'react-bootstrap';
 import { products } from '../Productos/products';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import EditIcon from '@material-ui/icons/Edit';
 import { useHistory} from "react-router-dom";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import Modal from 'react-bootstrap/Modal';
+import {Button} from 'react-bootstrap';
+import { Alert } from '@material-ui/lab';
 
-const BuscarModificarProducto  = () => { 
+const DeshabilitarProducto  = () => { 
     const useStyles=makeStyles((theme) => ({
         container: {
           display: 'flex',
@@ -54,6 +57,8 @@ const BuscarModificarProducto  = () => {
     const [search, setSearch] = useState("");
     const classes = useStyles();
     const history= useHistory();
+    const [show, setShow]=useState(false);
+    const [mostrar, setMostrar]=useState(false);
     const onSearch = (buscar) =>{
         console.log(buscar)
         setSearch(buscar)
@@ -66,17 +71,28 @@ const BuscarModificarProducto  = () => {
           ))
         ))
     },[search,products]);
-    const redirectModify = (producto) =>{
-        history.push({pathname: `/ModificarProducto/${producto.titulo}`, state: producto})
+    const eliminate = () =>{
+       setMostrar(true)
       }
+    const handlecerrar = () =>{
+        setMostrar(false);
+    }
+    const handledeshabilitar = () =>{
+        setMostrar(false);
+        setShow(true);
+    }
+    const handleclose = () =>{
+        setShow(false);
+        history.push("/HomeAdmin")
+    }
     return (
     <div className={classes.ModificarProducto}>
         <NavigationAdmin />
         <div className={classes.modify}>
-            <h2 className={classes.title}>Modificar Producto</h2>
+            <h2 className={classes.title}>Deshabilitar Producto</h2>
             <input
                 type="text"
-                placeholder="Buscar producto a modificar"
+                placeholder="Buscar producto a deshabilitar"
                 className={classes.input}
                 onChange={(e) =>{onSearch(e.target.value)}}
             />
@@ -100,8 +116,8 @@ const BuscarModificarProducto  = () => {
                                         </Typography>
                                     </CardContent>
                                     <div style={{borderTop: "2px solid #808080	", marginLeft: 5, marginRight: 5 }}></div>
-                                        <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-lg-3 mb-lg-3"  onClick={() => {redirectModify(product)}}>
-                                            <EditIcon /> Modificar
+                                        <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-lg-3 mb-lg-3"  onClick={() => {eliminate(product)}}>
+                                            <DeleteForeverIcon /> Deshabilitar
                                         </CardActionArea >
                                 </div>
                             </div>
@@ -125,8 +141,8 @@ const BuscarModificarProducto  = () => {
                                             </Typography>
                                         </CardContent>
                                         <div style={{borderTop: "2px solid #808080	", marginLeft: 5, marginRight: 5 }}></div>
-                                                <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-3 "  onClick={() => {redirectModify(product)}}>
-                                                    <EditIcon /> Modificar
+                                                <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-3 "  onClick={() => {eliminate(product)}}>
+                                                    <DeleteForeverIcon /> Deshabilitar
                                                 </CardActionArea >
                                         </div>
                                 </div>
@@ -135,10 +151,41 @@ const BuscarModificarProducto  = () => {
                 </div>
             </Card>
         </div>
+        <Modal size="lg" style={{maxWidth: '1600px'}} show={mostrar} onHide={handlecerrar} >
+            <Modal.Header closeButton>
+            <Modal.Title>¿Está seguro que desea deshabilitar el producto?</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Alert severity="warning">Al momento de deshabilitar un producto se deshabilitará la información asociada al mismo.</Alert>
+            </Modal.Body>
+            <Modal.Footer>
+            <div class="row">
+                <Button variant="secondary" onClick={handledeshabilitar}  style={{backgroundColor: "#401801"}}>
+                    Deshabilitar
+                </Button>
+                <Button variant="secondary" onClick={handlecerrar} style={{backgroundColor: "#401801", marginLeft:"0.5rem"}}>
+                    Cerrar
+                </Button>
+            </div>
+            </Modal.Footer>
+        </Modal>
+        <Modal size="lg" style={{maxWidth: '1600px'}} show={show} onHide={handleclose} >
+            <Modal.Header closeButton>
+            <Modal.Title>Producto deshabilitado</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Alert severity="success">El producto ha sido deshabilitado.</Alert>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleclose}  style={{backgroundColor: "#401801"}}>
+                    Cerrar
+                </Button>
+            </Modal.Footer>
+        </Modal>
         <div className={classes.footer}>
             <Footer />
         </div>
     </div>
     );
 }
-export default BuscarModificarProducto;
+export default DeshabilitarProducto;

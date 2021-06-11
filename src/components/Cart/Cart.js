@@ -1,12 +1,12 @@
 import React, {useState, useEffect}  from "react";
-import Navigation from '../components/Navbar';
-import NavigationLog from '../components/NavCart';
+import Navigation from '../Navbar';
+import NavigationLog from '../NavCart';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Footer from '../components/Footer';
+import Footer from '../Footer';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';

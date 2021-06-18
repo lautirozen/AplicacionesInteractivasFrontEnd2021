@@ -13,6 +13,7 @@ import { Alert } from '@material-ui/lab';
 import Logo from "./../Assets/Logo.png";
 import { useHistory} from "react-router-dom";
 import axios from 'axios';
+import urlWebServices from "../controller/webServices";
 
 function Copyright() {
   return (
@@ -80,7 +81,7 @@ export default function OlvidarseContraseña() {
         usuario:usuario,
         email:email
     }
-    axios.post(`https://aplicaciones-interactivas-2021.herokuapp.com/api/user/profile`,user)
+    axios.post(urlWebServices.forgotPass,user)
     .then(function (response) {
       setDisplay(false);
         history.push({

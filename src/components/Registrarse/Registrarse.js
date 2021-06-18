@@ -14,6 +14,7 @@ import { Alert } from '@material-ui/lab';
 import Logo from "./../Assets/Logo.png";
 import { useHistory} from "react-router-dom";
 import axios from 'axios';
+import urlWebServices from "../controller/webServices";
 
 function Copyright() {
   return (
@@ -105,7 +106,8 @@ export default function Registrarse() {
         pregunta: pregunta,
         respuesta: respuesta,
       }
-      axios.post(`https://aplicaciones-interactivas-2021.herokuapp.com/api/registration`,usuario)
+      console.log(urlWebServices.register)
+      axios.post(urlWebServices.register,usuario)
         .then(function (response) {
           //console.log(response)
           setDisplay(false);

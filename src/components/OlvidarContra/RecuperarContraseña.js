@@ -15,6 +15,7 @@ import { useHistory} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import { Button} from 'react-bootstrap';
 import axios from 'axios';
+import urlWebServices from "../controller/webServices";
 
 function Copyright() {
   return (
@@ -95,7 +96,7 @@ export default function RecuperarContraseña(props) {
         pregunta:props.location.state.pregunta,
         respuesta:props.location.state.respuesta,
     }
-    axios.post(`https://aplicaciones-interactivas-2021.herokuapp.com/api/user/update/password`,user)
+    axios.post(urlWebServices.updatePass,user)
     .then(function (response) {
       setDisplay(false);
       setShow(true);

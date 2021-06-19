@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import { useHistory} from "react-router-dom";
 import axios from 'axios';
+import urlWebServices from "../controller/webServices";
 
 const BuscarModificarProducto  = () => { 
     const useStyles=makeStyles((theme) => ({
@@ -66,7 +67,7 @@ const BuscarModificarProducto  = () => {
           setSearch(buscar)
     }
     useEffect(() => {
-        axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/todos',
+        axios.get(urlWebServices.allProducts,
             {
                 mode: "cors",
                 headers: {

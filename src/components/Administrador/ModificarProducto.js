@@ -9,6 +9,7 @@ import Modal from 'react-bootstrap/Modal';
 import Footer from '../Footer';
 import { useHistory} from "react-router-dom";
 import axios from 'axios';
+import urlWebServices from '../controller/webServices';
 
 const ModificarProducto  = (props) => { 
     const [productoModificar, setProductoModificar]=useState(props.location.state);
@@ -32,7 +33,7 @@ const ModificarProducto  = (props) => {
             form.append('image', imagen);
             form.set('cantidad', 1);
             form.set('ptotal', 0);
-            axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/actualizar',form,
+            axios.post(urlWebServices.updateProducts,form,
                 {
                     mode: "cors",
                     headers: {

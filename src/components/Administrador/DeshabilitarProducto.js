@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import NavigationAdmin from '../NavbarAdmin';
 import Footer from '../Footer';
 import {Card} from 'react-bootstrap';
-import { products } from '../Productos/products';
+//import { products } from '../Productos/products';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,6 +13,7 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import Modal from 'react-bootstrap/Modal';
 import {Button} from 'react-bootstrap';
 import { Alert } from '@material-ui/lab';
+import axios from 'axios';
 
 const DeshabilitarProducto  = () => { 
     const useStyles=makeStyles((theme) => ({
@@ -55,31 +56,69 @@ const DeshabilitarProducto  = () => {
       }));
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [search, setSearch] = useState("");
+    const [products, setProducts] = useState([]);
     const classes = useStyles();
     const history= useHistory();
     const [show, setShow]=useState(false);
     const [mostrar, setMostrar]=useState(false);
+    const [productoeli,setProductoeli]=useState("");
+    const [showerror, setShowerror]=useState(false);
     const onSearch = (buscar) =>{
-        console.log(buscar)
-        setSearch(buscar)
+        products.map((product) => (
+            setFilteredProducts(
+            products.filter((product) =>
+            product.titulo.toLowerCase().includes(buscar.toLowerCase())
+            ))
+          ))
+          setSearch(buscar)
     }
     useEffect(() => {
-        products.map((product) => (
-          setFilteredProducts(
-          products.filter((product) =>
-          product.titulo.toLowerCase().includes(search.toLowerCase())
-          ))
-        ))
-    },[search,products]);
-    const eliminate = () =>{
-       setMostrar(true)
+        axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/todos',
+            {
+                mode: "cors",
+                headers: {
+                    'x-access-token': JSON.parse(localStorage.getItem('token')),
+                    'Access-control-Allow-Origin': true,
+            },
+        })
+        .then(function (response) {
+            setProducts(response.data.data.docs);
+            })
+            .catch(function (error) {
+            console.log(error.message);
+            });
+    },[]);
+    const eliminate = (producto) =>{
+        setProductoeli(producto)
+        setMostrar(true)
       }
     const handlecerrar = () =>{
         setMostrar(false);
     }
+    const closeerror = () =>{
+        setShowerror(false);
+    }
     const handledeshabilitar = () =>{
         setMostrar(false);
-        setShow(true);
+        const productoid ={
+            id: productoeli._id
+        }
+        axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/deshabilitar', productoid,
+            {
+                mode: "cors",
+                headers: {
+                    'x-access-token': JSON.parse(localStorage.getItem('token')),
+                    'Access-control-Allow-Origin': true,
+            },
+        })
+        .then(function (response) {
+            setShowerror(false);
+            setShow(true);
+            })
+            .catch(function (error) {
+            console.log(error.message);
+            setShowerror(true);
+            });
     }
     const handleclose = () =>{
         setShow(false);
@@ -167,6 +206,18 @@ const DeshabilitarProducto  = () => {
                     Cerrar
                 </Button>
             </div>
+            </Modal.Footer>
+        </Modal>
+        <Modal size="lg" style={{maxWidth: '1600px'}} show={showerror} onHide={closeerror} >
+            <Modal.Header closeButton>
+            <Modal.Title>Error al deshabilitar el producto</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                    <Alert severity="error">Ha ocurrido un error al crear el producto.</Alert></Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={closeerror} style={{backgroundColor: "#401801", marginLeft:"0.5rem"}}>
+                    Cerrar
+                </Button>
             </Modal.Footer>
         </Modal>
         <Modal size="lg" style={{maxWidth: '1600px'}} show={show} onHide={handleclose} >

@@ -10,8 +10,8 @@ import Logo from "./Assets/Logo.png";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 
 const NavigationAdmin = () => {
-    const[user, setUser]=useState(JSON.parse(localStorage.getItem('nombre')));
-    const[usera, setUsera]=useState(JSON.parse(localStorage.getItem('apellido')));
+    const[user]=useState(JSON.parse(localStorage.getItem('nombre')));
+    const[usera]=useState(JSON.parse(localStorage.getItem('apellido')));
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

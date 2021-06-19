@@ -23,8 +23,8 @@ import Tramontina from "./Assets/tramontina.png";
 import Libbey from "./Assets/libbey.svg";
 import Pyrex from "./Assets/pyrex.svg";
 const Navigation = () => {
-    const[user, setUser]=useState(JSON.parse(localStorage.getItem('nombre')));
-    const[usera, setUsera]=useState(JSON.parse(localStorage.getItem('apellido')));
+    const[user]=useState(JSON.parse(localStorage.getItem('nombre')));
+    const[usera]=useState(JSON.parse(localStorage.getItem('apellido')));
     const[listItems]=useState(JSON.parse(localStorage.getItem('cartItems')) || []);
     const[pedidos]=useState(JSON.parse(localStorage.getItem('pedido')) || [])
 

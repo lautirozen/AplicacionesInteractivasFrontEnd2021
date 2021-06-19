@@ -3,13 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import NavigationAdmin from '../NavbarAdmin';
 import Footer from '../Footer';
 import {Card} from 'react-bootstrap';
-import { products } from '../Productos/products';
+//import { products } from '../Productos/products';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import { useHistory} from "react-router-dom";
+import axios from 'axios';
 
 const BuscarModificarProducto  = () => { 
     const useStyles=makeStyles((theme) => ({
@@ -51,21 +52,35 @@ const BuscarModificarProducto  = () => {
         },
       }));
     const [filteredProducts, setFilteredProducts] = useState([]);
+    const [products, setProducts] = useState([]);
     const [search, setSearch] = useState("");
     const classes = useStyles();
     const history= useHistory();
     const onSearch = (buscar) =>{
-        console.log(buscar)
-        setSearch(buscar)
+        products.map((product) => (
+            setFilteredProducts(
+            products.filter((product) =>
+            product.titulo.toLowerCase().includes(buscar.toLowerCase())
+            ))
+          ))
+          setSearch(buscar)
     }
     useEffect(() => {
-        products.map((product) => (
-          setFilteredProducts(
-          products.filter((product) =>
-          product.titulo.toLowerCase().includes(search.toLowerCase())
-          ))
-        ))
-    },[search,products]);
+        axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/todos',
+            {
+                mode: "cors",
+                headers: {
+                    'x-access-token': JSON.parse(localStorage.getItem('token')),
+                    'Access-control-Allow-Origin': true,
+            },
+        })
+        .then(function (response) {
+            setProducts(response.data.data.docs);
+            })
+            .catch(function (error) {
+            console.log(error.message);
+            });
+    },[]);
     const redirectModify = (producto) =>{
         history.push({pathname: `/ModificarProducto/${producto.titulo}`, state: producto})
       }
@@ -132,7 +147,7 @@ const BuscarModificarProducto  = () => {
                                 </div>
                             </div>
                         </div>): console.log("no")}
-                </div>
+                    </div>
             </Card>
         </div>
         <div className={classes.footer}>

@@ -8,16 +8,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from 'react-bootstrap/Modal';
 import Footer from '../Footer';
 import { useHistory} from "react-router-dom";
-
+import axios from 'axios';
 const AñadirProducto  = () => { 
 
     const [show,setShow]=useState(false);
     const [elementoAAgregar, setElementoAAgregar]=useState("");
     const history= useHistory();
     const[imagen,setImagen]=useState(null);
+    const [display,setDisplay]=useState(false);
     const [imgData, setImgData] = useState(null);
     const CrearArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock)=>{
-        const catalogo={
+        Stock=parseInt(Stock)
+        console.log(Stock)
+        /*const catalogo={
             titulo:Titulo,
             categoria:Categoria,
             precio:Precio,
@@ -26,9 +29,39 @@ const AñadirProducto  = () => {
             codigo:Codigo,
             stock:Stock,
             image:imgData,
-        }
-        setElementoAAgregar(catalogo)
-        setShow(true)
+            cantidad:1,
+            ptotal:0
+        }*/
+        console.log(imagen)
+        var form = new FormData();
+        form.set('titulo', Titulo);
+        form.set('categoria', Categoria);
+        form.set('precio', Precio);
+        form.set('marca', Marca);
+        form.set('descripcion', Descripcion);
+        form.set('codigo', Codigo);
+        form.set('stock', Stock);
+        form.append('image', imagen);
+        form.set('cantidad', 1);
+        form.set('ptotal', 0);
+        axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/crear',form,
+            {
+                mode: "cors",
+                headers: {
+                    'x-access-token': JSON.parse(localStorage.getItem('token')),
+                    'Access-control-Allow-Origin': true,
+                    'Accept':'application/form-data',
+            },
+        })
+        .then(function (response) {
+            console.log(response)
+            setElementoAAgregar(response.data.createdProducto);
+            setShow(true)
+            })
+            .catch(function (error) {
+            setDisplay(true);
+            console.log(error.message);
+            });
     }
 
     const useStyles = makeStyles((theme) => ({
@@ -106,7 +139,6 @@ const AñadirProducto  = () => {
                             marca: Yup.string()
                             .required('El campo es obligatorio (*)'),
                             precio: Yup.string()
-                            .matches(Number,'Ingrese únicamente números')
                             .required('El campo es obligatorio (*)'),
                             stock: Yup.string()
                             .matches(Number,'Ingrese únicamente números')
@@ -118,7 +150,6 @@ const AñadirProducto  = () => {
                             .required('El campo es obligatorio (*)'),
                             })}
                             onSubmit={fields => {
-                            console.log('holas sdasdafgds')
                             CrearArticulo(fields.titulo, fields.categoria, fields.precio, fields.marca, fields.descripcion, fields.codigo, fields.stock)
                             }}
                             render={({ errors, status, touched }) => (
@@ -195,6 +226,8 @@ const AñadirProducto  = () => {
                                 </div>
                             </div>
                         </div>
+                        {display && (
+                            <Alert severity="error">Ha ocurrido un error al crear el producto.</Alert>)}
                         <div className="form-group">
                             <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3">Añadir Producto</button>
                         </div>

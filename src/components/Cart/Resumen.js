@@ -14,6 +14,7 @@ import {Button} from 'react-bootstrap';
 import { Alert } from '@material-ui/lab';
 import moment from 'moment';
 import axios from 'axios';
+import urlWebServices from '../controller/webServices';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -91,7 +92,7 @@ export default function Resumen(props) {
       userId: userid,
     }
     console.log(pedido)
-    axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/pedido/crear',pedido,
+    axios.post(urlWebServices.createPedido,pedido,
                 {
                     mode: "cors",
                     headers: {
@@ -119,7 +120,7 @@ export default function Resumen(props) {
                   form.set('cloudinary_id', product.cloudinary_id);
                   form.set('cantidad', 1);
                   form.set('ptotal', 0);
-                  axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/actualizar',form,
+                  axios.post(urlWebServices.updateProducts,form,
                           {
                               mode: "cors",
                               headers: {

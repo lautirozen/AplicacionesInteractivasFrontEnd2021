@@ -30,6 +30,8 @@ import Pyrex from "./../Assets/pyrex.svg";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import axios from 'axios';
+import urlWebServices from "../controller/webServices";
+
  function Productos (props){  
   const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -161,7 +163,7 @@ const onSearch = (buscar) =>{
   useEffect(() => {
     setIsLoaded(true);
     window.scrollTo(0, 0);
-    axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/product/todos',
+    axios.get(urlWebServices.allUnloggedProducts,
     {
         mode: "cors",
         headers: {

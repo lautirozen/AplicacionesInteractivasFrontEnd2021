@@ -19,6 +19,8 @@ import Footer from "../Footer";
 import axios from 'axios';
 import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import urlWebServices from '../controller/webServices';
+
 const theme = createMuiTheme({
   palette: {
      secondary: {
@@ -110,7 +112,7 @@ export default function CollapsibleTable() {
   const [isLoaded, setIsLoaded]=useState(false);
   useEffect(() => {
         setIsLoaded(true);
-        axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/pedido/todos',
+        axios.get(urlWebServices.getAllPedido,
             {
                 mode: "cors",
                 headers: {

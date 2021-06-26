@@ -1,11 +1,12 @@
 import React, { useState, useEffect} from "react";
 import { useHistory} from "react-router-dom";
 import Footer from '../Footer';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button, Image } from 'react-bootstrap';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Modal from 'react-bootstrap/Modal';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import { makeStyles } from '@material-ui/core/styles/';
 import CardMedia from '@material-ui/core/CardMedia';
 import Logo from "./../Assets/Logo.png";
@@ -27,7 +28,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Pyrex from "./../Assets/pyrex.svg";
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { products } from './products';
+import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import axios from 'axios';
  function Productos (props){  
   const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -36,12 +38,20 @@ import { products } from './products';
     const [quantity, setQuantity]= useState(0);
     const[cartProducts]= useState([]);
     const[exito,setExito]=useState(false);
+    const [isLoaded, setIsLoaded]=useState(false);
     const[cantidad, setCantidad]=useState(JSON.parse(localStorage.getItem('quantity')));
     if(cantidad===null){
       setCantidad(0)
     }
     const[listItems]=useState(JSON.parse(localStorage.getItem('cartItems')))
     const handleShow = () => setShow(true);
+    const theme = createMuiTheme({
+      palette: {
+         secondary: {
+             main: "#401801"
+         }
+      }
+    })
     const useStyles = makeStyles((theme) => ({
     container: {
       display: 'flex',
@@ -64,6 +74,8 @@ import { products } from './products';
     },
     medias:{
       height:307,
+      width:280
+
     },
     title:{
       fontStyle:"italic", 
@@ -105,6 +117,7 @@ import { products } from './products';
   const[filteredProductsinfo, setFilteredProductsinfo]= useState([]);
   const [mostrar, setMostrar] = useState(false);
   const [mstock, setMstock]=useState(false);
+  const [products,setProducts]=useState([]);
   const sinstock = () =>{
     setMstock(false);
 }
@@ -134,50 +147,62 @@ import { products } from './products';
 const onSearch = (buscar) =>{
   console.log(buscar)
   setSearch(buscar)
+  products.map((product) => (
+    setFilteredProducts(
+    products.filter((product) =>
+    product.titulo.toLowerCase().includes(buscar.toLowerCase())
+    ))
+    ))
   setInfo(undefined)
   }
   const onClicksame = () =>{
     setInfo(undefined)
   }
   useEffect(() => {
-    if(info===undefined){
-      console.log("Esta es la info:",info)
-    products.map((product) => (
-      setFilteredProducts(
-      products.filter((product) =>
-      product.titulo.toLowerCase().includes(search.toLowerCase())
-      ))
-      ))
-    }
-    else{
-      console.log("Esta es la info:",info)
-      products.map((product) => (
-      setFilteredProductsinfo(
-        products.filter((product) =>
-        product.marca.toLowerCase().match(info.toLowerCase()) || product.categoria.toLowerCase().match(info.toLowerCase())
-        ))))
-  }
-  if(listItems!==null){
-    let i=0;
-    for (i===0; i<listItems.length; i++){
-      if(cartProducts.includes(listItems[i])){
-        console.log("Incluidooo")
-      }else{
-        cartProducts.push(listItems[i])
-        console.log("Longitud", cartProducts.length)
-        console.log("listaa",listItems[i])
-        setQuantity(cartProducts.length)
+    setIsLoaded(true);
+    window.scrollTo(0, 0);
+    axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/product/todos',
+    {
+        mode: "cors",
+        headers: {
+            'Access-control-Allow-Origin': true,
+    },
+  })
+  .then(function (response) {
+      console.log(response.data.data.docs)
+      setProducts(response.data.data.docs);
+      if(info!==undefined){
+        response.data.data.docs.map((product) => (
+          setFilteredProductsinfo(
+            response.data.data.docs.filter((product) =>
+            product.marca.toLowerCase().match(info.toLowerCase()) || product.categoria.toLowerCase().match(info.toLowerCase())
+            ))))
       }
+      setIsLoaded(false);
+    })
+    .catch(function (error) {
+    console.log(error.message);
+    });
+    if(listItems!==null){
+      let i=0;
+      for (i===0; i<listItems.length; i++){
+        if(cartProducts.includes(listItems[i])){
+          console.log("Incluidooo")
+        }else{
+          cartProducts.push(listItems[i])
+          console.log("Longitud", cartProducts.length)
+          console.log("listaa",listItems[i])
+          setQuantity(cartProducts.length)
+        }
+    }
   }
-}
-},[search,products]);
-    console.log(info)
-    console.log(search)
+},[]);
     const history= useHistory();
     const handleHistory = () => {
         history.push("/");
     }
     const addToCart = (producto) =>{
+      producto.ptotal=producto.ptotal.$numberDecimal
       if(producto.stock===0){
         setMstock(true)
       }else{
@@ -185,13 +210,16 @@ const onSearch = (buscar) =>{
         history.push("/Login")
       }else{
       if(cartProducts.length===0){
+        producto.ptotal=parseFloat(producto.precio)
         cartProducts.push(producto)
+        console.log("Longitud",cartProducts.length)
         setQuantity(cartProducts.length)
         setExito(true);
       }else{
-      if(cartProducts.some(product => product.id === producto.id)){
+      if(cartProducts.some(product => product._id === producto._id)){
         setMostrar(true)
       }else{
+      producto.ptotal=producto.precio
       cartProducts.push(producto)
       setQuantity(cartProducts.length)
       console.log(quantity+1)
@@ -204,9 +232,9 @@ const onSearch = (buscar) =>{
     }
     const redirectDetails = (producto) =>{
       if(cartProducts!==null){
-        if (cartProducts.some(product => product.id === producto.id)){
+        if (cartProducts.some(product => product._id === producto._id)){
           cartProducts.map((product) =>{
-          if(product.id === producto.id){
+          if(product._id === producto._id){
             history.push({pathname: `/productos/${product.titulo}`, state: product})
           }})
         }
@@ -624,17 +652,18 @@ const onSearch = (buscar) =>{
     }
       <div className={classes.title}>
           <h1>Productos</h1>
-        </div>            
+        </div>
+        {(isLoaded?
+        <MuiThemeProvider theme={theme}>
+            <LinearProgress color="secondary" />
+        </MuiThemeProvider>:           
         <div class="col-12 row">
                {(info===undefined && search==="")? 
                products.map((product) => (
                 <div class="col-lg-3 col-md-6 col-sm-11 ml-lg-7 mb-2 mt-5">
-                  <div class="card" key={product.id}>
+                  <div class="card" key={product._id}>
                       <div className={classes.cards}>
-                      <CardMedia
-                          className={classes.medias}
-                          image={product.image}
-                        />
+                      <CardMedia><Image src={product.image} className={classes.medias} style={{resizeMode:"contain"}}/></CardMedia>
                       <CardContent>
                         <Typography gutterBottom style={{textAlign:"left"}} variant="h5" component="h2">
                           <div style={{fontFamily:"Georgia, serif"}}>
@@ -660,12 +689,9 @@ const onSearch = (buscar) =>{
                 filteredProductsinfo.map((product) =>
                 <div class="col-lg-3 col-md-6 col-sm-11 ml-lg-7 mb-2">
                   <div className="products">
-                    <div class="card" key={product.id}>
+                    <div class="card" key={product._id}>
                     <div className={classes.cards}>
-                    <CardMedia
-                        className={classes.medias}
-                        image={product.image}
-                      />
+                    <CardMedia><Image src={product.image} className={classes.medias} style={{resizeMode:"contain"}}/></CardMedia>
                     <CardContent>
                       <Typography gutterBottom style={{textAlign:"left"}} variant="h5" component="h2">
                         <div style={{fontFamily:"Georgia, serif"}}>
@@ -692,12 +718,9 @@ const onSearch = (buscar) =>{
                     filteredProducts.map((product) => 
                       <div class="col-lg-3 col-md-6 col-sm-11 ml-lg-7 mb-2">
                       <div className="products">
-                        <div class="card" key={product.id}>
+                        <div class="card" key={product._id}>
                         <div className={classes.cards}>
-                        <CardMedia
-                            className={classes.medias}
-                            image={product.image}
-                          />
+                        <CardMedia><Image src={product.image} className={classes.medias} style={{resizeMode:"contain"}}/></CardMedia>
                       <CardContent>
                         <Typography gutterBottom style={{textAlign:"left"}}variant="h5" component="h2">
                           <div style={{fontFamily:"Georgia, serif"}}>
@@ -720,7 +743,7 @@ const onSearch = (buscar) =>{
                   </div>
                   </div>
                       </div>): console.log("no")}
-                      </div>
+                      </div>)}
             <Modal size="lg"  style={{maxWidth: '1600px'}} show={mostrar} onHide={handlecerrar} >
             <Modal.Header closeButton>
             <Modal.Title>Operación inválida</Modal.Title>

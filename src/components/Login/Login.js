@@ -14,6 +14,7 @@ import Logo from "./../Assets/Logo.png";
 import { useHistory} from "react-router-dom";
 import axios from 'axios';
 import urlWebServices from "../controller/webServices";
+import CircularProgress from '@material-ui/core/CircularProgress';
 function Copyright() {
   return (
     <Typography variant="body2" align="center" style={{color:"black"}}>
@@ -78,7 +79,8 @@ export default function LogIn() {
     localStorage.setItem('user', JSON.stringify(response.data.loginUser.user.usuario));//Guardo el usuario
     localStorage.setItem('nombre', JSON.stringify(response.data.loginUser.user.nombre));//Guardo el nombre de usuario
     localStorage.setItem('apellido', JSON.stringify(response.data.loginUser.user.apellido));//Guardo el apellido de usuario
-    localStorage.setItem('rol', JSON.stringify(response.data.loginUser.user.rol));//Guardo el rol de usuario
+    localStorage.setItem('rol', JSON.stringify(response.data.loginUser.user.rol));//Guardo el rol del usuario
+    localStorage.setItem('id', JSON.stringify(response.data.loginUser.user._id));//Guardo el id del usuario
     localStorage.setItem('token',JSON.stringify(response.data.loginUser.token));//Guardo el token*/
     if(response.data.loginUser.user.rol==="usuario"){
     history.push({

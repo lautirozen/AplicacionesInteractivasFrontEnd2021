@@ -21,35 +21,68 @@ const ModificarProducto  = (props) => {
     const ModificarArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock)=>{
         if(Categoria!== productoModificar.categoria || Precio !== productoModificar.precio || Marca !== productoModificar.marca || Descripcion !== productoModificar.descripcion || Codigo !== productoModificar.codigo || Stock !== productoModificar.stock || imgData !== productoModificar.image){
             setDisplay(false)
-            var form = new FormData();
-            form.set('titulo', Titulo);
-            form.set('categoria', Categoria);
-            form.set('precio', Precio);
-            form.set('marca', Marca);
-            form.set('descripcion', Descripcion);
-            form.set('codigo', Codigo);
-            form.set('stock', Stock);
-            form.append('image', imagen);
-            form.set('cantidad', 1);
-            form.set('ptotal', 0);
-            axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/actualizar',form,
-                {
-                    mode: "cors",
-                    headers: {
-                        'x-access-token': JSON.parse(localStorage.getItem('token')),
-                        'Access-control-Allow-Origin': true,
-                        'Accept':'application/form-data',
-                },
-            })
-            .then(function (response) {
-                console.log(response)
-                setElementoAAgregar(response.data.data);
-                setShow(true)
+            if(imagen !== null){
+                var form = new FormData();
+                form.set('titulo', Titulo);
+                form.set('categoria', Categoria);
+                form.set('precio', Precio);
+                form.set('marca', Marca);
+                form.set('descripcion', Descripcion);
+                form.set('codigo', Codigo);
+                form.set('stock', Stock);
+                form.append('image', imagen);
+                form.set('cantidad', 1);
+                form.set('ptotal', 0);
+                axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/actualizar',form,
+                    {
+                        mode: "cors",
+                        headers: {
+                            'x-access-token': JSON.parse(localStorage.getItem('token')),
+                            'Access-control-Allow-Origin': true,
+                            'Accept':'application/form-data',
+                    },
                 })
-                .catch(function (error) {
-                setDisplay(true);
-                console.log(error.message);
-                });
+                .then(function (response) {
+                    console.log(response)
+                    setElementoAAgregar(response.data.data);
+                    setShow(true)
+                    })
+                    .catch(function (error) {
+                    setDisplay(true);
+                    console.log(error.message);
+                    });
+            }else{
+                var form = new FormData();
+                form.set('titulo', Titulo);
+                form.set('categoria', Categoria);
+                form.set('precio', Precio);
+                form.set('marca', Marca);
+                form.set('descripcion', Descripcion);
+                form.set('codigo', Codigo);
+                form.set('stock', Stock);
+                form.set('image', productoModificar.image);
+                form.set('cloudinary_id', productoModificar.cloudinary_id);
+                form.set('cantidad', 1);
+                form.set('ptotal', 0);
+                axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/actualizar',form,
+                    {
+                        mode: "cors",
+                        headers: {
+                            'x-access-token': JSON.parse(localStorage.getItem('token')),
+                            'Access-control-Allow-Origin': true,
+                            'Accept':'application/form-data',
+                    },
+                })
+                .then(function (response) {
+                    console.log(response)
+                    setElementoAAgregar(response.data.data);
+                    setShow(true)
+                    })
+                    .catch(function (error) {
+                    setDisplay(true);
+                    console.log(error.message);
+                    });
+            }
         }else{
             setDisplay(true)
         }

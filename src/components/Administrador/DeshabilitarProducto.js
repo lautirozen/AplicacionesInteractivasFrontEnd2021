@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import NavigationAdmin from '../NavbarAdmin';
 import Footer from '../Footer';
-import {Card} from 'react-bootstrap';
+import {Card, Image} from 'react-bootstrap';
 //import { products } from '../Productos/products';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -14,8 +14,16 @@ import Modal from 'react-bootstrap/Modal';
 import {Button} from 'react-bootstrap';
 import { Alert } from '@material-ui/lab';
 import axios from 'axios';
-
+import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 const DeshabilitarProducto  = () => { 
+    const theme = createMuiTheme({
+        palette: {
+            secondary: {
+                main: "#401801"
+            }
+        }
+    })
     const useStyles=makeStyles((theme) => ({
         container: {
           display: 'flex',
@@ -39,6 +47,7 @@ const DeshabilitarProducto  = () => {
         },
         medias:{
             height:307,
+            width:280
         },
         cards:{
             padding:"2%",
@@ -63,6 +72,7 @@ const DeshabilitarProducto  = () => {
     const [mostrar, setMostrar]=useState(false);
     const [productoeli,setProductoeli]=useState("");
     const [showerror, setShowerror]=useState(false);
+    const [isLoaded, setIsLoaded]=useState(false);
     const onSearch = (buscar) =>{
         products.map((product) => (
             setFilteredProducts(
@@ -73,6 +83,7 @@ const DeshabilitarProducto  = () => {
           setSearch(buscar)
     }
     useEffect(() => {
+        setIsLoaded(true);
         axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/todos',
             {
                 mode: "cors",
@@ -83,9 +94,11 @@ const DeshabilitarProducto  = () => {
         })
         .then(function (response) {
             setProducts(response.data.data.docs);
+            setIsLoaded(false);
             })
             .catch(function (error) {
             console.log(error.message);
+            setIsLoaded(false);
             });
     },[]);
     const eliminate = (producto) =>{
@@ -135,6 +148,10 @@ const DeshabilitarProducto  = () => {
                 className={classes.input}
                 onChange={(e) =>{onSearch(e.target.value)}}
             />
+            {(isLoaded?
+            <MuiThemeProvider theme={theme}>
+                <LinearProgress color="secondary" />
+            </MuiThemeProvider>:
             <Card class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3" className={classes.cardTotal}>
                 <div class="col-12 row">
                     {(search==="")?
@@ -142,10 +159,7 @@ const DeshabilitarProducto  = () => {
                         <div class="col-lg-3 col-md-6 col-sm-11 ml-lg-7 mb-2 mt-5">
                             <div class="card" key={product.id}>
                                 <div className={classes.cards}>
-                                    <CardMedia
-                                        className={classes.medias}
-                                        image={product.image}
-                                        />
+                                <CardMedia><Image src={product.image} className={classes.medias} style={{resizeMode:"contain"}}/></CardMedia>
                                     <CardContent>
                                         <Typography gutterBottom style={{textAlign:"left"}} variant="h5" component="h2">
                                             <div style={{fontFamily:"Georgia, serif"}}>
@@ -167,10 +181,7 @@ const DeshabilitarProducto  = () => {
                             <div className="products">
                                 <div class="card" key={product.id}>
                                     <div className={classes.cards}>
-                                        <CardMedia
-                                            className={classes.medias}
-                                            image={product.image}
-                                        />
+                                    <CardMedia><Image src={product.image} className={classes.medias} style={{resizeMode:"contain"}}/></CardMedia>
                                         <CardContent>
                                             <Typography gutterBottom style={{textAlign:"left"}}variant="h5" component="h2">
                                             <div style={{fontFamily:"Georgia, serif"}}>
@@ -188,7 +199,7 @@ const DeshabilitarProducto  = () => {
                             </div>
                         </div>): console.log("no")}
                 </div>
-            </Card>
+            </Card>)}
         </div>
         <Modal size="lg" style={{maxWidth: '1600px'}} show={mostrar} onHide={handlecerrar} >
             <Modal.Header closeButton>

@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import NavigationAdmin from '../NavbarAdmin';
 import Footer from '../Footer';
-import {Card} from 'react-bootstrap';
+import {Card, Image} from 'react-bootstrap';
 //import { products } from '../Productos/products';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -11,8 +11,16 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import { useHistory} from "react-router-dom";
 import axios from 'axios';
-
+import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 const BuscarModificarProducto  = () => { 
+    const theme = createMuiTheme({
+        palette: {
+           secondary: {
+               main: "#401801"
+           }
+        }
+      })
     const useStyles=makeStyles((theme) => ({
         container: {
           display: 'flex',
@@ -36,6 +44,7 @@ const BuscarModificarProducto  = () => {
         },
         medias:{
             height:307,
+            width:280
         },
         cards:{
             padding:"2%",
@@ -56,6 +65,7 @@ const BuscarModificarProducto  = () => {
     const [search, setSearch] = useState("");
     const classes = useStyles();
     const history= useHistory();
+    const [isLoaded, setIsLoaded]=useState(false);
     const onSearch = (buscar) =>{
         products.map((product) => (
             setFilteredProducts(
@@ -66,6 +76,7 @@ const BuscarModificarProducto  = () => {
           setSearch(buscar)
     }
     useEffect(() => {
+        setIsLoaded(true);
         axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/todos',
             {
                 mode: "cors",
@@ -76,9 +87,11 @@ const BuscarModificarProducto  = () => {
         })
         .then(function (response) {
             setProducts(response.data.data.docs);
+            setIsLoaded(false);
             })
             .catch(function (error) {
             console.log(error.message);
+            setIsLoaded(false);
             });
     },[]);
     const redirectModify = (producto) =>{
@@ -95,6 +108,10 @@ const BuscarModificarProducto  = () => {
                 className={classes.input}
                 onChange={(e) =>{onSearch(e.target.value)}}
             />
+        {(isLoaded?
+            <MuiThemeProvider theme={theme}>
+                <LinearProgress color="secondary" />
+            </MuiThemeProvider>: 
             <Card class="col-sm-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3" className={classes.cardTotal}>
                 <div class="col-12 row">
                     {(search==="")?
@@ -102,10 +119,7 @@ const BuscarModificarProducto  = () => {
                         <div class="col-lg-3 col-md-6 col-sm-11 ml-lg-7 mb-2 mt-5">
                             <div class="card" key={product.id}>
                                 <div className={classes.cards}>
-                                    <CardMedia
-                                        className={classes.medias}
-                                        image={product.image}
-                                        />
+                                    <CardMedia><Image src={product.image} className={classes.medias} style={{resizeMode:"contain"}}/></CardMedia>
                                     <CardContent>
                                         <Typography gutterBottom style={{textAlign:"left"}} variant="h5" component="h2">
                                             <div style={{fontFamily:"Georgia, serif"}}>
@@ -127,10 +141,7 @@ const BuscarModificarProducto  = () => {
                             <div className="products">
                                 <div class="card" key={product.id}>
                                     <div className={classes.cards}>
-                                        <CardMedia
-                                            className={classes.medias}
-                                            image={product.image}
-                                        />
+                                        <CardMedia><Image src={product.image} className={classes.medias} style={{resizeMode:"contain"}}/></CardMedia>
                                         <CardContent>
                                             <Typography gutterBottom style={{textAlign:"left"}}variant="h5" component="h2">
                                             <div style={{fontFamily:"Georgia, serif"}}>
@@ -148,7 +159,7 @@ const BuscarModificarProducto  = () => {
                             </div>
                         </div>): console.log("no")}
                     </div>
-            </Card>
+            </Card>)}
         </div>
         <div className={classes.footer}>
             <Footer />

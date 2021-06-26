@@ -62,11 +62,12 @@ export default function Cart() {
     const history= useHistory();
     useEffect(() => {
       listItems.map((product) => (
+       product.ptotal=parseFloat(product.ptotal).toFixed(2),
         total.push(product.ptotal)
   ))
   var sum = 0;
     for(var i = 0; i < total.length; i++){
-        sum += parseInt(total[i])
+        sum += parseFloat(total[i])
     }
     setSumtotal(sum.toFixed(2))
     console.log(sumtotal)
@@ -75,18 +76,18 @@ export default function Cart() {
       console.log(total)
       console.log(event.target.value)
       if(listItems!==null){
-        if(listItems.some(product => product.id === producto.id)){
-          var objIndex = listItems.findIndex((product => product.id === producto.id))
+        if(listItems.some(product => product._id === producto._id)){
+          var objIndex = listItems.findIndex((product => product._id === producto._id))
           if(event.target.value > listItems[objIndex].cantidad){
             var cantidadvieja=listItems[objIndex].ptotal
             listItems[objIndex].cantidad = event.target.value
-            listItems[objIndex].ptotal=((listItems[objIndex].cantidad) * parseInt(listItems[objIndex].precio)).toFixed(2)
-            setSumtotal(((sumtotal-cantidadvieja) + parseInt(listItems[objIndex].ptotal)).toFixed(2))
+            listItems[objIndex].ptotal=((listItems[objIndex].cantidad) * parseFloat(listItems[objIndex].precio)).toFixed(2)
+            setSumtotal(((sumtotal-cantidadvieja) + parseFloat(listItems[objIndex].ptotal)).toFixed(2))
           }else{
             var cantidadvieja=listItems[objIndex].ptotal
             listItems[objIndex].cantidad = event.target.value
-            listItems[objIndex].ptotal=((listItems[objIndex].cantidad) * parseInt(listItems[objIndex].precio)).toFixed(2)
-            setSumtotal(((sumtotal-cantidadvieja) + parseInt(listItems[objIndex].ptotal)).toFixed(2))
+            listItems[objIndex].ptotal=((listItems[objIndex].cantidad) * parseFloat(listItems[objIndex].precio)).toFixed(2)
+            setSumtotal(((sumtotal-cantidadvieja) + parseFloat(listItems[objIndex].ptotal)).toFixed(2))
           }
         }
     }
@@ -95,9 +96,9 @@ export default function Cart() {
   const removeitem = (producto) => {
     if(listItems.length>1){
     listItems.map((product) => (
-          (product.id !== producto.id) ?
+          (product._id !== producto._id) ?
           newArray.push(product) : 
-          setSumtotal(((sumtotal- parseInt(product.ptotal))).toFixed(2))
+          setSumtotal(((sumtotal- parseFloat(product.ptotal))).toFixed(2))
     ))
     listItems.splice(0,listItems.length)
     console.log(listItems)
@@ -121,7 +122,7 @@ export default function Cart() {
     <div style={{visibility: "hidden"}}>
       {listItems.map((product) => (
       (product.ptotal===0)?
-        (product.ptotal=((product.cantidad) * parseInt(product.precio)).toFixed(2))
+        (product.ptotal=((product.cantidad) * parseFloat(product.precio)).toFixed(2))
         : console.log("no")
       ))}
     </div>
@@ -133,7 +134,7 @@ export default function Cart() {
       <List disablePadding>
         {listItems.map((product) => (
           <div class="row col-sm-12 col-md-10 mx-auto ">
-            <ListItem className={classes.listItem} key={product.id}>
+            <ListItem className={classes.listItem} key={product._id}>
                 <div class="row col-sm-6 col-md-6 ml-auto">
                   <div class="col-md-2 ">
                     <img src={product.image}  width="80px" class="img-fluid" alt="Responsive image" />
@@ -149,8 +150,8 @@ export default function Cart() {
                 <div class="col-md-3">
                   <FormControl className={classes.formControl}>
                     <Select
-                        key={product.id}
-                        id={product.id}
+                        key={product._id}
+                        id={product._id}
                         defaultValue={product.cantidad}
                         onChange={(e) => handleChange(product,e)}
                       >

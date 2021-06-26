@@ -9,11 +9,11 @@ import Button from '@material-ui/core/Button';
 import { Alert } from '@material-ui/lab';
 import Modal from 'react-bootstrap/Modal';
 import { useHistory} from "react-router-dom";
+import { number } from "yup";
 
 function DetalleProducto(props) {
     const {titulo}= useParams();
     const [product,setProduct]=useState(props.location.state)
-    console.log(product)
     var user =JSON.parse(localStorage.getItem('user'));
     const[listItems,setListItems]=useState(JSON.parse(localStorage.getItem('cartItems')) || []);
     const [numb,setNumb]=useState(product.cantidad);
@@ -86,8 +86,8 @@ function DetalleProducto(props) {
         var number=numb-1
         setNumb(number)
         if(listItems!==null){
-        if(listItems.some(product => product.id === producto.id)){
-          var objIndex = listItems.findIndex((product => product.id === producto.id))
+        if(listItems.some(product => product._id === producto._id)){
+          var objIndex = listItems.findIndex((product => product._id === producto._id))
           listItems[objIndex].cantidad = number
         }else{
           producto.cantidad= number
@@ -106,12 +106,12 @@ function DetalleProducto(props) {
         console.log(number)
         setNumb(number)
         if(listItems!==null){
-          if(listItems.some(product => product.id === producto.id)){
-            var objIndex = listItems.findIndex((product => product.id === producto.id))
+          if(listItems.some(product => product._id === producto._id)){
+            var objIndex = listItems.findIndex((product => product._id === producto._id))
             if(number === product.stock){
               listItems[objIndex].cantidad=number
             }else{
-              listItems[objIndex].cantidad = number+product.cantidad
+              listItems[objIndex].cantidad = number+producto.cantidad
             }
           }else{
             producto.cantidad= number
@@ -122,27 +122,34 @@ function DetalleProducto(props) {
       }
     }
     const addToCart = (producto) =>{
+      //producto.ptotal=producto.ptotal.$numberDecimal
       if(user===null){
         history.push("/Login")
       }else{
       if(producto.stock!==0){
         if(listItems!==null){
-          if(listItems.some(product => product.id === producto.id)){
+          if(listItems.some(product => product._id === producto._id)){
           listItems.map((product) =>
-          console.log(product))
+            (product._id === producto._id)?
+            product.ptotal=parseFloat(producto.precio*(numb)):console.log(null)
+          )
           }else{
+            producto.ptotal=parseFloat(producto.precio *  (producto.cantidad))
             listItems.push(producto)
             listItems.map((product) =>
             console.log(product))
           }
+        console.log("Longitud",listItems.length)
         localStorage.setItem('quantity', JSON.stringify(listItems.length));
         localStorage.setItem('cartItems', JSON.stringify(listItems));
         console.log(product.cantidad * parseInt(product.precio))
         setMostrar(true);
       }else{
+        producto.ptotal=parseFloat(producto.precio *  (producto.cantidad))
         listItems.push(producto)
         listItems.map((product) =>
         console.log(product))
+        console.log("Longitud",listItems.length)
         localStorage.setItem('quantity', JSON.stringify(listItems.length));
         localStorage.setItem('cartItems', JSON.stringify(listItems));
         console.log(product.cantidad * parseInt(product.precio))

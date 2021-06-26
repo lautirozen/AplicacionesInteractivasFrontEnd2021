@@ -13,6 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import {Button} from 'react-bootstrap';
 import { Alert } from '@material-ui/lab';
 import moment from 'moment';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -48,11 +49,14 @@ export default function Resumen(props) {
   const classes = useStyles();
   const [datosenvio]=useState(props.location.state);
   var user =JSON.parse(localStorage.getItem('user'));
+  const[formArray, setFormArray]=useState([]);
   const [nroPedido,setNroPedido]=useState(0);
   const history= useHistory();
   const[listItems]=useState(JSON.parse(localStorage.getItem('cartItems')) || []);
   const[unombre]=useState(JSON.parse(localStorage.getItem('nombre')));
   const[usera]=useState(JSON.parse(localStorage.getItem('apellido')));
+  const[userid]=useState(JSON.parse(localStorage.getItem('id')));
+  const [display,setDisplay]=useState(false);
   const [show,setShow] = useState(false);
   const handleClose = () =>{
     setShow(false);
@@ -60,25 +64,87 @@ export default function Resumen(props) {
     history.push({
         pathname: '/'})}
   const confirmar = () =>{
-    listItems.map((product) => (
-        product.stock=(product.stock - product.cantidad)
-    ))
-    var npedido=(Math.floor((Math.random() * (10000000) + 100)))
-    setNroPedido(npedido)
+    listItems.map((product) => {
+      const productoo={
+      titulo: product.titulo,
+      categoria: product.categoria,
+      precio: product.precio,
+      marca: product.marca,
+      descripcion: product.descripcion,
+      codigo: product.codigo,
+      stock: product.stock,
+      image: product.image,
+      cloudinary_id: product.cloudinary_id,
+      cantidad: product.cantidad,
+      ptotal: product.ptotal,
+      }
+      formArray.push(productoo)
+    })
+    console.log(formArray)
     const pedido = {
-      nroPedido:npedido,
-      fecha:(moment().format("DD/MM/YYYY")),
-      preciototal:datosenvio.totalprecio,
+      fecha:(moment().format("DD-MM-YYYY")),
+      precioTotal:parseFloat(datosenvio.totalprecio),
       direccion: (datosenvio.domicilio_calle + " " + datosenvio.domicilio_numero),
-      productos:listItems,
-      nombre_persona:unombre,
-      apellido_persona:usera,
+      productos:formArray,
+      nombre:unombre,
+      apellido:usera,
+      userId: userid,
     }
- 
     console.log(pedido)
-    localStorage.removeItem("pedido")
-    localStorage.setItem('pedido', JSON.stringify(pedido));
-    setShow(true)
+    axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/pedido/crear',pedido,
+                {
+                    mode: "cors",
+                    headers: {
+                        'x-access-token': JSON.parse(localStorage.getItem('token')),
+                        'Access-control-Allow-Origin': true,
+                        'Accept':'application/form-data',
+                },
+            })
+            .then(function (response) {
+                console.log(response)
+                setNroPedido(response.data.createdPedido._id)
+                listItems.map((product) => {
+                  console.log(product.cantidad)
+                  console.log(product.stock)
+                  product.stock=(product.stock - product.cantidad)
+                  var form = new FormData()
+                  form.set('titulo', product.titulo);
+                  form.set('categoria', product.categoria);
+                  form.set('precio', product.precio);
+                  form.set('marca', product.marca);
+                  form.set('descripcion', product.descripcion);
+                  form.set('codigo', product.codigo);
+                  form.set('stock', product.stock);
+                  form.set('image', product.image);
+                  form.set('cloudinary_id', product.cloudinary_id);
+                  form.set('cantidad', 1);
+                  form.set('ptotal', 0);
+                  axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/actualizar',form,
+                          {
+                              mode: "cors",
+                              headers: {
+                                  'x-access-token': JSON.parse(localStorage.getItem('token')),
+                                  'Access-control-Allow-Origin': true,
+                                  'Accept':'application/form-data',
+                          },
+                      })
+                      .then(function (response) {
+                          console.log(response)
+                          setDisplay(false);
+                          })
+                          .catch(function (error) {
+                          console.log(error.message);
+                          setDisplay(true);
+                          });
+              })
+                setDisplay(false);
+                localStorage.removeItem("pedido")
+                setShow(true)
+                })
+                .catch(function (error) {
+                setDisplay(true);
+                console.log(error.message);
+                });
   }  
   return (
     <div className={classes.resumen}>
@@ -140,6 +206,7 @@ export default function Resumen(props) {
                 </Grid>
               </div>
               <div class="col-md-3 ml-auto my-auto">
+              {display && ( <Alert severity="error">Ha ocurrido un error al realizar la compra.</Alert>)}
                 <button onClick={() => {history.push("/Carrito")}} className="btn btn-primary mr-2" style={{backgroundColor: "#401801", marginTop:"15px"}}>Volver</button>
                 <button onClick={confirmar} className="btn btn-primary" style={{backgroundColor: "#401801", marginTop:"15px"}}>Realizar compra</button>
               </div>
@@ -151,7 +218,7 @@ export default function Resumen(props) {
             <Modal.Title>Compra realizada</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Alert severity="success">La compra ha sido realizada con éxito. Su número de compra es {nroPedido}.</Alert>
+                <Alert severity="success">La compra ha sido realizada con éxito. Su código de compra es {nroPedido}.</Alert>
             </Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}  style={{backgroundColor: "#401801"}}>

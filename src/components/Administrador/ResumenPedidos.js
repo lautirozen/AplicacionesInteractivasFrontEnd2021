@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -15,8 +15,17 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import _ from "lodash";
 import Navigationlog from "../NavbarAdmin";
-import Footer from "../Footer"
-import {PedidosAdmin} from "../PedidosAdmin";
+import Footer from "../Footer";
+import axios from 'axios';
+import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+const theme = createMuiTheme({
+  palette: {
+     secondary: {
+         main: "#401801"
+     }
+  }
+})
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
@@ -52,11 +61,11 @@ function Row(props) {
             </IconButton>
             </TableCell>
             <TableCell component="th" scope="row">
-            {row.nropedido}
+            {row._id}
             </TableCell>
-            <TableCell align="left">{row.nombre_persona} {row.apellido_persona}</TableCell>
+            <TableCell align="left">{row.nombre} {row.apellido}</TableCell>
             <TableCell align="left">{row.fecha}</TableCell>
-            <TableCell align="left">$ {(row.preciototal).toFixed(2)}</TableCell>
+            <TableCell align="left">$ {(row.precioTotal.$numberDecimal)}</TableCell>
             <TableCell align="left">{row.direccion}</TableCell>
         </TableRow>
         <TableRow>
@@ -77,14 +86,14 @@ function Row(props) {
                     </TableHead>
                     {row.length!==0 ? (<TableBody>
                     {(row.productos).map( (value) => ( 
-                        <TableRow key={value.id}>
+                        <TableRow key={value._id}>
                         <TableCell component="th" scope="row">
                         <img src={value.image}  width="30px" class="img-fluid" alt="Responsive image" />
                         </TableCell>
                         <TableCell align="left">{value.titulo}</TableCell>
                         <TableCell align="center">{value.cantidad}</TableCell>
                         <TableCell align="left">
-                        $ {(value.ptotal).toFixed(2)}
+                        $ {(value.ptotal.$numberDecimal)}
                         </TableCell>
                         </TableRow>))}
                     </TableBody>) : console.log("No")}
@@ -96,8 +105,28 @@ function Row(props) {
         </React.Fragment>
   );
 }
-
 export default function CollapsibleTable() {
+  const [PedidosAdmin, setPedidosAdmin]=useState([]);
+  const [isLoaded, setIsLoaded]=useState(false);
+  useEffect(() => {
+        setIsLoaded(true);
+        axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/pedido/todos',
+            {
+                mode: "cors",
+                headers: {
+                    'x-access-token': JSON.parse(localStorage.getItem('token')),
+                    'Access-control-Allow-Origin': true,
+            },
+        })
+        .then(function (response) {
+            setPedidosAdmin(response.data.data.docs);
+            setIsLoaded(false);
+            })
+            .catch(function (error) {
+            console.log(error.message);
+            setIsLoaded(false);
+            });
+    },[]);
     const [rows] = useState(PedidosAdmin);
     const classes = useStyles();
   return (
@@ -106,6 +135,10 @@ export default function CollapsibleTable() {
     <div className={classes.titulo}>
         <h1>Resumen Pedidos</h1>
     </div>
+    {(isLoaded?
+        <MuiThemeProvider theme={theme}>
+            <LinearProgress color="secondary" />
+        </MuiThemeProvider>: 
     <TableContainer style={{backgroundColor:"#F2EFEB"}} component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -119,12 +152,12 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <Row key={row.nropedido} row={row} />
+          {PedidosAdmin.map((row) => (
+            <Row key={row.nroPedido} row={row} />
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer>)}
     <div className={classes.footer}>
       <Footer />
     </div>

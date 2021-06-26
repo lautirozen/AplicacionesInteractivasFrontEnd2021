@@ -13,6 +13,8 @@ import { useHistory} from "react-router-dom";
 import axios from 'axios';
 import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import urlWebServices from "../controller/webServices";
+
 const BuscarModificarProducto  = () => { 
     const theme = createMuiTheme({
         palette: {
@@ -77,7 +79,7 @@ const BuscarModificarProducto  = () => {
     }
     useEffect(() => {
         setIsLoaded(true);
-        axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/todos',
+        axios.get(urlWebServices.allProducts,
             {
                 mode: "cors",
                 headers: {

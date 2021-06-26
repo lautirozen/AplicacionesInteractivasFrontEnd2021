@@ -16,6 +16,8 @@ import { Alert } from '@material-ui/lab';
 import axios from 'axios';
 import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import urlWebServices from "../controller/webServices";
+
 const DeshabilitarProducto  = () => { 
     const theme = createMuiTheme({
         palette: {
@@ -84,7 +86,7 @@ const DeshabilitarProducto  = () => {
     }
     useEffect(() => {
         setIsLoaded(true);
-        axios.get('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/todos',
+        axios.get(urlWebServices.allProducts,
             {
                 mode: "cors",
                 headers: {
@@ -116,7 +118,7 @@ const DeshabilitarProducto  = () => {
         const productoid ={
             id: productoeli._id
         }
-        axios.post('https://aplicaciones-interactivas-2021.herokuapp.com/api/producto/deshabilitar', productoid,
+        axios.post(urlWebServices.disableProducts, productoid,
             {
                 mode: "cors",
                 headers: {

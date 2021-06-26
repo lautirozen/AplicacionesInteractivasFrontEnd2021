@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
@@ -15,7 +15,18 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import _ from "lodash";
 import Navigationlog from "../Navbarlog";
-import Footer from "../Footer"
+import Footer from "../Footer";
+import axios from 'axios';
+import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import urlWebServices from '../controller/webServices';
+const theme = createMuiTheme({
+  palette: {
+     secondary: {
+         main: "#401801"
+     }
+  }
+})
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
@@ -39,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
     }
   }));
 function Row(props) {
-  const[pedidos]=useState(JSON.parse(localStorage.getItem('pedido')) || [])
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
@@ -52,10 +62,10 @@ function Row(props) {
             </IconButton>
             </TableCell>
             <TableCell component="th" scope="row">
-            {row.nroPedido}
+            {row._id}
             </TableCell>
             <TableCell align="left">{row.fecha}</TableCell>
-            <TableCell align="left">$ {row.preciototal}</TableCell>
+            <TableCell align="left">$ {row.precioTotal.$numberDecimal}</TableCell>
             <TableCell align="left">{row.direccion}</TableCell>
         </TableRow>
         <TableRow>
@@ -74,16 +84,16 @@ function Row(props) {
                         <TableCell align="left">Precio ($)</TableCell>
                     </TableRow>
                     </TableHead>
-                    {pedidos.length!==0 ? (<TableBody>
-                    {(pedidos.productos).map( (value) => ( 
-                        <TableRow key={value.id}>
+                    {row.length!==0 ? (<TableBody>
+                    {(row.productos).map( (value) => ( 
+                        <TableRow key={value._id}>
                         <TableCell component="th" scope="row">
                         <img src={value.image}  width="30px" class="img-fluid" alt="Responsive image" />
                         </TableCell>
                         <TableCell align="left">{value.titulo}</TableCell>
                         <TableCell align="center">{value.cantidad}</TableCell>
                         <TableCell align="left">
-                        $ {value.ptotal}
+                        $ {value.ptotal.$numberDecimal}
                         </TableCell>
                         </TableRow>))}
                     </TableBody>) : console.log("No")}
@@ -97,7 +107,30 @@ function Row(props) {
 }
 
 export default function CollapsibleTable() {
-    const [rows] = useState(JSON.parse(localStorage.getItem('pedido')) || [])
+  const [PedidosUsuario, setPedidosUsuario]=useState([]);
+  const [isLoaded, setIsLoaded]=useState(false);
+  const[userid]=useState(JSON.parse(localStorage.getItem('id')));
+  useEffect(() => {
+        setIsLoaded(true);
+        const user={userId: userid}
+        axios.post(urlWebServices.getPedidoUser,user,
+            {
+                mode: "cors",
+                headers: {
+                    'x-access-token': JSON.parse(localStorage.getItem('token')),
+                    'Access-control-Allow-Origin': true,
+            },
+        })
+        .then(function (response) {
+            setPedidosUsuario(response.data.pedidos);
+            setIsLoaded(false);
+            })
+            .catch(function (error) {
+            console.log(error.message);
+            setIsLoaded(false);
+            });
+    },[]);
+    const [rows] = useState(PedidosUsuario)
     const classes = useStyles();
   return (
     <div className={classes.pedido}>
@@ -105,6 +138,10 @@ export default function CollapsibleTable() {
     <div className={classes.titulo}>
         <h1>Mis Pedidos</h1>
     </div>
+    {(isLoaded?
+        <MuiThemeProvider theme={theme}>
+            <LinearProgress color="secondary" />
+        </MuiThemeProvider>: 
     <TableContainer style={{backgroundColor:"#F2EFEB"}} component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
@@ -117,12 +154,12 @@ export default function CollapsibleTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {[rows].map((row) => (
-            <Row key={row.nropedido} row={row} />
+          {PedidosUsuario.map((row) => (
+            <Row key={row.nroPedido} row={row} />
           ))}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer>)}
     <div className={classes.footer}>
       <Footer />
     </div>

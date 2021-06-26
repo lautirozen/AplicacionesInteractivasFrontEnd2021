@@ -77,6 +77,7 @@ export default function OlvidarseContraseña() {
   const history= useHistory();
   const [display, setDisplay]=useState(false);
   const handleSignIn = (usuario, email) => {
+    setDisplay(false);
     const user={
         usuario:usuario,
         email:email
@@ -84,12 +85,17 @@ export default function OlvidarseContraseña() {
     axios.post(urlWebServices.forgotPass,user)
     .then(function (response) {
       setDisplay(false);
-        history.push({
+        if(response.data.data.docs.length !== 0){
+          history.push({
             pathname: '/OlvidarseContraseña',
             state: response.data.data.docs
         })
+      }else{
+        setDisplay(true);
+      }
     })
     .catch(function (error) {
+      console.log(error)
       setDisplay(true);
     }); 
   };

@@ -4,6 +4,7 @@ console.log("url",urlApi);
 const urlWebServices = {
     getAllPedido:urlApi+"api/pedido/todos",
     createPedido:urlApi+"api/pedido/crear",
+    getPedidoUser:urlApi+"api/pedido/usuario",
     updateProducts:urlApi+"api/producto/actualizar",
     disableProducts:urlApi+"api/producto/deshabilitar",
     allProducts:urlApi+"api/producto/todos",

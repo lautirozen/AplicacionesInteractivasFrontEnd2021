@@ -14,7 +14,8 @@ import Logo from "./../Assets/Logo.png";
 import { useHistory} from "react-router-dom";
 import axios from 'axios';
 import urlWebServices from "../controller/webServices";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import {createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 function Copyright() {
   return (
     <Typography variant="body2" align="center" style={{color:"black"}}>
@@ -25,6 +26,13 @@ function Copyright() {
     </Typography>
   );
 }
+const theme = createMuiTheme({
+  palette: {
+     secondary: {
+         main: "#401801"
+     }
+  }
+})
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100vh",
@@ -93,14 +101,19 @@ export default function LogIn() {
   }
   }
   const [display, setDisplay]=useState(false);
+  const [isloaded,setIsLoaded]=useState(false);
   const handleSignIn = (email, contraseña) => {
+    setDisplay(false);
+    setIsLoaded(true)
     const data={"email": email,"contraseña": contraseña}
     axios.post(urlWebServices.login,data)
     .then(function (response) {
       console.log(response)
+      setIsLoaded(false);
       manageUsuario(response);
     })
     .catch(function (error) {
+      setIsLoaded(false);
       setDisplay(true);
       console.log(error.message);
     });
@@ -146,7 +159,8 @@ export default function LogIn() {
                         <div className="form-group">
                         {display && (
                             <Alert severity="error">El email o la contraseña son incorrectos.</Alert>)}
-                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
+                            {isloaded?<MuiThemeProvider theme={theme}><LinearProgress color="secondary" /></MuiThemeProvider>: null}
+                             <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">INICIAR SESION</button>
                             <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/Productos',})} className="btn btn-primary mt-3 ml-2 offset-0">CANCELAR</button>
                         </div>
                     </Form>

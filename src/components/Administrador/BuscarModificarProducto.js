@@ -132,7 +132,7 @@ const BuscarModificarProducto  = () => {
                                     </CardContent>
                                     <div style={{borderTop: "2px solid #808080	", marginLeft: 5, marginRight: 5 }}></div>
                                         <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-lg-3 mb-lg-3"  onClick={() => {redirectModify(product)}}>
-                                            <EditIcon /> Modificar
+                                        {(product.stock === 0? <EditIcon style={{color:"red"}}/> : <EditIcon />)} Modificar
                                         </CardActionArea >
                                 </div>
                             </div>
@@ -154,7 +154,7 @@ const BuscarModificarProducto  = () => {
                                         </CardContent>
                                         <div style={{borderTop: "2px solid #808080	", marginLeft: 5, marginRight: 5 }}></div>
                                                 <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-3 "  onClick={() => {redirectModify(product)}}>
-                                                    <EditIcon /> Modificar
+                                                {(product.stock === 0? <EditIcon style={{color:"red"}}/> : <EditIcon />)} Modificar
                                                 </CardActionArea >
                                         </div>
                                 </div>

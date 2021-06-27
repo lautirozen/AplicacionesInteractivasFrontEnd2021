@@ -75,7 +75,8 @@ export default function OlvidarseContraSegundo(props) {
   const history= useHistory();
   const [display, setDisplay]=useState(false);
   const handleSignIn = (pregunta, respuesta) => {
-    const user=props.location.state[0]
+    if(props.location.state[0] !== undefined){
+      const user=props.location.state[0]
       if(pregunta!==user.pregunta || respuesta!==user.respuesta){
         setDisplay(true);
       }else{
@@ -89,6 +90,22 @@ export default function OlvidarseContraSegundo(props) {
             state: user
           })
       }
+    }else{
+      const user=props.location.state
+      if(pregunta!==user.pregunta || respuesta!==user.respuesta){
+        setDisplay(true);
+      }else{
+        setDisplay(false);
+          console.log(user.pregunta)
+          console.log(pregunta)
+          console.log(user.respuesta)
+          console.log(respuesta)
+        history.push({
+            pathname: '/RecuperarContraseña',
+            state: user
+          })
+      }
+    }
   };
   return (
     <Grid container component="main" className={classes.root}>

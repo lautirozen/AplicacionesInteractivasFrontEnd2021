@@ -154,7 +154,7 @@ export default function RecuperarContraseña(props) {
                         {display && (
                             <Alert severity="error">La nueva contraseña no debe ser igual a la anterior.</Alert>)}
                             <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">CAMBIAR CONTRASEÑA</button>
-                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/OlvidarseContraseña',})} className="btn btn-primary mt-3 ml-2 offset-0">VOLVER</button>
+                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/OlvidarseContraseña', state: props.location.state})} className="btn btn-primary mt-3 ml-2 offset-0">VOLVER</button>
                         </div>
                     </Form>
                 )}

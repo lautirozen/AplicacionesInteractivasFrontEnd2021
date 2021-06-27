@@ -142,7 +142,7 @@ export default function Cart() {
                   <div class="col-md-8 ">
                     <ListItemText primary={product.titulo} secondary={
                       <IconButton aria-label="delete" size="small">
-                        <DeleteIcon fontSize="medium" onClick={() => {removeitem(product)}} style={{color:"red"}} />
+                        <DeleteIcon fontSize="medium" onClick={() => {removeitem(product)}} style={{color:"grey"}} />
                     </IconButton>} />
                   </div>
                 </div>

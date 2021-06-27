@@ -46,7 +46,7 @@ const BuscarModificarProducto  = () => {
         },
         medias:{
             height:307,
-            width:280
+            width:"98%"
         },
         cards:{
             padding:"2%",

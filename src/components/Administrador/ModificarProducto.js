@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import NavigationAdmin from '../NavbarAdmin';
 import {Button, Card} from 'react-bootstrap';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
@@ -19,6 +19,9 @@ const ModificarProducto  = (props) => {
     const[imagen,setImagen]=useState(null);
     const [imgData, setImgData] = useState(productoModificar.image);
     const[display, setDisplay]=useState(false);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, [])
     const ModificarArticulo =(Titulo,Categoria,Precio, Marca, Descripcion, Codigo, Stock)=>{
         if(Categoria!== productoModificar.categoria || Precio !== productoModificar.precio || Marca !== productoModificar.marca || Descripcion !== productoModificar.descripcion || Codigo !== productoModificar.codigo || Stock !== productoModificar.stock || imgData !== productoModificar.image){
             setDisplay(false)

@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import { makeStyles } from '@material-ui/core/styles/';
 import { useHistory} from "react-router-dom";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge';
 import CardMedia from '@material-ui/core/CardMedia';
 import Logo from "./Assets/Logo.png";
@@ -90,7 +90,7 @@ const Navigation = () => {
               pathname: '/Nosotros',})}>Nosotros</Nav.Link>
             </Nav>
             <Nav className="cerrarsesion">
-                <Nav.Link style={{color:"white",  fontSize:"20px"}}  onClick={() => history.push({pathname: '/Pedidos'})} ><AccountCircle />  {user} {usera}</Nav.Link>
+                <Nav.Link style={{color:"white",  fontSize:"20px"}}  onClick={() => history.push({pathname: '/Pedidos'})} ><ShoppingBasketIcon />  {user} {usera}</Nav.Link>
                 <Nav.Link style={{color:"grey",  fontSize:"20px"}} onClick={() => history.push({pathname: '/Carrito'})}>
                   <Badge badgeContent={listItems.length} color='error'>
                   <ShoppingCartIcon />

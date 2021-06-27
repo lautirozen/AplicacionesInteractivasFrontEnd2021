@@ -9,7 +9,7 @@ import Footer from '../Footer';
 import { useHistory} from "react-router-dom";
 
 
-function Dirrecion (props){
+function Direccion (props){
     const [totalprecio]=useState(props.location.state);
     var user =JSON.parse(localStorage.getItem('user'));
     const history= useHistory();
@@ -38,7 +38,7 @@ function Dirrecion (props){
         space:{
             marginTop:"15px",
         },
-        dirrecion:{
+        direccion:{
             backgroundColor:"#F2EFEB"
         }
       }));
@@ -46,7 +46,7 @@ function Dirrecion (props){
     const classes = useStyles();
     
         return (
-            <div className={classes.dirrecion}>
+            <div className={classes.direccion}>
                  {(user===null)?
                 <Navigation />: <NavigationLog />}
             <div className={classes.modify}>
@@ -178,4 +178,4 @@ function Dirrecion (props){
         );
     }
 
-export default Dirrecion;
+export default Direccion;

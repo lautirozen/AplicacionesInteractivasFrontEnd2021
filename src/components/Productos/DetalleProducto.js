@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState,useEffect} from "react";
 import { useParams } from "react-router-dom";
 import Navigation from '../Navbar';
 import NavigationLog from '../Navbarlog';
@@ -73,6 +73,9 @@ function DetalleProducto(props) {
           },
       })); 
     const classes = useStyles();
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [])
     const handlecerrar = () =>{
       setMostrar(false);
       history.push("/Productos")
@@ -131,10 +134,13 @@ function DetalleProducto(props) {
           if(listItems.some(product => product._id === producto._id)){
           listItems.map((product) =>
             (product._id === producto._id)?
-            product.ptotal=parseFloat(producto.precio*(numb)):console.log(null)
+            (product.ptotal=parseFloat(producto.precio*(numb)),
+            product.ptotal=product.ptotal.toFixed(2))
+            :console.log(null)
           )
           }else{
             producto.ptotal=parseFloat(producto.precio *  (producto.cantidad))
+            producto.ptotal=producto.ptotal.toFixed(2)
             listItems.push(producto)
             listItems.map((product) =>
             console.log(product))
@@ -146,6 +152,7 @@ function DetalleProducto(props) {
         setMostrar(true);
       }else{
         producto.ptotal=parseFloat(producto.precio *  (producto.cantidad))
+        producto.ptotal=producto.ptotal.toFixed(2)
         listItems.push(producto)
         listItems.map((product) =>
         console.log(product))

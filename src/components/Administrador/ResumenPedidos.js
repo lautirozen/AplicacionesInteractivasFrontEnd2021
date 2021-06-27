@@ -150,7 +150,7 @@ export default function CollapsibleTable() {
             <TableCell>Pedido por</TableCell>
             <TableCell align="left">Fecha</TableCell>
             <TableCell align="left">Precio total ($)</TableCell>
-            <TableCell align="left">Dirreción</TableCell>
+            <TableCell align="left">Dirección</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

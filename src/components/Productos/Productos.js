@@ -13,7 +13,7 @@ import Logo from "./../Assets/Logo.png";
 import Stanley from "./../Assets/Stanley.jpg";
 import { Alert } from '@material-ui/lab';
 import Bialetti from "./../Assets/Bialetti.png";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import Badge from '@material-ui/core/Badge';
 import KitchenAid from "./../Assets/KitchenAid.jpg";
 import Mica from "./../Assets/mica.jpg";
@@ -76,7 +76,7 @@ import urlWebServices from "../controller/webServices";
     },
     medias:{
       height:307,
-      width:280
+      width:"98%"
 
     },
     title:{
@@ -213,6 +213,7 @@ const onSearch = (buscar) =>{
       }else{
       if(cartProducts.length===0){
         producto.ptotal=parseFloat(producto.precio)
+        producto.ptotal=producto.ptotal.toFixed(2)
         cartProducts.push(producto)
         console.log("Longitud",cartProducts.length)
         setQuantity(cartProducts.length)
@@ -221,7 +222,8 @@ const onSearch = (buscar) =>{
       if(cartProducts.some(product => product._id === producto._id)){
         setMostrar(true)
       }else{
-      producto.ptotal=producto.precio
+      producto.ptotal=parseFloat(producto.precio)
+      producto.ptotal=producto.ptotal.toFixed(2)
       cartProducts.push(producto)
       setQuantity(cartProducts.length)
       console.log(quantity+1)
@@ -471,7 +473,7 @@ const onSearch = (buscar) =>{
                 />
         </Nav.Item>
         <Nav className="cerrarsesion">
-            <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={() => history.push({pathname: '/Pedidos'})} ><AccountCircle />  {user} {usera}</Nav.Link>
+            <Nav.Link style={{color:"white",  fontSize:"20px"}} onClick={() => history.push({pathname: '/Pedidos'})} ><ShoppingBasketIcon />  {user} {usera}</Nav.Link>
             <Nav.Link style={{color:"grey",  fontSize:"20px"}} onClick={() => history.push({pathname: '/Carrito'})}><Badge badgeContent={quantity} color='error'>
               <ShoppingCartIcon />
             </Badge></Nav.Link>

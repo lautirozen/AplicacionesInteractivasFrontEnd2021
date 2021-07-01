@@ -5,14 +5,11 @@ import Logo from "./Assets/Logo.png";
 const FooterPage = () => {
     const useStyles = makeStyles((theme) => ({
         container: {
-            backgroundColor:"black",
+            backgroundColor:"#401801",
         },
         title:{
             color:"white",
         },
-        logo:{
-            marginLeft:"10rem"
-        }
       })); 
       const classes = useStyles();
   return (
@@ -20,8 +17,8 @@ const FooterPage = () => {
     <MDBFooter className="font-small pt-4 mt-4">
       <MDBContainer fluid className="text-center text-md-left">
         <MDBRow>
-          <MDBCol md="6">
-            <h5 className={classes.logo}><img src={Logo} width="200" height="185" /></h5>
+          <MDBCol md="6" >
+            <div className="offset-md-3"><img src={Logo} width="220" height="185" /></div>
           </MDBCol>
           <MDBCol md="4">
             <h5 className={classes.title}>Contacto</h5>

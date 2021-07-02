@@ -62,7 +62,7 @@ export default function Cart() {
     const history= useHistory();
     useEffect(() => {
       listItems.map((product) => (
-       product.ptotal=parseFloat(product.ptotal).toFixed(2),
+        product.ptotal=parseFloat(product.precio * product.cantidad).toFixed(2),
         total.push(product.ptotal)
   ))
   var sum = 0;

@@ -220,6 +220,12 @@ const onSearch = (buscar) =>{
         setExito(true);
       }else{
       if(cartProducts.some(product => product._id === producto._id)){
+         cartProducts.map((product) =>{
+          if(product._id === producto._id){
+            product.ptotal=parseFloat(producto.precio)*product.cantidad
+            product.ptotal=product.ptotal.toFixed(2)
+          }
+        })
         setMostrar(true)
       }else{
       producto.ptotal=parseFloat(producto.precio)

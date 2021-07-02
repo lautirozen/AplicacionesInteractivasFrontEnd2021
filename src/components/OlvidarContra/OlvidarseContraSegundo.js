@@ -147,8 +147,8 @@ export default function OlvidarseContraSegundo(props) {
                             <option value="Auto" label="¿Cuál fue su primer auto?" />
                             <option value="Mascota" label="¿Cuál es el nombre de tu mascota?" />
                             <option value="Secundaria" label="¿En qué año terminaste la secundaria?" />
-                            <option value="Secundaria" label="¿Cuál era su apodo de pequeño?" />
-                            <option value="Secundaria" label="¿Dónde fuiste de vacaciones el año pasado?" />
+                            <option value="Apodo" label="¿Cuál era su apodo de pequeño?" />
+                            <option value="Vacaciones" label="¿Dónde fuiste de vacaciones el año pasado?" />
                         </Field>
                             <ErrorMessage name="pregunta" component="div" className="invalid-feedback" />
                         </div>

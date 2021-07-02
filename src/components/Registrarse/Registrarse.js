@@ -146,9 +146,11 @@ export default function Registrarse() {
                     usuario: Yup.string()
                         .required('El campo es obligatorio (*)'),
                     nombre: Yup.string()
-                        .required('El campo es obligatorio (*)'),
+                        .required('El campo es obligatorio (*)')
+                        .matches(/^[A-Za-z ]*$/,'Ingrese únicamente letras'),
                     apellido: Yup.string()
-                        .required('El campo es obligatorio (*)'),
+                        .required('El campo es obligatorio (*)')
+                        .matches(/^[A-Za-z ]*$/,'Ingrese únicamente letras'),
                     contraseña: Yup.string()
                         .matches(/\w*[a-z]\w*/,  "La contraseña debe tener al menos 1 minúscula")
                         .matches(/\w*[A-Z]\w*/,  "La contraseña debe tener al menos 1 mayúscula")

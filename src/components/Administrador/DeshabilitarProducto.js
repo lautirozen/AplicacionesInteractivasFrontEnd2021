@@ -143,7 +143,7 @@ const DeshabilitarProducto  = () => {
     <div className={classes.ModificarProducto}>
         <NavigationAdmin />
         <div className={classes.modify}>
-            <h2 className={classes.title}>Deshabilitar Producto</h2>
+            <h2 className={classes.title}>Eliminar Producto</h2>
             <input
                 type="text"
                 placeholder="Buscar producto a eliminar"

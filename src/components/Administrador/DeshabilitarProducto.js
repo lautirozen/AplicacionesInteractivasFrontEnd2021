@@ -172,7 +172,7 @@ const DeshabilitarProducto  = () => {
                                     </CardContent>
                                     <div style={{borderTop: "2px solid #808080	", marginLeft: 5, marginRight: 5 }}></div>
                                         <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-lg-3 mb-lg-3"  onClick={() => {eliminate(product)}}>
-                                        {(product.stock === 0? <DeleteForeverIcon style={{color:"red"}}/> :  <DeleteForeverIcon />)} Deshabilitar
+                                        {(product.stock === 0? <DeleteForeverIcon style={{color:"red"}}/> :  <DeleteForeverIcon />)} Eliminar
                                         </CardActionArea >
                                 </div>
                             </div>
@@ -194,7 +194,7 @@ const DeshabilitarProducto  = () => {
                                         </CardContent>
                                         <div style={{borderTop: "2px solid #808080	", marginLeft: 5, marginRight: 5 }}></div>
                                                 <CardActionArea style={{backgroundColor:"white", border:"0"}} class=" ml-auto mt-3 "  onClick={() => {eliminate(product)}}>
-                                                {(product.stock === 0? <DeleteForeverIcon style={{color:"red"}}/> :  <DeleteForeverIcon />)} Deshabilitar
+                                                {(product.stock === 0? <DeleteForeverIcon style={{color:"red"}}/> :  <DeleteForeverIcon />)} Eliminar
                                                 </CardActionArea >
                                         </div>
                                 </div>

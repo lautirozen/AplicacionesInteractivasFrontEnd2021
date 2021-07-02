@@ -167,7 +167,8 @@ const ModificarProducto  = (props) => {
                             marca: Yup.string()
                             .required('El campo es obligatorio (*)'),
                             precio: Yup.string()
-                            .required('El campo es obligatorio (*)'),
+                            .required('El campo es obligatorio (*)')
+                            .matches(/^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/,'Ingrese únicamente números'),
                             stock: Yup.string()
                             .matches(Number,'Ingrese únicamente números')
                             .required('El campo es obligatorio (*)'),

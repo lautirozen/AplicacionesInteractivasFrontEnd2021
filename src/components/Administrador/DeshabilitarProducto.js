@@ -146,7 +146,7 @@ const DeshabilitarProducto  = () => {
             <h2 className={classes.title}>Deshabilitar Producto</h2>
             <input
                 type="text"
-                placeholder="Buscar producto a deshabilitar"
+                placeholder="Buscar producto a eliminar"
                 className={classes.input}
                 onChange={(e) =>{onSearch(e.target.value)}}
             />
@@ -205,10 +205,10 @@ const DeshabilitarProducto  = () => {
         </div>
         <Modal size="lg" style={{maxWidth: '1600px'}} show={mostrar} onHide={handlecerrar} >
             <Modal.Header closeButton>
-            <Modal.Title>¿Está seguro que desea deshabilitar el producto?</Modal.Title>
+            <Modal.Title>¿Está seguro que desea eliminar el producto?</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Alert severity="warning">Al momento de deshabilitar un producto se deshabilitará la información asociada al mismo.</Alert>
+                <Alert severity="warning">Al momento de eliminar un producto se eliminará la información asociada al mismo.</Alert>
             </Modal.Body>
             <Modal.Footer>
             <div class="row">
@@ -223,10 +223,10 @@ const DeshabilitarProducto  = () => {
         </Modal>
         <Modal size="lg" style={{maxWidth: '1600px'}} show={showerror} onHide={closeerror} >
             <Modal.Header closeButton>
-            <Modal.Title>Error al deshabilitar el producto</Modal.Title>
+            <Modal.Title>Error al eliminar el producto</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                    <Alert severity="error">Ha ocurrido un error al crear el producto.</Alert></Modal.Body>
+                    <Alert severity="error">Ha ocurrido un error al eliminar el producto.</Alert></Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={closeerror} style={{backgroundColor: "#401801", marginLeft:"0.5rem"}}>
                     Cerrar
@@ -235,10 +235,10 @@ const DeshabilitarProducto  = () => {
         </Modal>
         <Modal size="lg" style={{maxWidth: '1600px'}} show={show} onHide={handleclose} >
             <Modal.Header closeButton>
-            <Modal.Title>Producto deshabilitado</Modal.Title>
+            <Modal.Title>Producto eliminar</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Alert severity="success">El producto ha sido deshabilitado.</Alert>
+                <Alert severity="success">El producto ha sido eliminado.</Alert>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleclose}  style={{backgroundColor: "#401801"}}>

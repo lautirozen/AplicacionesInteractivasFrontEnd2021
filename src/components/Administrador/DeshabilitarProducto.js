@@ -213,7 +213,7 @@ const DeshabilitarProducto  = () => {
             <Modal.Footer>
             <div class="row">
                 <Button variant="secondary" onClick={handledeshabilitar}  style={{backgroundColor: "#401801"}}>
-                    Deshabilitar
+                    Eliminar
                 </Button>
                 <Button variant="secondary" onClick={handlecerrar} style={{backgroundColor: "#401801", marginLeft:"0.5rem"}}>
                     Cerrar

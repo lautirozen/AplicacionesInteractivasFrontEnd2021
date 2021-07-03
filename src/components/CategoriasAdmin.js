@@ -11,8 +11,8 @@ export const categorias = [
     direccion:"/BuscarModificarProducto",
     },{
     id:3,
-    titulo:"Deshabilitar producto",
-    descripcion:"Al seleccionar esta opción se le permitirá deshabilitar un producto del catálogo.",
+    titulo:"Eliminar producto",
+    descripcion:"Al seleccionar esta opción se le permitirá eliminar un producto del catálogo.",
     direccion:"/DeshabilitarProducto",
     },{
     id:4,

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router,Route, useHistory, Switch} from "react-router-dom";
+import { BrowserRouter as Router, Route, useHistory, Switch } from "react-router-dom";
 import Nosotros from "./components/Nosotros/Nosotros";
 import Productos from "./components/Productos/Productos";
 import Login from "./components/Login/Login";
@@ -17,7 +17,7 @@ import HomeAdmin from "./components/Administrador/HomeAdmin";
 import AñadirProducto from "./components/Administrador/AñadirProducto";
 import BuscarModificarProducto from "./components/Administrador/BuscarModificarProducto";
 import ModificarProducto from "./components/Administrador/ModificarProducto";
-import DeshabilitarProducto from "./components/Administrador/DeshabilitarProducto";
+import EliminarProducto from "./components/Administrador/EliminarProducto";
 import ResumenPedidos from "./components/Administrador/ResumenPedidos";
 export default class Routes extends Component {
     render() {
@@ -25,8 +25,8 @@ export default class Routes extends Component {
         return (
             <Router history={useHistory}>
                 <Switch>
-                    <Route exact path="/" component={Home}/>
-                    <Route exact path="/Nosotros" component={Nosotros}/>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/Nosotros" component={Nosotros} />
                     <Route exact path="/Productos" component={Productos} />
                     <Route exact path="/Login" component={Login} />
                     <Route exact path="/Registrarse" component={Registrarse} />
@@ -42,7 +42,7 @@ export default class Routes extends Component {
                     <Route exact path="/AñadirProducto" component={AñadirProducto} />
                     <Route exact path="/BuscarModificarProducto" component={BuscarModificarProducto} />
                     <Route exact strict path="/ModificarProducto/:titulo" component={ModificarProducto} />
-                    <Route exact path="/DeshabilitarProducto" component={DeshabilitarProducto} />
+                    <Route exact path="/EliminarProducto" component={EliminarProducto} />
                     <Route exact path="/ResumenVentas" component={ResumenPedidos} />
                 </Switch>
             </Router>

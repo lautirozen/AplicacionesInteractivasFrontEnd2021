@@ -1,6 +1,5 @@
-import React, {useState}  from "react";
+import React, { useState } from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Link from "@material-ui/core/Link";
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import Paper from "@material-ui/core/Paper";
@@ -11,17 +10,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import Background from "./Assets/RecuperarB.jpg";
 import { Alert } from '@material-ui/lab';
 import Logo from "./../Assets/Logo.png";
-import { useHistory} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-import { Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import urlWebServices from "../controller/webServices";
 
 function Copyright() {
   return (
-    <Typography variant="body2" align="center" style={{color:"black"}}>
+    <Typography variant="body2" align="center" style={{ color: "black" }}>
       {"Copyright © "}
-        Kitchen Gadget
+      Kitchen Gadget
       {new Date().getFullYear()}
       {"."}
     </Typography>
@@ -49,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(10),
-     backgroundImage: `url(${Logo})`,
+    backgroundImage: `url(${Logo})`,
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -64,123 +63,123 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
-    backgroundColor:" #BF6D3A",
+    backgroundColor: " #BF6D3A",
   },
   inputForm: {
-    marginTop:"30px",
+    marginTop: "30px",
     borderRadius: 10,
     borderColor: 'gray',
     width: '100%'
- }
+  }
 }));
 
 export default function RecuperarContraseña(props) {
   const classes = useStyles();
-  const history= useHistory();
+  const history = useHistory();
   const [show, setShow] = useState(false);
-  const [display, setDisplay]=useState(false);
-  const handleClose = () =>{
+  const [display, setDisplay] = useState(false);
+  const handleClose = () => {
     setShow(false);
     history.push({
-        pathname: '/Login',
+      pathname: '/Login',
     })
   }
   const handleSignIn = (contraseña) => {
-    const user={
-        usuario:props.location.state.usuario,
-        nombre:props.location.state.nombre,
-        apellido:props.location.state.apellido,
-        contraseña:contraseña,
-        rol:props.location.state.rol,
-        email:props.location.state.email,
-        pregunta:props.location.state.pregunta,
-        respuesta:props.location.state.respuesta,
+    const user = {
+      usuario: props.location.state.usuario,
+      nombre: props.location.state.nombre,
+      apellido: props.location.state.apellido,
+      contraseña: contraseña,
+      rol: props.location.state.rol,
+      email: props.location.state.email,
+      pregunta: props.location.state.pregunta,
+      respuesta: props.location.state.respuesta,
     }
-    axios.post(urlWebServices.updatePass,user)
-    .then(function (response) {
-      setDisplay(false);
-      setShow(true);
-    })
-    .catch(function (error) {
-      setDisplay(true);
-      console.log(error.message);
-    }); 
+    axios.post(urlWebServices.updatePass, user)
+      .then(function (response) {
+        setDisplay(false);
+        setShow(true);
+      })
+      .catch(function (error) {
+        setDisplay(true);
+        console.log(error.message);
+      });
   };
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{backgroundColor:"#F2EFEB",}}>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square style={{ backgroundColor: "#F2EFEB", }}>
         <div className={classes.paper}>
-        <div className="logo">
-          <img src={Logo} width="300" height="250" />
-        </div>
-          <Typography component="h1" variant="h4" style={{color:"black"}}>
-          Recuperar contraseña
+          <div className="logo">
+            <img src={Logo} width="300" height="250" />
+          </div>
+          <Typography component="h1" variant="h4" style={{ color: "black" }}>
+            Recuperar contraseña
           </Typography>
           <Formik
-                initialValues={{
-                    contraseña: '',
-                    confirmcontraseña: '',
-                }}
-                validationSchema={Yup.object().shape({
-                    contraseña: Yup.string()
-                        .matches(/\w*[a-z]\w*/,  "La contraseña debe tener al menos 1 minúscula")
-                        .matches(/\w*[A-Z]\w*/,  "La contraseña debe tener al menos 1 mayúscula")
-                        .matches(/\d/, "La contraseña debe tener al menos 1 número")
-                        .matches(/[#$%*_=+]/, "La contraseña debe tener al menos 1 símbolo (# $ % * _ = +)")
-                        .min(8, ({ min }) => `La contraseña debe ser de al menos ${min} caracteres`)
-                        .required('La contraseña es obligatoria'),
-                    confirmcontraseña: Yup.string()
-                        .oneOf([Yup.ref('contraseña')], 'Las contraseñas no coinciden')
-                        .required('La confirmación de contraseña es obligatoria'),
-                })}
-                onSubmit={fields => {
-                handleSignIn(fields.contraseña)
-              }}
-                render={({ errors, status, touched, handleChange}) => (
-                    <Form>
-                      <div className={classes.inputForm}>
-                      <div className="form-group">
-                            <Field name="contraseña" type="password"  autoComplete="off" placeholder="Nueva Contraseña" className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
-                            <ErrorMessage name="contraseña" component="div" className="invalid-feedback" />
-                        </div>
-                        <div className="form-group">
-                            <Field name="confirmcontraseña" type="password"  autoComplete="off" placeholder="Confirmar nueva Contraseña" className={'form-control' + (errors.confirmcontraseña && touched.confirmcontraseña ? ' is-invalid' : '')} />
-                            <ErrorMessage name="confirmcontraseña" component="div" className="invalid-feedback" />
-                        </div>
-                      </div>
-                        <div className="form-group">
-                        {display && (
-                            <Alert severity="error">La nueva contraseña no debe ser igual a la anterior.</Alert>)}
-                            <button style={{backgroundColor:"#401801"}} type="submit" className="btn btn-primary mt-3 offset-0">CAMBIAR CONTRASEÑA</button>
-                            <button style={{backgroundColor:"#401801"}} onClick={() => history.push({pathname: '/OlvidarseContraseña', state: props.location.state})} className="btn btn-primary mt-3 ml-2 offset-0">VOLVER</button>
-                        </div>
-                    </Form>
-                )}
-            />
-            <Grid container>
-              <Grid item xs>
-              </Grid>
+            initialValues={{
+              contraseña: '',
+              confirmcontraseña: '',
+            }}
+            validationSchema={Yup.object().shape({
+              contraseña: Yup.string()
+                .matches(/\w*[a-z]\w*/, "La contraseña debe tener al menos 1 minúscula")
+                .matches(/\w*[A-Z]\w*/, "La contraseña debe tener al menos 1 mayúscula")
+                .matches(/\d/, "La contraseña debe tener al menos 1 número")
+                .matches(/[#$%*_=+]/, "La contraseña debe tener al menos 1 símbolo (# $ % * _ = +)")
+                .min(8, ({ min }) => `La contraseña debe ser de al menos ${min} caracteres`)
+                .required('La contraseña es obligatoria'),
+              confirmcontraseña: Yup.string()
+                .oneOf([Yup.ref('contraseña')], 'Las contraseñas no coinciden')
+                .required('La confirmación de contraseña es obligatoria'),
+            })}
+            onSubmit={fields => {
+              handleSignIn(fields.contraseña)
+            }}
+            render={({ errors, status, touched, handleChange }) => (
+              <Form>
+                <div className={classes.inputForm}>
+                  <div className="form-group">
+                    <Field name="contraseña" type="password" autoComplete="off" placeholder="Nueva Contraseña" className={'form-control' + (errors.contraseña && touched.contraseña ? ' is-invalid' : '')} />
+                    <ErrorMessage name="contraseña" component="div" className="invalid-feedback" />
+                  </div>
+                  <div className="form-group">
+                    <Field name="confirmcontraseña" type="password" autoComplete="off" placeholder="Confirmar nueva Contraseña" className={'form-control' + (errors.confirmcontraseña && touched.confirmcontraseña ? ' is-invalid' : '')} />
+                    <ErrorMessage name="confirmcontraseña" component="div" className="invalid-feedback" />
+                  </div>
+                </div>
+                <div className="form-group">
+                  {display && (
+                    <Alert severity="error">La nueva contraseña no debe ser igual a la anterior.</Alert>)}
+                  <button style={{ backgroundColor: "#401801" }} type="submit" className="btn btn-primary mt-3 offset-0">CAMBIAR CONTRASEÑA</button>
+                  <button style={{ backgroundColor: "#401801" }} onClick={() => history.push({ pathname: '/OlvidarseContraseña', state: props.location.state })} className="btn btn-primary mt-3 ml-2 offset-0">VOLVER</button>
+                </div>
+              </Form>
+            )}
+          />
+          <Grid container>
+            <Grid item xs>
             </Grid>
-            <Box mt={15}>
-              <Copyright />
-            </Box>
+          </Grid>
+          <Box mt={15}>
+            <Copyright />
+          </Box>
         </div>
       </Grid>
-      <Modal size="lg" size="lg" style={{maxWidth: '1600px'}}show={show} onHide={handleClose} >
-            <Modal.Header closeButton>
-            <Modal.Title>Recuperar contraseña</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Alert severity="success">Se ha cambiado la contraseña.</Alert>
-            </Modal.Body>
-            <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}  style={{backgroundColor: "#401801"}}>
-                Cerrar
-            </Button>
-            </Modal.Footer>
-            </Modal>
+      <Modal size="lg" size="lg" style={{ maxWidth: '1600px' }} show={show} onHide={handleClose} >
+        <Modal.Header closeButton>
+          <Modal.Title>Recuperar contraseña</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Alert severity="success">Se ha cambiado la contraseña.</Alert>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose} style={{ backgroundColor: "#401801" }}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Grid>
   );
 }
